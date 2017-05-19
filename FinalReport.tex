@@ -27,6 +27,8 @@
 % set size between paragraphs
 \setlength{\parskip}{0.3cm}
 
+\include{sections/abstract}
+
 \begin{spacing}{1.3}
   \tableofcontents
 \end{spacing}
@@ -35,11 +37,20 @@
 \begin{spacing}{1.1}
 
   
+  \include{sections/introduction}
+  \include{sections/background}
+  \include{sections/design}
+  \include{sections/implementation}
+  \include{sections/evaluation}
+  \include{sections/conclusion}
+  
   \bibliographystyle{unsrtnat}
 %  \bibliography{sections/library}
   \addcontentsline{toc}{chapter}{Bibliography}
   
 %  \include{sections/appendix}
+  \appendix
+  \include{sections/appendices/user-guide}
 \end{spacing}
   
 \end{document}
