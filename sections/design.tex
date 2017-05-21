@@ -2,17 +2,21 @@
 
 \section{Overview}
 
-The project can be split into two main sections -- the front-end mobile application and the back-end server to store data and communicate with the mobile app. 
+The project can be split into two main sections -- the front-end mobile application and the back-end server to store data and communicate with the mobile app.
+
+These two sections link together very closely and are both required to produce a working implementation. It is therefore extremely important to not only consider the design of the user interface but also more technical aspects, such as the way the user's data is stored in the database and how the API will communicate with the mobile app.
 
 \section{Technologies}
 
-\subsection{Mobile Operating System}
+The first part of the design of the project is to consider which technologies to use. The technologies that I chose stemmed either from the background research I conducted in the previous section or previous personal knowledge.
+
+%\subsection{Mobile Operating System}
 
 % move section in background to here?
 
 \subsection{Third-party APIs}
 
-Due to to the much better integration with Core Location on iOS, I chose to use Apple Maps within the app instead of Google Maps.
+As discussed in Section \ref{subsection:background-apis}, Apple Maps is much more integrated with the Core Location framework in iOS, which makes it easier to display a user's location on a map.
 
 
 \subsection{Back-end Language}

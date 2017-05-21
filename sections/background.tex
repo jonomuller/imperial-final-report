@@ -80,7 +80,7 @@ Although not a fitness application per say, Google Maps \cite{GoogleInc.} is one
 
 One feature of the Google Maps iOS application that is interesting to note is the ability to search for places along a route during a journey. Once a user has started a walking journey, they are able to search for places that are along the route. Google provides some categories of places to choose from, such as cashpoints and restaurants, but users can search for a specific place if they wish. The app will then display the results of the places search on the map, showing how much additional time would be added on to your journey if you were to stop at a place, if any. One or more places can then be added to your journey and the walking directions will subsequently update to include these new stops. Figure \ref{fig:google_maps_place_search} shows an example journey from Imperial College to South Kensington station. It details the full process of choosing \textit{coffee shops} as the place category, selecting a particular coffee shop on the map and the stop being added to the journey.
 
-The places search feature is important as it is unique within any of the existing journey planner apps I have researched and it relates to one of my objectives regarding displaying points of interest when a user is on a walk (\textbf{Obj 2}). More research is conducted in Section \ref{subsection:apis} to discover what tools these applications use to implement this feature.
+The places search feature is important as it is unique within any of the existing journey planner apps I have researched and it relates to one of my objectives regarding displaying points of interest when a user is on a walk (\textbf{Obj 2}). More research is conducted in Section \ref{subsection:background-apis} to discover what tools these applications use to implement this feature.
 
 \subsection{Citymapper}
 
@@ -156,7 +156,7 @@ The idea of using gamification in applications is to motivate you to complete so
 
 The features of existing applications are not the only important part to research -- the technologies that they use to implement these features are just as useful. This section discusses how existing applications implement certain features and which technologies integrate well with each other.
 
-\subsection{Operating System}
+\subsection{Mobile Operating System}
 
 Many of the applications that I have researched have been developed for iOS, the operating system running on iPhones and iPads. I have chosen to develop my application on iOS due to my previous experience with iOS app development. Another factor in this choice is that I have gained a lot of experience programming in Swift, one of the programming languages used to develop iOS apps, over the last few years. Swift is extremely readable and easy to use, which is the reason why I am choosing to use it over the other programming language available, Objective-C.
 
@@ -166,7 +166,7 @@ To track the user's location within iOS, an application can use the classes from
 
 % section on how to track calories burned?
 
-\subsection{Third-party APIs} \label{subsection:apis}
+\subsection{Third-party APIs} \label{subsection:background-apis}
 
 One of the most important application programming interfaces (APIs) to consider is which source of map to use. The majority of existing applications use Apple's maps apart from, of course, Google Maps. This is because Apple's MapKit framework \cite{AppleInc.a} is much better integrated with the Core Location framework mentioned above, making it much easier to display the user's location on MapKit than on the Google Maps SDK.
 
