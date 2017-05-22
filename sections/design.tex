@@ -6,7 +6,7 @@ The project can be split into two main sections -- the front-end mobile applicat
 
 These two sections link together very closely and are both required to produce a working implementation. It is therefore extremely important to not only consider the design of the user interface but also more technical aspects, such as the way the user's data is stored in the database and how the API will communicate with the mobile app.
 
-\section{Technologies}
+\section{Technology Choices}
 
 The first part of the design of the project is to consider which technologies to use. The technologies that I chose stemmed either from the background research I conducted in the previous section or previous personal knowledge.
 
@@ -16,14 +16,19 @@ The first part of the design of the project is to consider which technologies to
 
 \subsection{Third-party APIs}
 
-As discussed in Section \ref{subsection:background-apis}, Apple Maps is much more integrated with the Core Location framework in iOS, which makes it easier to display a user's location on a map.
+As discussed in Section \ref{subsection:background-apis}, Apple Maps very well integrated with the Core Location framework in iOS, which makes it easy to deal with displaying the user's location on a map. It also provides convenient functions for coordinate conversions and calculating distances between two coordinates, which is useful for this project when trying to calculate the distance of a tracked walk.
 
+For these reasons, I chose to use Apple Maps and their MapKit framework as the source of maps within the application. The one issue that I previously discussed with using this framework over Google Maps was the lack of detail in some areas of the maps. This factor was not deemed important enough to impact my decision and did not outweigh the benefits of the MapKit framework, as listed above.
 
-\subsection{Back-end Language}
+\subsection{Server Architecture}
+
+Before deciding what technologies to use for the server, such as which programming language to use, we must consider the type of 
 
 \subsection{Database}
 
 \subsection{API Deployment}
+
+\subsection{File Storage}
 
 
 \section{User Interface Design}
