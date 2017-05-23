@@ -32,8 +32,9 @@ With the architecture chosen, I assessed the options for the language to write t
 
 There are two types of database that could be used -- relational or non-relational. Relational databases are based upon relational algebra where data is stored in tables with queries to this data in the form of Structured Query Language (SQL). Each table in a relational database normally identifies a type of entity, and each instance of that entity is uniquely identifiable so that it can be referenced in other tables. SQL therefore supports the querying of this data across multiple tables using relational operators such as joining two tables. The most used services to model data in a relational database are MySQL and PostgreSQL, with the latter providing support for storing arrays -- which is useful for this project to store the coordinates of a walk.
 
-The opposite of this data model is a non-relational, or NoSQL, database in which each data entry is stored as JSON-like file. 
+The opposite of this data model is a non-relational, or NoSQL, database in which each data entry is stored as a JSON-like document. This approach has many advantages for this project, primarily the similarities in the way that the data is stored to JSON that is used in the API. As a result, data can be queried or inserted directly from a network request without any type conversions.
 
+% other advantages e.g. speed, horizontal scalability, unstructured data
 % mongodb
 % integrates with node
 
@@ -52,10 +53,16 @@ The opposite of this data model is a non-relational, or NoSQL, database in which
 % how screens are organised
 % survey
 
+% mvc
+% tab-bar
+% human interface guidelines
+
 \section{API Design}
 
 % REST model, specific endpoints, etc.
 
-\subsection{Database Design}
+\subsection{Database Models}
 
 % types of models – user, walk, invite, etc.
+
+\subsection{Endpoint Structure}
