@@ -14,6 +14,8 @@ The first part of the design of the project is to consider which technologies to
 
 % move section in background to here?
 
+\subsection{Version Control}
+
 \subsection{Third-party APIs}
 
 As discussed in Section \ref{subsection:background-apis}, Apple Maps very well integrated with the Core Location framework in iOS, which makes it easy to deal with displaying the user's location on a map. It also provides convenient functions for coordinate conversions and calculating distances between two coordinates, which is useful for this project when trying to calculate the distance of a tracked walk.
@@ -36,11 +38,9 @@ The opposite of this data model is a non-relational, or NoSQL, database in which
 
 The leading service to use for managing document-based NoSQL databases is MongoDB. It was used in this project especially due to its similar use of Javascript and JSON, both of which are already employed in the Node.js API. I also used a popular object data modelling library, Mongoose ***ref***, which helped with validation and allowed me to define schemas for each of the type entities.
 
-% other advantages e.g. speed, horizontal scalability, unstructured data
-% mongodb
-% integrates with node
-
 \subsection{API Deployment}
+
+I opted to host my API on the platform as a service Heroku ***ref***, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack. Heroku is integrated with Github very well, my chosen version control platform, supporting automatic deployment when commits are made which can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on your web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
 
 % heroku vs imperial cloudstack
 % heroku has mlab add-on
