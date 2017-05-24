@@ -53,6 +53,8 @@ I opted to host my API on the platform as a service Heroku ***ref***, with the a
 
 % aws s3
 
+An online file storage system was needed for the project to store thumbnail images of tracked walks, which is discussed in more detail in Section \ref{implentation:storing-images}. Due to the ephemeral nature of Heroku's file system, it is not possible to store permanent files there and therefore an alternative online file storage service must be used. I found three options from Heroku's add-ons as I knew these would integrate easily with my project. The comparison between each of these services can be seen in Table ***.
+
 \section{User Interface Design}
 
 % design of app
