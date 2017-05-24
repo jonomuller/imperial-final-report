@@ -16,6 +16,10 @@ The first part of the design of the project is to consider which technologies to
 
 \subsection{Version Control}
 
+Version control is a crucial part of the development process with any project, especially this implementation-heavy project. It provides a full history of changes made to a codebase along with the ability to revert back to previous versions of code and work simultaneously on different features by creating branches. Git and GitHub are my chosen version control system and platform respectively due to past experience and familiarity.
+
+Along with version control, errors or bugs in code must be detected quickly in order to not hinder the development process. To do this, the practice of continuous integration (CI) was used to integrate and test code frequently, making it easier to locate the origin of an error. There are many CI tools that can be used to automate code testing including Jenkins, Travis CI and BuddyBuild. I had no prior knowledge with any of these tools and so I researched the benefits and drawbacks of each service. I concluded that Travis CI was most suitable for me since it was hosted on GitHub and is not platform specific, meaning that I could use it to test both the mobile app and API even though they were written in different languages.
+
 \subsection{Third-party APIs}
 
 As discussed in Section \ref{subsection:background-apis}, Apple Maps very well integrated with the Core Location framework in iOS, which makes it easy to deal with displaying the user's location on a map. It also provides convenient functions for coordinate conversions and calculating distances between two coordinates, which is useful for this project when trying to calculate the distance of a tracked walk.
@@ -40,7 +44,7 @@ The leading service to use for managing document-based NoSQL databases is MongoD
 
 \subsection{API Deployment}
 
-I opted to host my API on the platform as a service Heroku ***ref***, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack. Heroku is integrated with Github very well, my chosen version control platform, supporting automatic deployment when commits are made which can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on your web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
+I opted to host my API on the platform as a service Heroku ***ref***, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack. Heroku is integrated with GitHub very well, my chosen version control platform, supporting automatic deployment when commits are made which can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on your web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
 
 % heroku vs imperial cloudstack
 % heroku has mlab add-on
