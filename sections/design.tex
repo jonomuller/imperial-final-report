@@ -22,16 +22,18 @@ Along with version control, errors or bugs in code must be detected quickly in o
 
 \begin{table}[hbt]
   \centering
-  \begin{tabular}{|c||c|c|c|}
+  \begin{tabular}{|m{2.1cm}||M{3cm}|M{3cm}|M{3cm}|M{3cm}|}
     \hline
-    Features & Jenkins & Travis CI & BuddyBuild \\
+     & Jenkins & Travis CI & BuddyBuild & GitLab CI \\
     \hline
     \hline
-    Platform & & & \\
+    Platform & Windows, macOS, Linux & Hosted & Hosted & Hosted on GitLab\\
     \hline
-    Cost & & & \\
+    Cost & Free & Free for students & \~\pounds55/month or free trial & Free for small individual projects\\
     \hline
-    Language Support & & & \\
+    Advantage & Plugins available for different languages & Linked well with GitHub & Designed for mobile development & Integrated with GitLab\\
+    \hline
+    Disadvantage & Languages available through plugins & Only available on GitHub & Only supports iOS and Android & Only available on GitLab\\
     \hline
   \end{tabular}
   \caption{Comparison of continuous integration tools}
@@ -41,7 +43,7 @@ Along with version control, errors or bugs in code must be detected quickly in o
 
 
 
-I concluded that Travis CI was most suitable for me since it was hosted on GitHub and is not platform specific, meaning that I could use it to test both the mobile app and API even though they were written in different languages.
+I concluded that Travis CI was most suitable for me since it was hosted on GitHub and is not platform specific, meaning that I could use it to test both the mobile app and API even though they were written in different languages. Using an option such as BuddyBuild could only be used for the mobile app, with another tool needed for the API.
 
 \subsection{Third-party APIs}
 
