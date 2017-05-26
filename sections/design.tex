@@ -18,7 +18,30 @@ The first part of the design of the project is to consider which technologies to
 
 Version control is a crucial part of the development process with any project, especially this implementation-heavy project. It provides a full history of changes made to a codebase along with the ability to revert back to previous versions of code and work simultaneously on different features by creating branches. Git and GitHub are my chosen version control system and platform respectively due to past experience and familiarity.
 
-Along with version control, errors or bugs in code must be detected quickly in order to not hinder the development process. To do this, the practice of continuous integration (CI) was used to integrate and test code frequently, making it easier to locate the origin of an error. There are many CI tools that can be used to automate code testing including Jenkins, Travis CI and BuddyBuild. I had no prior knowledge with any of these tools and so I researched the benefits and drawbacks of each service. I concluded that Travis CI was most suitable for me since it was hosted on GitHub and is not platform specific, meaning that I could use it to test both the mobile app and API even though they were written in different languages.
+Along with version control, errors or bugs in code must be detected quickly in order to not hinder the development process. To do this, the practice of continuous integration (CI) was used to integrate and test code frequently, making it easier to locate the origin of an error. There are many CI tools that can be used to automate code testing including Jenkins, Travis CI and BuddyBuild. I had no prior knowledge with any of these tools and so I researched the benefits and drawbacks of each service, which can be seen in Table \ref{table:ci-tools-options}.
+
+\begin{table}[hbt]
+  \centering
+  \begin{tabular}{|c||c|c|c|}
+    \hline
+    Features & Jenkins & Travis CI & BuddyBuild \\
+    \hline
+    \hline
+    Platform & & & \\
+    \hline
+    Cost & & & \\
+    \hline
+    Language Support & & & \\
+    \hline
+  \end{tabular}
+  \caption{Comparison of continuous integration tools}
+  \label{table:ci-tools-options}
+\end{table}
+
+
+
+
+I concluded that Travis CI was most suitable for me since it was hosted on GitHub and is not platform specific, meaning that I could use it to test both the mobile app and API even though they were written in different languages.
 
 \subsection{Third-party APIs}
 
@@ -53,7 +76,9 @@ I opted to host my API on the platform as a service Heroku ***ref***, with the a
 
 % aws s3
 
-An online file storage system was needed for the project to store thumbnail images of tracked walks, which is discussed in more detail in Section \ref{implentation:storing-images}. Due to the ephemeral nature of Heroku's file system, it is not possible to store permanent files there and therefore an alternative online file storage service must be used. I found three options from Heroku's add-ons as I knew these would integrate easily with my project. The comparison between each of these services can be seen in Table ***.
+An online file storage system was needed for the project to store thumbnail images of tracked walks, which is discussed in more detail in Section \ref{implentation:storing-images}. Due to the ephemeral nature of Heroku's file system, it is not possible to store permanent files there and therefore an alternative online file storage service must be used.
+
+From the wide range of services available, there is one stand-out option that I chose to use -- Amazon's simple storage service known as AWS S3. Its free usage tier allows up to 5GB of data storage which would be plenty for the purposes of this project. It also provides an SDK for Javascript which was necessary in order to implement the storing and deletion of images from the API.
 
 \section{User Interface Design}
 
