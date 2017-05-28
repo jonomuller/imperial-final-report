@@ -95,4 +95,26 @@ From the wide range of services available, there is one stand-out option that I 
 
 % types of models – user, walk, invite, etc.
 
+The data that needed to be stored in the database was split into multiple tables, or collections as they are called in MongoDB, to organise the data effectively. The full UML diagram showing each table's fields and how they link together can be seen in Figure \ref{fig:db-models}. A description of each of the four main tables is as follows:
+
+\begin{itemize}
+  \item \textbf{User} stores information about a user, created when they register. It contains cumulative values for the user's score, how far they have walked and how many steps they have taken. It also stores a user's device token, which is used to send a notification to a user's phone when inviting someone to go on a walk.
+
+  \item \textbf{Invite} contains details of an invite sent from one user to one or more other users. Each user in the list of invite recipients contains a boolean flag to indicate whether that user has accepted the invite.
+
+  \item \textbf{Achievement} is a fairly basic collection that stores the type of achievement that was gained from tracking a walk as well as how many points were gained from that achievement. The gamification and achievement aspect of the project is discussed in more detail in Section \ref{subsection:gamification}.
+ 
+  \item \textbf{Walk} stores the details and representation of a walk, given a list of coordinates. It contains a reference to which user(s) tracked the walk, along with what achievements were gained.
+\end{itemize}
+
+% add required fields
+% write description about each one?
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.75\textwidth]{db-models}
+  \caption{Diagram of the different database models used in the project. Arrows indicate where a table references another table}
+  \label{fig:db-models}
+\end{figure}
+
 \subsection{Endpoint Structure}
