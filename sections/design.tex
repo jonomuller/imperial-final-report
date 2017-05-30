@@ -53,7 +53,7 @@ For these reasons, I chose to use Apple Maps and their MapKit framework as the s
 
 % points of interest APIs
 
-\subsection{Server Architecture}
+\subsection{Server Architecture} \label{subsection:server-architecture}
 
 Before deciding what technologies to use for the server, such as which programming language to use, we must consider the type of architectural style to use. The aim of the API exposed by the server is to provide an abstraction between complex database queries and provide functionality that a client can use to query and update details. The Representational state transfer (REST) architectural principle fit the needs for this aim very well. Every component in a RESTful web service is a resource that can be accessed via the standard HTTP methods such as \textit{GET}, \textit{POST} and \textit{DELETE}. In comparison with other web services, such as the Simple Object Access Protocol (SOAP), RESTful services have much less overhead when sending data due to the extra XML header information sent when using SOAP.
 
@@ -118,3 +118,18 @@ The data that needed to be stored in the database was split into multiple tables
 \end{figure}
 
 \subsection{Endpoint Structure}
+
+The REST architectural style dictates that each resource in the web service uniquely identifies one resource. Based on this, I chose to create a number of endpoints that each provided access to a resource on the server. An endpoint is a reference to a URL that provides access to a resource. These endpoints were grouped into similar categories, where each category is known as a route, to provide clarity to the client. For example, all endpoints that update user information are grouped under the \textit{/users/} route, with specific user endpoints a subpath of this route. The diagram representation of all of the routes used for the API is shown in Figure \ref{fig:api-routes}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.7\textwidth]{api-routes}
+  \caption{Diagram of each of the routes designed for the API. Each route contains a description of what endpoints exist within that route.}
+  \label{fig:api-routes}
+\end{figure}
+
+Each endpoint in the API followed the CRUD functions -- standing for Create, Read, Update and Delete. These functions are used to define what operation is being performed when changing data in the database. These functions map to HTTP methods very well, which can then be used in each endpoint to clearly state what operation is used. For example, an endpoint that deletes certain data from the database should adopt the \textit{Delete} function of CRUD and therefore also use the DELETE HTTP method.
+ 
+
+
+
