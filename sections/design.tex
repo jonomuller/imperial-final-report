@@ -57,7 +57,9 @@ For these reasons, I chose to use Apple Maps and their MapKit framework as the s
 
 Before deciding what technologies to use for the server, such as which programming language to use, we must consider the type of architectural style to use. The aim of the API exposed by the server is to provide an abstraction between complex database queries and provide functionality that a client can use to query and update details. The Representational state transfer (REST) architectural principle fit the needs for this aim very well. Every component in a RESTful web service is a resource that can be accessed via the standard HTTP methods such as \textit{GET}, \textit{POST} and \textit{DELETE}. In comparison with other web services, such as the Simple Object Access Protocol (SOAP), RESTful services have much less overhead when sending data due to the extra XML header information sent when using SOAP.
 
-With the architecture chosen, I assessed the options for the language to write the API in. There are a wide range of programming languages that could be used, and it came down to personal preference and how well it would suit the needs for this project. The popular options include PHP, Ruby, Python and Node.js ***ref*** -- the server-side environment run in Javascript. The only language in this list that I have experience in is Python, which would mean I would have to spend less time learning the language if I were to choose it. However, the advantage of Node.js for the purpose of this project is that objects in Javascript are built using Javascript Object Notation (JSON). RESTful web services support the use of multiple different data formats to serialise responses from the server, including HTML, XML and JSON. By choosing Node.js as the server language and JSON as the data type, I was able to easily parse data from HTTP requests and send responses in JSON despite not having any previous experience with Javascript.
+With the architecture chosen, I assessed the options for the language to write the API in. There are a wide range of programming languages that could be used, and it came down to personal preference and how well it would suit the needs for this project. The popular options include PHP, Ruby, Python and Node.js ***ref*** -- the server-side environment run in Javascript. The only language in this list that I have experience in is Python, which would mean I would have to spend less time learning the language if I were to choose it. However, the advantage of Node.js for the purpose of this project is that objects in Javascript are built using Javascript Object Notation (JSON).
+
+ RESTful web services support the use of multiple different data formats to serialise responses from the server, including HTML, XML and JSON. By choosing Node.js as the server language and JSON as the data type, I was able to easily parse data from HTTP requests and send responses in JSON despite not having any previous experience with Javascript.
 
 \subsection{Database}
 
@@ -77,11 +79,20 @@ An online file storage system was needed for the project to store thumbnail imag
 
 From the wide range of services available, there is one stand-out option that I chose to use -- Amazon's simple storage service known as AWS S3. Its free usage tier allows up to 5GB of data storage which would be plenty for the purposes of this project. It also provides an SDK for Javascript which was necessary in order to implement the storing and deletion of images from the API.
 
-\section{User Interface Design}
+\section{App Design}
 
 % design of app
 % how screens are organised
 % survey
+
+
+
+\subsection{User Interface}
+
+
+
+
+\subsection{Model-View-Controller Design Pattern}
 
 % mvc
 % tab-bar
@@ -90,6 +101,12 @@ From the wide range of services available, there is one stand-out option that I 
 \section{API Design}
 
 % REST model, specific endpoints, etc.
+
+Given that the API dealt primarily with JSON because of its easy connectivity with Node.js and MongoDB, responses were returned in JSON. Each response contained a success boolean as one of the values in JSON, determining whether the request was successful or not. HTTP error codes were used to determine the nature of a response as well, but the success flag was useful for error checking within the API.
+
+The following section discusses how the structure of the API is organised as well as how the data was split up in the database.
+
+% add image of how api links to app?
 
 \subsection{Database Models}
 
@@ -119,7 +136,7 @@ The data that needed to be stored in the database was split into multiple tables
 
 \subsection{Endpoint Structure}
 
-The REST architectural style dictates that each resource in the web service uniquely identifies one resource. Based on this, I chose to create a number of endpoints that each provided access to a resource on the server. An endpoint is a reference to a URL that provides access to a resource. These endpoints were grouped into similar categories, where each category is known as a route, to provide clarity to the client. For example, all endpoints that update user information are grouped under the \textit{/users/} route, with specific user endpoints a subpath of this route. The diagram representation of all of the routes used for the API is shown in Figure \ref{fig:api-routes}.
+The REST architectural style dictates that each resource in the web service uniquely identifies one resource. Based on this, I chose to create a number of endpoints that each provided access to a resource on the server. An endpoint is a reference to a uniform resource indicator (URI) that provides access to a resource. These endpoints were grouped into similar categories, where each category is known as a route, to provide clarity to the client. For example, all endpoints that update user information are grouped under the \textit{/users/} route, with specific user endpoints a subpath of this route. The diagram representation of all of the routes used for the API is shown in Figure \ref{fig:api-routes}.
 
 \begin{figure}[hbt]
   \centering
