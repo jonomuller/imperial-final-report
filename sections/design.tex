@@ -95,6 +95,14 @@ Before any implementation took place, I conducted an initial survey to find out 
 
 An encouraged design pattern to use when creating a mobile application, namely an iOS app, is the Model-View-Controller (MVC) pattern. When following this pattern, objects in an application are split into three layers. Relating to this project, the three layers will be used as follows:
 
+\begin{itemize}
+  \item \textbf{Model} stores the data within the application and specifies the logic that alters that data. For this project the model will contain data relating to user information, tracked walk details and invites.
+  
+  \item \textbf{View} specifies objects that are visible to the user. They can either be used directly from Apple's UIKit framework or customised and reused as needed. The main view objects that are used for this project include a \textit{MKMapView} which displays a map on screen and a \textit{UITableView}, useful for displaying an indefinite list of data.
+  
+  \item \textbf{Controller} is a medium between the other two layers. It deals with updating the \textbf{Model} based on changes from the \textbf{View} and vice versa. The UIKit framework provides default classes to handle this layer, such as a \textit{UITableViewController} class that updates a \textit{UITableView}. A diagram showing how the three layers link together in the project can be seen in Figure ***.
+\end{itemize}
+
 % mvc
 % tab-bar
 % human interface guidelines
