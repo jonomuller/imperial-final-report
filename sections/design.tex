@@ -71,7 +71,9 @@ The leading service to use for managing document-based NoSQL databases is MongoD
 
 \subsection{API Deployment}
 
-I opted to host my API on the platform as a service Heroku ***ref***, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack. Heroku is integrated with GitHub very well, my chosen version control platform, supporting automatic deployment when commits are made which can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on your web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
+I opted to host my API on the platform as a service Heroku ***ref***, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack.
+
+Heroku is integrated with GitHub very well, my chosen version control platform, supporting automatic deployment when commits are made which can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on your web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
 
 \subsection{File Storage}
 
@@ -89,7 +91,11 @@ The mobile application produced for this project is front-end product that the u
 
 \subsection{User Interface}
 
-Before any implementation took place, I conducted an initial survey to find out various technical details such as which features would be most popular, along with 
+Before any implementation took place, I conducted an initial survey to find out various technical details such as which features would be most popular, which in turn allowed me to generate some design mockups of the application.
+
+I chose to try and follow the iOS Human Interface Guidelines ***ref*** provided by Apple. These guidelines cover the basic design principles that should be used when creating a clear, fluid and easy to use iOS application. The guidelines provided a number of concepts to help structure how data is organised within the app.
+
+Different app-level sections of an iOS application should be split using the tab bar UI element. This is a bar that is constantly present at the bottom of the screen containing a number of icons that the user can select to switch between sections of the app. The app for this project can be split into three main sections: tracking walks, managing sent and received walk invites and viewing the user's profile. From this, I was able to construct mockups for each of these sections -- shown in Figure ***.
 
 \subsection{Model-View-Controller Design Pattern}
 
@@ -146,7 +152,7 @@ The data that needed to be stored in the database was split into multiple tables
 
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=0.75\textwidth]{db-models}
+  \includegraphics[width=0.7\textwidth]{db-models}
   \caption{Diagram of the different database models used in the project. Arrows indicate where a table references another table}
   \label{fig:db-models}
 \end{figure}
