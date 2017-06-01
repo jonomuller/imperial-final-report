@@ -31,7 +31,7 @@ Along with version control, errors or bugs in code must be detected quickly in o
     \hline
     Cost & Free & Free for students & \~\pounds55/month or free trial & Free for small individual projects\\
     \hline
-    Main Feature & Plugins available for different languages & Linked well with GitHub & Designed for mobile development & Integrated with GitLab\\
+    Main Feature & Plugins available for variety of languages & Linked well with GitHub & Designed solely for mobile development & Integrated with GitLab\\
     \hline
     Platform Specific & No & No & Yes & No\\
     \hline
@@ -95,7 +95,26 @@ Before any implementation took place, I conducted an initial survey to find out 
 
 I chose to try and follow the iOS Human Interface Guidelines ***ref*** provided by Apple. These guidelines cover the basic design principles that should be used when creating a clear, fluid and easy to use iOS application. The guidelines provided a number of concepts to help structure how data is organised within the app.
 
-Different app-level sections of an iOS application should be split using the tab bar UI element. This is a bar that is constantly present at the bottom of the screen containing a number of icons that the user can select to switch between sections of the app. The app for this project can be split into three main sections: tracking walks, managing sent and received walk invites and viewing the user's profile. From this, I was able to construct mockups for each of these sections -- shown in Figure ***.
+Different app-level sections of an iOS application should be split using the tab bar UI element. This is a bar that is constantly present at the bottom of the screen containing a number of icons that the user can select to switch between sections of the app. The app for this project can be split into three main sections: tracking walks, managing sent and received walk invites and viewing the user's profile. From this, I was able to construct mockups for each of these sections -- shown in Figure \ref{fig:initial-mockups}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\textwidth]{initial-mockups}
+  \caption{Initial mockups of the mobile application, showing how the app is split up into three main sections using the tab bar design.}
+  \label{fig:initial-mockups}
+\end{figure}
+
+As the design process wore on, I was able to create more detailed mockups utilising more of the resources from the Human Interface Guidelines. I updated the mockups so that each screen of the application contained a navigation bar -- a widely-used UI design pattern in iOS. Setting this as a standard throughout the app provides the user with a constant place that allows them to navigate between screens of the app and alter content that is displayed on the current screen. I also chose to use collections to display the list of walks on a user's profile instead of the standard tabular method, mainly due to its more visual approach allowing the images of tracked walks to be more visible. The updated mockups for the profile view containing collections and the walk detail view showing a navigation bar can be seen in Figure \ref{fig:profile-detail-mockup}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.9\textwidth]{profile-detail-mockup}
+  \caption{Updated mockups of the user profile view (left) that contains a collection of the user's walks, and the walk detail view (right) that is presented when one of the walks from the profile view is selected.}
+  \label{fig:profile-detail-mockup}
+\end{figure}
+
+
+
 
 \subsection{Model-View-Controller Design Pattern}
 
@@ -159,7 +178,7 @@ The data that needed to be stored in the database was split into multiple tables
 
 \subsection{Endpoint Structure}
 
-The REST architectural style dictates that each resource in the web service uniquely identifies one resource. Based on this, I chose to create a number of endpoints that each provided access to a resource on the server. An endpoint is a reference to a uniform resource indicator (URI) that provides access to a resource. These endpoints were grouped into similar categories, where each category is known as a route, to provide clarity to the client. For example, all endpoints that update user information are grouped under the \textit{/users/} route, with specific user endpoints a subpath of this route. The diagram representation of all of the routes used for the API is shown in Figure \ref{fig:api-routes}.
+The REST architectural style dictates that each resource in the web service uniquely identifies one resource. Based on this, I chose to create a number of endpoints that each provided access to a resource on the server. An endpoint is a reference to a uniform resource indicator (URI) that provides access to a resource. These endpoints were grouped into similar categories, where each category is known as a route, to provide clarity to the client. For example, all endpoints that update user information are grouped under the \texttt{/users/} route, with specific user endpoints a subpath of this route. The diagram representation of all of the routes used for the API is shown in Figure \ref{fig:api-routes}.
 
 \begin{figure}[hbt]
   \centering
