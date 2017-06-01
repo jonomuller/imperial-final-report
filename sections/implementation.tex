@@ -2,7 +2,19 @@
 
 % organise by features of app/api or by stages?
 
+\section{Overview}
+
+Since the back-end API and front-end mobile app are so tightly connected, implementing them linearly would not be logical as errors between the app and server will not be detected as quickly and requirements of features may change over time. I therefore implemented the two in parallel, normally a feature at a time, so that a working implementation for each subsequent feature was produced at the end of each iteration.
+
+This section splits the implementation into the two sections, API and mobile app, with each discussing the features implemented chronologically.
+
 \section{API}
+
+\subsection{Endpoint Routing}
+
+To set up endpoints on the API to respond to client requests, the popular Express web framework ***ref*** was used. Express's router object determines how the API handles a request to a certain URI with a specific HTTP method.
+
+The main file loaded when a request is made, \texttt{app.js}, specifies the main endpoint for the API and links this endpoint to an Express router. This router specifies the path for each of the main API routes, following the design from Figure \ref{fig:api-routes} in the previous section. Each path contains a router which matches each of the endpoints it serves as well as a controller containing functions which are executed when a router endpoint is matched from a request. An example of how a request to login a user is routed through the API is shown in Figure ***.
 
 \subsection{Authentication}
 
@@ -23,3 +35,5 @@
 % should this be in mobile app section?
 
 \subsection{Walk invitations}
+
+\section{Challenges}
