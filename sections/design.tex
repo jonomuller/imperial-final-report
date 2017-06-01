@@ -47,9 +47,9 @@ I concluded that Travis CI was most suitable option for me since it was hosted o
 
 \subsection{Third-party APIs}
 
-As discussed in Section \ref{subsection:background-apis}, Apple Maps very well integrated with the Core Location framework in iOS, which makes it easy to deal with displaying the user's location on a map. It also provides convenient functions for coordinate conversions and calculating distances between two coordinates, which is useful for this project when trying to calculate the distance of a tracked walk.
+As discussed in Section \ref{subsection:background-apis}, Apple Maps very well integrated with the Core Location framework in iOS, which makes it easier to deal with displaying the user's location on a map. It also provides convenient functions for coordinate conversions and calculating distances between two coordinates, which is useful for this project when trying to calculate the distance of a tracked walk.
 
-For these reasons, I chose to use Apple Maps and their MapKit framework as the source of maps within the application. The one issue that I previously discussed with using this framework over Google Maps was the lack of detail in some areas of the maps. This factor was not deemed important enough to impact my decision and did not outweigh the benefits of the MapKit framework, as listed above.
+For these reasons, I chose to use Apple Maps and their MapKit framework as the source of maps within the application. The one issue that I previously discussed with using this framework over Google Maps was the lack of detail in some areas of the maps. This factor was not deemed important enough to impact my decision and did not outweigh the benefits of the MapKit framework that are listed above.
 
 % *** points of interest APIs ***
 
@@ -63,9 +63,9 @@ With the architecture chosen, I assessed the options for the language to write t
 
 \subsection{Database}
 
-There are two types of database that could be used -- relational or non-relational. Relational databases are based upon relational algebra where data is stored in tables with queries to this data in the form of Structured Query Language (SQL). Each table in a relational database normally identifies a type of entity, and each instance of that entity is uniquely identifiable so that it can be referenced in other tables. SQL therefore supports the querying of this data across multiple tables using relational operators such as joining two tables. The most used services to model data in a relational database are MySQL and PostgreSQL, with the latter providing support for storing arrays -- which is useful for this project to store the coordinates of a walk.
+There are two types of database that could be used -- relational or non-relational. Relational databases are based upon relational algebra where data is stored in tables with queries to this data in the form of Structured Query Language (SQL). Each table in a relational database normally identifies a type of entity, and each instance of that entity is uniquely identifiable so that it can be referenced in other tables. SQL therefore supports the querying of this data across multiple tables using relational operators such as joining two tables. The most used services to model data in a relational database are MySQL and PostgreSQL, with the latter providing support for storing arrays -- a useful feature for this project as the coordinates of a walk need to be stored.
 
-The opposite of this data model is a non-relational, or NoSQL, database in which each data entry is stored as a JSON-like document. This approach has many advantages for this project, primarily the similarities in the way that the data is stored to JSON that is used in the API. As a result, data can be queried or inserted directly from a network request without any type conversions. NoSQL databases also have the benefit of faster query speeds and the ability to scale data horizontally, an important factor to consider when designing a database.
+The opposite of this data model is a non-relational, or NoSQL, database in which each data entry is stored as a JSON-like document. This approach has many advantages for this project, primarily the similar use of JSON to both store data and build objects from in Node.js. As a result, data can be queried or inserted directly from a network request without any type conversions. NoSQL databases also have the benefit of faster query speeds and the ability to scale data horizontally -- an important factor to consider when designing a database.
 
 The leading service to use for managing document-based NoSQL databases is MongoDB. It was used in this project especially due to its similar use of Javascript and JSON, both of which are already employed in the Node.js API. I also used a popular object data modelling library, Mongoose ***ref***, which helped with validation and allowed me to define schemas for each of the type entities.
 
@@ -73,7 +73,7 @@ The leading service to use for managing document-based NoSQL databases is MongoD
 
 I opted to host my API on the platform as a service Heroku ***ref***, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack.
 
-Heroku is integrated with GitHub very well, my chosen version control platform, supporting automatic deployment when commits are made which can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on your web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
+Heroku is integrated with GitHub very well, my chosen version control platform, supporting automatic deployment when commits are made that can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
 
 \subsection{File Storage}
 
@@ -87,7 +87,7 @@ From the wide range of services available, there is one stand-out option that I 
 % how screens are organised
 % survey
 
-The mobile application produced for this project is front-end product that the user interacts with. It therefore needs to have a sleek user interface, well organised and must be easy to use.
+The mobile application produced for this project is front-end product that the user interacts with. It therefore needs to have a sleek user interface and be well organised and easy to use.
 
 \subsection{User Interface}
 
@@ -104,7 +104,7 @@ Different app-level sections of an iOS application should be split using the tab
   \label{fig:initial-mockups}
 \end{figure}
 
-As the design process wore on, I was able to create more detailed mockups utilising more of the resources from the Human Interface Guidelines. I updated the mockups so that each screen of the application contained a navigation bar -- a widely-used UI design pattern in iOS. Setting this as a standard throughout the app provides the user with a constant place that allows them to navigate between screens of the app and alter content that is displayed on the current screen. I also chose to use collections to display the list of walks on a user's profile instead of the standard tabular method, mainly due to its more visual approach allowing the images of tracked walks to be more visible. The updated mockups for the profile view containing collections and the walk detail view showing a navigation bar can be seen in Figure \ref{fig:profile-detail-mockup}.
+As the design process wore on, I was able to create more detailed mockups utilising more of the resources from the Human Interface Guidelines. I updated the mockups so that each screen of the application contained a navigation bar -- a widely-used UI design pattern in iOS. Setting this as a standard throughout the app provides the user with a constant place where they can navigate between screens of the app and alter content that is displayed on the current screen. I also chose to use collections to display the list of walks on a user's profile instead of the standard tabular method, mainly due to its more visual approach. The updated mockups for the profile view containing collections and the walk detail view showing a navigation bar can be seen in Figure \ref{fig:profile-detail-mockup}.
 
 \begin{figure}[hbt]
   \centering
@@ -113,8 +113,18 @@ As the design process wore on, I was able to create more detailed mockups utilis
   \label{fig:profile-detail-mockup}
 \end{figure}
 
+Another design element that I chose to use is a segmented control -- a switch containing two or more elements to toggle between different views, normally used to switch between similar content in the same section. Its purpose fits nicely into the invites section of the app, where both sent and received invites need to be displayed but each contains similar information. By using a segmented control, placed in the navigation bar to maximise screen content, users will be able to toggle between viewing their sent and received invites from within the invites tab. The full mockup is displayed in Figure \ref{fig:invites-mockup}.
 
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.45\textwidth]{invites-mockup}
+  \caption{Redesigned mockup of the invites section of the application, using a segmented control in the navigation bar to switch between viewing sent and received invites.}
+  \label{fig:invites-mockup}
+\end{figure}
 
+% login, register mockups
+% updated track walk mockups
+% summary
 
 \subsection{Model-View-Controller Design Pattern}
 
@@ -123,7 +133,7 @@ An encouraged design pattern to use when creating a mobile application, namely a
 \begin{itemize}
   \item \textbf{Model} stores the data within the application and specifies the logic that alters that data. For this project the model will contain data relating to user information, tracked walk details and invites.
   
-  \item \textbf{View} specifies objects that are visible to the user. They can either be used directly from Apple's UIKit framework or customised and reused as needed. The main view objects that are used for this project include a \texttt{MKMapView} which displays a map on screen and a \texttt{UITableView}, useful for displaying an indefinite list of data.
+  \item \textbf{View} specifies objects that are visible to the user. They can either be used directly from Apple's UIKit framework or customised and reused as needed. The main view objects that are used for this project include a \texttt{MKMapView} which displays a map on screen and a \texttt{UITableView}, useful for displaying an indefinite list of data such as a list of invites.
   
   \item \textbf{Controller} is a medium between the other two layers. It deals with updating the \textbf{Model} based on changes from the \textbf{View} and vice versa. The UIKit framework provides default classes to handle this layer, such as a \texttt{UITableViewController} class that updates a \texttt{UITableView}. A diagram showing how the three layers link together in the project can be seen in Figure \ref{fig:mvc-diagram}.
 \end{itemize}
@@ -172,13 +182,13 @@ The data that needed to be stored in the database was split into multiple tables
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.7\textwidth]{db-models}
-  \caption{Diagram of the different database models used in the project. Arrows indicate where a table references another table}
+  \caption{Diagram of the different database models used in the project. Arrows indicate where a field in a table references another table.}
   \label{fig:db-models}
 \end{figure}
 
 \subsection{Endpoint Structure}
 
-The REST architectural style dictates that each resource in the web service uniquely identifies one resource. Based on this, I chose to create a number of endpoints that each provided access to a resource on the server. An endpoint is a reference to a uniform resource indicator (URI) that provides access to a resource. These endpoints were grouped into similar categories, where each category is known as a route, to provide clarity to the client. For example, all endpoints that update user information are grouped under the \texttt{/users/} route, with specific user endpoints a subpath of this route. The diagram representation of all of the routes used for the API is shown in Figure \ref{fig:api-routes}.
+The REST architectural style dictates that each element in the web service uniquely identifies one resource. Based on this, I chose to create a number of endpoints that each provided access to a resource on the server. An endpoint is a reference to a uniform resource indicator (URI) that exposes a resource on the server. These endpoints were grouped into similar categories, where each category is known as a route, to provide clarity to the client. For example, all endpoints that update user information are grouped under the \texttt{/users/} route, with specific user endpoints a subpath of this route. The diagram representation of all of the routes used for the API is shown in Figure \ref{fig:api-routes}.
 
 \begin{figure}[hbt]
   \centering
