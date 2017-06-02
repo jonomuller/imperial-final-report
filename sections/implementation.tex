@@ -18,6 +18,8 @@ The main file loaded when a request is made, \texttt{app.js}, specifies the main
 
 \subsection{Authentication}
 
+
+
 \subsection{Querying Database}
 
 \subsection{Storing Images} \label{implentation:storing-images}
@@ -27,6 +29,12 @@ The main file loaded when a request is made, \texttt{app.js}, specifies the main
 \section{Mobile App}
 
 \subsection{Communication with API}
+
+To handle requests from the multiple APIs used within the mobile application, a singleton class \texttt{APIManager} was used that was accessible throughout the app to organise each API call. The main function of \texttt{APIManager} was to abstract the network requests through the HTTP networking library Alamofire ***ref*** -- a more elegant way to handle networking in comparison to Swift's default network tools, providing simple JSON encoding and serialisation as well as response validation.
+
+Alamofire's Router design pattern allowed me to define a complete set of paths, methods and parameters needed for the endpoints of a particular API and hence construct a request with with any HTTP headers as appropriate. The Router was implemented as a protocol containing the necessary fields that needed to be overridden, and each API that needed to be documented in this way adopted this protocol and used an enumeration pattern to define each of the available endpoints for that API. The specific endpoint case for a given API router would then be passed as a parameter to Alamofire's \texttt{request()} method, which would construct and send the HTTP request as necessary.
+
+Finally, an enumeration was created to represent the success or failure response received from the API. Enumeration cases in Swift can contain parameters and so I defined the success response to contain a JSON object that contained the response from the API, constructed in Alamofire's asynchronous request callback. Meanwhile, the failure case contained a Swift error object whose error code and description were populated from the information received from the API. Figure *** explains in more detail the path of calls when making a network request.
 
 \subsection{Points of Interest}
 
