@@ -22,6 +22,8 @@ The main file loaded when a request is made, \texttt{app.js}, specifies the main
 
 \subsection{Querying Database}
 
+
+
 % mention mongoose populate
 
 \subsection{Storing Images} \label{implementation:storing-images}
@@ -73,9 +75,19 @@ Finally, an enumeration was created to represent the success or failure response
 
 \subsection{Points of Interest}
 
-\subsection{Gamification} \label{subsection:gamification}
 
+
+\subsection{Gamification} \label{subsection:gamification}
 % should this be in mobile app section?
+
+The structure of the points system first needed to be implemented in the API, which the mobile app could then conform to. An object was defined as an enumeration in the back-end to represent the possible achievement types that could be gained from tracking a walk. Upon creating a walk via the \texttt{POST /walks/create} endpoint, the achievements parameter is checked against the list of valid achievement types. If one of the achievements is not valid, a \textbf{400 Bad Request} error is returned to the client.
+
+% structure of achievements parameter
+
+In the mobile app, a similar enumeration is defined to match the valid achievements listed in the back-end. When the user is saving a walk, the app checks whether there are achievements that the user should earn for the walk currently being saved. The achievements are sent to the server in the form of an array of dictionaries -- each element in the array a valid achievement with dictionary keys \textit{name} and \textit{value}, referring to the achievement type and number of points scored respectively. An example of a list of achievements sent in a request is as follows:
+
+\texttt{\[\{"name":"DAY\_STREAK","value":4\},\{"name":"DISTANCE","value":100\}\]}
+
 
 \subsection{Walk invitations}
 
