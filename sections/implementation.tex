@@ -22,9 +22,36 @@ The main file loaded when a request is made, \texttt{app.js}, specifies the main
 
 \subsection{Querying Database}
 
-\subsection{Storing Images} \label{implentation:storing-images}
-
 % mention mongoose populate
+
+\subsection{Storing Images} \label{implementation:storing-images}
+
+% maybe move this to design and move file storage design section to background?
+
+There are two methods that can be used when uploading images via an API to a file storage service such as AWS S3. The first of which is direct upload where the client -- the mobile app in this case -- uploads the file directly to S3, bypassing the API altogether. The other option, known as pass-through upload, is to upload the image via a request to the API and then let the API handle the upload to S3. The former of the two options is the most commonly used since it does not require any extra processing to be performed by the API, which could result in slower response times especially on Heroku.
+
+While the direct upload method does also require a slightly more complicated implementation, I decided to choose it based on the needs of this project and its ability to be scaled effectively.
+
+% implementation from here
+
+Having chosen to use the direct upload method described in Section \ref{subsection:file-storage-methods}, I outlines the steps that needed to be followed when uploading a file:
+
+\begin{enumerate}[label=\textbf{Step \arabic*}]
+  \item Request a pre-signed URL from the API to upload a file using the AWS SDK, giving the client the necessary permissions to upload at that location.
+  \item Upload the file directly from the client to the URL.
+  \item Store a reference to the URL where the file is stored either locally or in the back-end so that it can be accessed in the future.
+\end{enumerate}
+
+Even though the only current use for the file upload capability in the app is to store the thumbnail images of tracked walks, I wanted to make the code as re-usable as possible so that any feature implemented in the future could upload files with ease.
+
+To implement \textbf{Step 1}, I created an endpoint in the API at \texttt{/walks/create/upload} to retrieve a signed URL from AWS S3. This accepted a GET request with no parameters that returned a URL that would expire in 60 seconds. The expiry time was used so that numerous empty URLs were not created by continuously sending a \texttt{GET /walks/create/upload} request, while still allowing enough time for the file to be uploaded by the client.
+
+% alamofire or apimanager is not refd here
+% move communication with API section to before this one?
+
+Upon receiving the URL from the API, the mobile app then uploads the file to this location as in \textbf{Step 2}. Alamofire provides an \texttt{upload()} method along with its \texttt{request()} method that supports sending of larger amounts of data such as a file. The method accepts the file as a parameter in \texttt{Data} format, a datatype commonly used throughout iOS to store and transfer files or objects. Images can be converted to their Data representation using the \texttt{UIImageJPEGRepresentation()} function declared in Apple's UIKit, passing in a native \texttt{UIImage} object.
+
+While the previous two steps have been fairly general to upload a file, \textbf{Step 3} of the method is what applies this code to the feature being implemented. In the case of this project, I needed to upload an image of a tracked walk and store a reference to the URL of that image in its own Walk document in the database. Once the image has been uploaded successfully, a Walk document is created via sending a \texttt{POST /walks/create} request to the API. The parameters of that request include the name of the walk, an array of coordinates and the URL of the image that was uploaded in the previous step.
 
 \section{Mobile App}
 
