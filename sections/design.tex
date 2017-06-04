@@ -198,5 +198,13 @@ The REST architectural style dictates that each element in the web service uniqu
 \end{figure}
 
 Each endpoint in the API followed the CRUD functions -- standing for Create, Read, Update and Delete. These functions are used to define what operation is being performed when changing data in the database. These functions map to HTTP methods very well, which can then be used in each endpoint to clearly state what operation is used. For example, an endpoint that deletes certain data from the database should adopt the \textit{Delete} function of CRUD and therefore also use the DELETE HTTP method.
+
+\subsection{User Authentication}
+
+For a user to be able to save their tracked walks and invite other users to go on a walk, an authentication system needs to be used. There are two types of authentication that 
  
 \subsection{File Storage Methods} \label{subsection:file-storage-methods}
+
+There are two methods that can be used when uploading images via an API to a file storage service such as AWS S3. The first of which is direct upload where the client -- the mobile app in this case -- uploads the file directly to S3, bypassing the API altogether. The other option, known as pass-through upload, is to upload the image via a request to the API and then let the API handle the upload to S3. The former of the two options is the most commonly used since it does not require any extra processing to be performed by the API, which could result in slower response times especially on Heroku.
+
+While the direct upload method does also require a slightly more complicated implementation, I decided to choose it based on the needs of this project and its ability to be scaled effectively.

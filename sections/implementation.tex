@@ -26,15 +26,7 @@ The main file loaded when a request is made, \texttt{app.js}, specifies the main
 
 % mention mongoose populate
 
-\subsection{Storing Images} \label{implementation:storing-images}
-
-% maybe move this to design and move file storage design section to background?
-
-There are two methods that can be used when uploading images via an API to a file storage service such as AWS S3. The first of which is direct upload where the client -- the mobile app in this case -- uploads the file directly to S3, bypassing the API altogether. The other option, known as pass-through upload, is to upload the image via a request to the API and then let the API handle the upload to S3. The former of the two options is the most commonly used since it does not require any extra processing to be performed by the API, which could result in slower response times especially on Heroku.
-
-While the direct upload method does also require a slightly more complicated implementation, I decided to choose it based on the needs of this project and its ability to be scaled effectively.
-
-% implementation from here
+\subsection{Storing Images on a Server} \label{implementation:storing-images}
 
 Having chosen to use the direct upload method described in Section \ref{subsection:file-storage-methods}, I outlines the steps that needed to be followed when uploading a file:
 
@@ -86,7 +78,9 @@ The structure of the points system first needed to be implemented in the API, wh
 
 In the mobile app, a similar enumeration is defined to match the valid achievements listed in the back-end. When the user is saving a walk, the app checks whether there are achievements that the user should earn for the walk currently being saved. The achievements are sent to the server in the form of an array of dictionaries -- each element in the array a valid achievement with dictionary keys \textit{name} and \textit{value}, referring to the achievement type and number of points scored respectively. An example of a list of achievements sent in a request is as follows:
 
-\texttt{\[\{"name":"DAY\_STREAK","value":4\},\{"name":"DISTANCE","value":100\}\]}
+\begin{center}
+  \verb|[{"name":"DAY_STREAK","value":4},{"name":"DISTANCE","value":100}]|
+\end{center}
 
 
 \subsection{Walk invitations}
