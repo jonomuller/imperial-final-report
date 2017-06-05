@@ -213,7 +213,7 @@ Basic authentication alone is the only method necessary for an application to su
 
 A way to secure the authentication system even more is to create access tokens using a JSON Web Token (JWT). These are tokens that are digitally signed and encoded, meaning that source of the data can be verified when sending a request from the client to the API. JWT is also implemented in Node.js and can therefore be both verified and signed directly from the API. There are alternatives to using JWT, such as services like OAuth that better deal with user sessions, however the overhead required to set up OAuth would not be worthwhile.
 
-Using both basic and token-based JWT authentication, the authentication system of the API could be designed. When the client sends a request to either login or register an account, basic authentication is used and a JWT is returned by the API if the authentication is successful. The returned JWT is then stored by the client and if any API requests specify that authorisation is required, the JWT is sent in the Authorization header of the request.
+Using both basic and token-based JWT authentication, the authentication system of the API could be designed. When the client sends a request to login using their username and password, basic authentication is used and a JWT is returned by the API if the authentication is successful. The returned JWT is then stored by the client and if any API requests specify that authorisation is required, the JWT is sent in the Authorization header of the request.
  
 \subsection{File Storage Methods} \label{subsection:file-storage-methods}
 

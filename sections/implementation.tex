@@ -14,11 +14,19 @@ This section splits the implementation into the two sections, API and mobile app
 
 To set up endpoints on the API to respond to client requests, the popular Express web framework ***ref*** was used. Express's router object determines how the API handles a request to a certain URI with a specific HTTP method.
 
-The main file loaded when a request is made, \texttt{app.js}, specifies the main endpoint for the API and links this endpoint to an Express router. This router specifies the path for each of the main API routes, following the design from Figure \ref{fig:api-routes} in the previous section. Each path contains a router which matches each of the endpoints it serves as well as a controller containing functions which are executed when a router endpoint is matched from a request. An example of how a request to login a user is routed through the API is shown in Figure ***.
+The main file loaded when a request is made, \texttt{app.js}, specifies the main endpoint for the API and links this endpoint to an Express router. This router specifies the path for each of the main API routes, following the design from Figure \ref{fig:api-routes} in the previous section. Each path contains a router that matches each of the endpoints it serves as well as a controller containing functions, known as middleware functions, which are executed when a router endpoint is matched from a request. An example of how a request to login a user is routed through the API is shown in Figure ***.
 
 \subsection{Authentication}
 
+The bulk of the authentication system for the project needed to be implemented in the back-end. Passport ***ref*** is a popular library that provides authentication middleware for Node.js. It supports multiple types of authentication -- each of which is implemented as a \textit{strategy}. Based on the request, the middleware can then call \verb|passport.authenticate()| passing the desired authentication strategy as a parameter.
 
+For this project, both basic (local) and JWT authentication strategies needed to be implemented. The local strategy function is called when a \verb|POST /auth/login/| request is received. This function first checks whether a user with the given username exists in the database. If a user does exist, the password given is compared to the password stored in the database for that user. Passwords are hashed and salted before they are inserted in the database using the bcrypt library ***ref***, which also provides a function to compare a plaintext and hashed password used in the local authentication strategy. Given that the passwords match and the login is successful, a JWT is signed using a private key and the payload as the authenticated user object. This JWT is then returned to the client in the HTTP response message.
+
+On the client-side, if a successful response is received from a login request then a singleton app-wide User object is created, which is then saved to the iOS keychain -- a secure persistent storage location in the operating system. Each time the mobile app is launched, the keychain is checked to see if a User object is stored and therefore the user is logged in. If an object is found, the main screen of the app is shown allowing the user to track walks, otherwise the initial authentication screen is displayed.
+
+The documentation for the API specifies which requests require the user to be authenticated using JSON web tokens. The function to implement the JWT authentication strategy in the API looks for the token in the \textit{Authorization} header of the request in the form of \texttt{JWT \textit{token}}. To check whether the JWT is valid, the user's ID is extracted from the token and searched for in the database. The Router for the back-end API in the mobile app contains a boolean variable \verb|requiresJWTAuth| to specify which enumeration cases, each representing an endpoint, requires authentication. When this variable is true, the JWT is added in the header when constructing the request as described above.
+
+Server-side validation checks can then be performed, depending on the request, to determine if the user has permission to perform the requested operation. For example, users should only be able to delete walks that they have tracked and not be able to delete any other users' walks. Therefore when a \verb|DELETE /walks/:walkID| request is sent, the walk -- referenced by its ID in the \textit{walkID} parameter -- is checked to see that it has been tracked by the user obtained through the JWT before the walk is deleted, otherwise a \textbf{401 Unauthorized} error is returned.
 
 \subsection{Querying Database}
 
@@ -51,6 +59,8 @@ While the previous two steps have been fairly general to upload a file, \textbf{
 
 \subsection{Communication with API}
 
+% maybe put this near start of implementation as lots of sections reference it
+
 To handle requests from the multiple APIs used within the mobile application, a singleton class \texttt{APIManager} was used that was accessible throughout the app to organise each API call. The main function of \texttt{APIManager} was to abstract the network requests through the HTTP networking library Alamofire ***ref*** -- a more elegant way to handle networking in comparison to Swift's default network tools, providing simple JSON encoding and serialisation as well as response validation.
 
 Alamofire's Router design pattern allowed me to define a complete set of paths, methods and parameters needed for the endpoints of a particular API and hence construct a request with with any HTTP headers as appropriate. The Router was implemented as a protocol containing the necessary fields that needed to be overridden, and each API that needed to be documented in this way adopted this protocol and used an enumeration pattern to define each of the available endpoints for that API. The specific endpoint case for a given API router would then be passed as a parameter to Alamofire's \texttt{request()} method, which would construct and send the HTTP request as necessary.
@@ -65,7 +75,7 @@ Finally, an enumeration was created to represent the success or failure response
 \end{figure}
 
 
-\subsection{Points of Interest}
+\subsection{Displaying Points of Interest on a Map}
 
 
 
