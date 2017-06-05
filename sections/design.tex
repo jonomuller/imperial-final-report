@@ -201,7 +201,19 @@ Each endpoint in the API followed the CRUD functions -- standing for Create, Rea
 
 \subsection{User Authentication}
 
-For a user to be able to save their tracked walks and invite other users to go on a walk, an authentication system needs to be used. There are two types of authentication that 
+For a user to be able to save their tracked walks and invite other users to go on a walk, an authentication system needs to be used. There are two types of authentication that can be used to identify a user when making a request to the API:
+
+\begin{itemize}
+  \item \textbf{Basic Authentication} requires a username and password, which are compared against the values stored in the database and authenticates the user if these values match.
+
+  \item \textbf{Token-based Authentication} authenticates the user through a unique key given to the client by the API, and can restrict access to certain functions of the API depending on that user.
+\end{itemize}
+
+Basic authentication alone is the only method necessary for an application to support user authentication and multiple device registration. The best practice however is to use basic authentication along with token-based authentication to prevent passwords having to be re-entered. For example, when just using basic authentication, any restricted API request would require the user to enter their username and password again, which can get extremely tedious. When using token-based authentication, this key can be stored on the client-side when it is first received upon login or registering an account, and can then be used in subsequent API requests without the need for re-authentication.
+
+A way to secure the authentication system even more is to create access tokens using a JSON Web Token (JWT). These are tokens that are digitally signed and encoded, meaning that source of the data can be verified when sending a request from the client to the API. JWT is also implemented in Node.js and can therefore be both verified and signed directly from the API. There are alternatives to using JWT, such as services like OAuth that better deal with user sessions, however the overhead required to set up OAuth would not be worthwhile.
+
+Using both basic and token-based JWT authentication, the authentication system of the API could be designed. When the client sends a request to either login or register an account, basic authentication is used and a JWT is returned by the API if the authentication is successful. The returned JWT is then stored by the client and if any API requests specify that authorisation is required, the JWT is sent in the Authorization header of the request.
  
 \subsection{File Storage Methods} \label{subsection:file-storage-methods}
 
