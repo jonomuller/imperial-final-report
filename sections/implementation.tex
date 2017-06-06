@@ -75,12 +75,23 @@ Finally, an enumeration was created to represent the success or failure response
 \end{figure}
 
 
-\subsection{Displaying Points of Interest on a Map}
+\subsection{Displaying points of interest on a map}
 
+In order for the data about the plaques to be retrieved, another Router had to be defined in the mobile app. Two endpoints needed to be defined in this router: one to gather a list of plaques inside a given coordinate region, and another to request detailed information about a plaque given its ID.
 
+The OpenPlaques API is able to return data in a number of formats including JSON, which made it easy to parse responses since JSON had already been used previously in network calls. An area can be queried in OpenPlaques to find what plaques are present by specifying the top-left and bottom-right coordinates of the area's bounding box. The JSON returned is a list of details about the plaques, with each element containing the plaque's unique ID, coordinates and inscription.
+
+% add example bounding box API request and the map region it would query
+
+To display the plaque data on a map during a walk, repeated requests were made to the OpenPlaques API while the user was walking. A request is made every 60 seconds to search for plaques in an area of 500 metres squared with the centre at the user's location. The time interval and area span values were chosen to reduce the number of requests made to the API and also to ensure that the user could not walk into a new area before the new area request had been made.
+
+An array of Plaque structs was used to store the data retrieved from the bounding box API request. While not all data is returned from said request, the coordinates enabled me to display all of the plaques as pins on the map by creating a subclass of \verb|MapKit|'s \verb|MKPointAnnotation| class for each plaque and calling the \verb|MKMapView| instance method \verb|addAnnotation()|.
+
+% talk about removing old pins and not adding duplicates
 
 \subsection{Gamification} \label{subsection:gamification}
 % should this be in mobile app section?
+% do I even need mobile app section?
 
 The structure of the points system first needed to be implemented in the API, which the mobile app could then conform to. An object was defined as an enumeration in the back-end to represent the possible achievement types that could be gained from tracking a walk. Upon creating a walk via the \texttt{POST /walks/create} endpoint, the achievements parameter is checked against the list of valid achievement types. If one of the achievements is not valid, a \textbf{400 Bad Request} error is returned to the client.
 
@@ -94,5 +105,8 @@ In the mobile app, a similar enumeration is defined to match the valid achieveme
 
 
 \subsection{Walk invitations}
+
+% fairly basic implementation due to time constraints
+% would've liked to do more like live walk tracking, which is discussed in future extensions
 
 \section{Challenges}
