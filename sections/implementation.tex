@@ -74,6 +74,7 @@ Finally, an enumeration was created to represent the success or failure response
   \label{fig:api-communication}
 \end{figure}
 
+\subsection{Tracking and saving walks}
 
 \subsection{Displaying points of interest on a map}
 
@@ -104,9 +105,29 @@ In the mobile app, a similar enumeration is defined to match the valid achieveme
 \end{center}
 
 
-\subsection{Walk invitations}
+\subsection{Inviting users to go on a walk}
 
 % fairly basic implementation due to time constraints
 % would've liked to do more like live walk tracking, which is discussed in future extensions
 
+As with other features of the project, the back-end implementation was completed first. For walk invitations, four endpoints had to be created:
+
+\begin{itemize}
+  \item \verb|POST /users/invite| creates a new Invite document in the database with the sender as the user sending the request (verified by the JWT) and the recipients specified as a parameter in the request body. It also sends a push notification to recipients' iOS devices if possible.
+
+  \item \verb|GET /invites/:inviteID/accept| marks the invite with the specified invite ID as accepted for that user, given that the user has permission (if the invite was sent to them).
+
+  \item \verb|GET /invites/:inviteID/decline| declines the specified invite given the user has permission, deleting the invite document from the database.
+
+  \item \verb|GET /invites/:inviteID/start_walk| notifies the API that the sender has started the walk for a given invite. Due to time constraints, the current implementation simply deletes the invitation from the database so that it does not remain in the list of a user's received invites, however in the future I would like to implement a live tracking system as discussed in Section ***.
+\end{itemize}
+
+In the mobile app, the invites tab was implemented using a table view and a segmented control as designed in Section \ref{subsection:user-interface}. Depending on the selected segment in the segmented control, the table view was used to display either the user's sent or received invites. When the user select a different segment, a delegate method is called that pulls any new data from the API and refreshes the table view to display the correct data corresponding to the segment.
+
+Custom table view cell classes were created to display both the sent and received invites, containing custom views and buttons depending on the invite type. The common attributes between the cells, such as the invite name and date, were collected into a superclass that both the sent and received invite cells conformed to. The two types of cells can be seen in Figure ***.
+
+% add image of sent and received table view cells
+
 \section{Challenges}
+
+
