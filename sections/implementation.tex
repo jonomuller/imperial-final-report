@@ -91,6 +91,16 @@ With the route of the walk and its distance now being logged, the UI had to be u
 
 To display the walk route as a line on the map, I had to use the \verb|MKPolyline| class in the MapKit framework. An \verb|MKPolyline| is a shape that can be constructed via one or more coordinates. In \verb|didUpdateLocations()|, a polyline is constructed between the last coordinate in the global locations array and each location from the list of new locations parameter. This polyline is then added to the map by using the \verb|MKMapView| \verb|add()| instance method. An \verb|MKMapView| delegate method was also used to adjust the colour and thickness of the line drawn on the map.
 
+% maybe move this to separate subsection
+
+Once the user chooses to end their current walk, they are presented with an option to save the walk to their profile. A popup appears prompting the user to enter a name for the walk, which is used to identify the walk on the user's profile. After a name has been entered, a \verb|POST /walks/create/| request is sent to the API to store the walk in the database. This request accepts a number of fields to define the walk as parameters in the request body. The map route, implemented by the array of \verb|CLLocation| mentioned previously, is sent in the request as a JSON string representing an array of arrays of floating point numbers, with each array element corresponding to a coordinate in the form of longitude and latitude, like so:
+
+\begin{center}
+  \verb|[-0.174877, 51.498800], [-0.174523, 51.497810]]|
+\end{center}
+
+This JSON string is then parsed by the API and stored in the database using the GeoJSON format ***ref***, a specially designed format used to encode geographical data structures. An array of coordinates used in this project can be formatted in GeoJSON using the \verb|MultiPoint| geometry type.
+
 \subsection{Displaying points of interest on a map}
 
 In order for the data about the plaques to be retrieved, another Router had to be defined in the mobile app. Two endpoints were required for this router: one to gather a list of plaques inside a given coordinate region, and another to request detailed information about a plaque given its ID.
