@@ -28,7 +28,7 @@ The documentation for the API specifies which requests require the user to be au
 
 Server-side validation checks can then be performed, depending on the request, to determine if the user has permission to perform the requested operation. For example, users should only be able to delete walks that they have tracked and not be able to delete any other users' walks. Therefore when a \verb|DELETE /walks/:walkID| request is sent, the walk -- referenced by its ID in the \textit{walkID} parameter -- is checked to see that it has been tracked by the user obtained through the JWT before the walk is deleted, otherwise a \textbf{401 Unauthorized} error is returned.
 
-\subsection{Querying Database}
+\subsection{Querying the Database}
 
 % every endpoint accesses database
 % when dealing with referencing other collections, IDs are used
@@ -36,6 +36,16 @@ Server-side validation checks can then be performed, depending on the request, t
 % these can be stored in a document to reference another document, which is needed to implement the UML diagram in design
 % mongoose provides methods to find objects by ID, meaning IDs can be sent by client to save space?
 % mention mongoose populate
+
+Every endpoint in the API either queries or updates the database. Because of this, calls to the database must be easy-to-use and available throughout the API. The object modelling library Mongoose that was used provided an abstraction between the database and the objects defined in the API. Schemas can be defined that directly map to MongoDB collections, allowing me to define the fields of the database and their type following the UML diagram from Figure \ref{fig:db-models}.
+
+Mongoose handles object validation automatically. When saving an instance of a schema to the database, Mongoose checks that the type of each field matches the type defined in the schema. If the types do not match, a validation error is returned. In order to format this error and return it to the client in JSON format, a helper function was defined that received an error object as a parameter. The function iterates through the errors in the error object and finds the appropriate error message. This message is then returned to the client in JSON format along with a \textbf{400 Bad Request} status code.
+
+When dealing with referencing other collections, as is required in order to implement the UML diagram, object IDs are used. Each document in a MongoDB database is identified by a unique 12-byte hexadecimal value that is assigned to the \textit{\_id} field of the document when it is created. These object IDs can be stored in a document to reference another document in the database, without the need to store a key that linked the two documents as with a MySQL database. Mongoose provides convenience functions to find an document by its ID, which is useful in this project as IDs could be returned to the client and sent in another request, such as retrieving a walk's details given its ID.
+
+Mongoose's query population feature was also utilised in the API. Population is the process of replacing object IDs in a document with with the full referenced document from another collection. Given that a field is of type \verb|ObjectId| and the schema the field references is specified by the \textit{ref} keyword, that field can be populated by using the \texttt{populate(\textit{field})} function. This method was employed when retrieving a user's sent and received invites. If a user's received invites were returned to the client without population, the information would be useless as the invitation sender would only contain their object ID. Hence, the sender and recipients of an invitation are referenced to the \textit{User} model, and these fields are populated when retrieving sent and received invites.
+
+% add code to show population
 
 \subsection{Storing Images on a Server} \label{implementation:storing-images}
 
