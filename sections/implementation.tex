@@ -43,9 +43,44 @@ Mongoose handles object validation automatically. When saving an instance of a s
 
 When dealing with referencing other collections, as is required in order to implement the UML diagram, object IDs are used. Each document in a MongoDB database is identified by a unique 12-byte hexadecimal value that is assigned to the \textit{\_id} field of the document when it is created. These object IDs can be stored in a document to reference another document in the database, without the need to store a key that linked the two documents as with a MySQL database. Mongoose provides convenience functions to find an document by its ID, which is useful in this project as IDs could be returned to the client and sent in another request, such as retrieving a walk's details given its ID.
 
-Mongoose's query population feature was also utilised in the API. Population is the process of replacing object IDs in a document with with the full referenced document from another collection. Given that a field is of type \verb|ObjectId| and the schema the field references is specified by the \textit{ref} keyword, that field can be populated by using the \texttt{populate(\textit{field})} function. This method was employed when retrieving a user's sent and received invites. If a user's received invites were returned to the client without population, the information would be useless as the invitation sender would only contain their object ID. Hence, the sender and recipients of an invitation are referenced to the \textit{User} model, and these fields are populated when retrieving sent and received invites.
+Mongoose's query population feature was also utilised in the API. Population is the process of replacing object IDs in a document with with the full referenced document from another collection. Given that a field is of type \verb|ObjectId| and the schema the field references is specified by the \textit{ref} keyword, that field can be populated by using the \texttt{populate(\textit{field})} function. This method was employed when retrieving a user's sent and received invites. If a user's received invites were returned to the client without population, the information would be useless as the invitation sender would only contain their object ID. Hence, the sender and recipients of an invitation in the \textit{Invite} model are referenced to the \textit{User} model. The code in Listing \ref{listing:invite-model} shows the \textit{from} field defined in the \textit{Invite} schema model. The field is declared to be of type \verb|ObjectId| and reference the \textit{User} model, meaning that during population Mongoose will try and replace the object ID in the \textit{from} field with the full user document it references.
 
-% add code to show population
+\begin{listing}
+  \centering
+  \begin{lstlisting}[style=json]
+     from: {
+       type: Schema.Types.ObjectId,
+       ref: 'User',
+       required: true
+     }
+  \end{lstlisting}
+  \caption{Extract of code taken from the \textit{Invite} schema, showing the definition of the \textit{from} field, which is of type \texttt{ObjectId} and has a reference to the \textit{User} model.}
+  \label{listing:invite-model}
+\end{listing}
+
+These fields are then populated when retrieving sent and received invites in the respective endpoints. The code in Listing \ref{listing:invite-populate} is taken from the function called when a \verb|GET /users/invites/sent| request is made, which returns a list of the user's sent invites. Here consecutive function calls are made to the \textit{Invite} model: \verb|find()| to filter invites that were sent by the user making the request (verified by the JWT), \verb|populate()| to populate the recipients with their full user documents, and \verb|exec()| to execute the query asynchronously, returning invites to the client with a \textbf{200 OK} status code.
+
+\begin{listing}
+  \centering
+  \begin{lstlisting}[style=json]
+Invite.find({from: req.user._id})
+      .populate('to.user')
+      .exec(function(error, invites) {
+        if (error) return helper.mongooseValidationError(error, res);
+          
+        res.status(200).json({
+          success: true,
+          invites: invites
+        })
+      });
+  \end{lstlisting}
+  \caption{Extract of code taken from the function called when a \texttt{GET /users/invites/sent} request is made, detailing how the population method is used to return a full list of users to client.}
+  \label{listing:invite-populate}
+\end{listing}
+
+
+
+% add code to explain population
 
 \subsection{Storing Images on a Server} \label{implementation:storing-images}
 
