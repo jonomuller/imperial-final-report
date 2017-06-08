@@ -78,13 +78,9 @@ Invite.find({from: req.user._id})
   \label{listing:invite-populate}
 \end{listing}
 
-
-
-% add code to explain population
-
 \subsection{Storing Images on a Server} \label{implementation:storing-images}
 
-Having chosen to use the direct upload method described in Section \ref{subsection:file-storage-methods}, I outlines the steps that needed to be followed when uploading a file:
+Having chosen to use the direct upload method described in Section \ref{subsection:file-storage-methods}, I outlined the steps that needed to be followed when uploading a file:
 
 \begin{enumerate}[label=\textbf{Step \arabic*}]
   \item Request a pre-signed URL from the API to upload a file using the AWS SDK, giving the client the necessary permissions to upload at that location.
@@ -150,9 +146,24 @@ This JSON string is then parsed by the API and stored in the database using the 
 
 In order for the data about the plaques to be retrieved, another Router had to be defined in the mobile app. Two endpoints were required for this router: one to gather a list of plaques inside a given coordinate region, and another to request detailed information about a plaque given its ID.
 
-The OpenPlaques API is able to return data in a number of formats including JSON, which made it easy to parse responses since JSON had already been used previously in network calls. An area can be queried in OpenPlaques to find what plaques are present by specifying the top-left and bottom-right coordinates of the area's bounding box. The JSON returned is a list of details about the plaques, with each element containing the plaque's unique ID, coordinates and inscription.
+The OpenPlaques API is able to return data in a number of formats including JSON, which made it easy to parse responses since JSON had already been used previously in network calls. An area can be queried in OpenPlaques to find what plaques are present by specifying the top-left and bottom-right coordinates of the area's bounding box. The JSON returned is a list of details about the plaques, with each element containing the plaque's unique ID, coordinates and inscription. For example, to query the plaques near Imperial College, the a request would be made using the following URL
+
+\vspace{-0.5cm}
+\begin{center}
+  \verb|http://openplaques.org/plaques.json?box=[51.499601,-0.179834],[51.496899,-0.174455]|
+\end{center}
+
+which would result in the bounding box in Figure \ref{fig:plaques-request} being queried and the JSON returned for the two plaques found.
 
 % add example bounding box API request and the map region it would query
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=\textwidth]{plaques-request}
+  \caption{Example request to search for plaques near Imperial College, showing the bounding box for the request (left) and the JSON returned for the plaques retrieved (right).}
+  \label{fig:plaques-request}
+\end{figure}
+
 
 To display the plaque data on a map during a walk, repeated requests were made to the OpenPlaques API while the user was walking. A request is made every 60 seconds to search for plaques in an area of 500 metres squared with the centre at the user's location. The time interval and area span values were chosen to reduce the number of requests made to the API and also to ensure that the user could not walk into a new area before the new area request had been made.
 
