@@ -99,6 +99,17 @@ Upon receiving the URL from the API, the mobile app then uploads the file to thi
 
 While the previous two steps have been fairly general to upload a file, \textbf{Step 3} of the method is what applies this code to the feature being implemented. In the case of this project, I needed to upload an image of a tracked walk and store a reference to the URL of that image in its own Walk document in the database. Once the image has been uploaded successfully, a Walk document is created via sending a \texttt{POST /walks/create} request to the API. The parameters of that request include the name of the walk, an array of coordinates and the URL of the image that was uploaded in the previous step.
 
+The three steps described above are illustrated in Figure \ref{fig:storing-images}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.8\textwidth]{storing-images}
+  \caption{The three steps used in this project to upload a file.}
+  \label{fig:storing-images}
+\end{figure}
+
+
+
 \section{Mobile App}
 
 \subsection{Communication with API}
@@ -205,7 +216,15 @@ As with other features of the project, the back-end implementation was completed
 
 In the mobile app, the invites tab was implemented using a table view and a segmented control as designed in Section \ref{subsection:user-interface}. Depending on the selected segment in the segmented control, the table view was used to display either the user's sent or received invites. When the user select a different segment, a delegate method is called that pulls any new data from the API and refreshes the table view to display the correct data corresponding to the segment.
 
-Custom table view cell classes were created to display both the sent and received invites, containing custom views and buttons depending on the invite type. The common attributes between the cells, such as the invite name and date, were collected into a superclass that both the sent and received invite cells conformed to. The two types of cells can be seen in Figure ***.
+Custom table view cell classes were created to display both the sent and received invites, containing custom views and buttons depending on the invite type. Common attributes between the cells, such as the invite name and date, were collected into a superclass that both the sent and received invite cells conformed to. The two types of cells can be seen in Figure \ref{fig:invite-cells}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.7\textwidth]{invite-cells}
+  \caption{Two types of custom table view cells used to display invites -- sent invite cell (top) and received invite cell (bottom).}
+  \label{fig:invite-cells}
+\end{figure}
+
 
 % add image of sent and received table view cells
 
