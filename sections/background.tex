@@ -161,15 +161,43 @@ The features of existing applications are not the only important part to researc
 
 Many of the applications that I have researched have been developed for iOS, the operating system running on iPhones and iPads. I have chosen to develop my application on iOS due to my previous experience with iOS app development. Another factor in this choice is that I have gained a lot of experience programming in Swift, one of the programming languages used to develop iOS apps, over the last few years. Swift is extremely readable and easy to use, which is the reason why I am choosing to use it over the other programming language available, Objective-C.
 
+\subsection{Version Control}
+
+Version control is a crucial part of the development process with any project, especially this implementation-heavy project. It provides a full history of changes made to a codebase along with the ability to revert back to previous versions of code and work simultaneously on different features by creating branches. Git and GitHub are my chosen version control system and platform respectively due to past experience and familiarity.
+
+Along with version control, errors or bugs in code must be detected quickly in order to not hinder the development process. To do this, the practice of continuous integration (CI) was used to integrate and test code frequently, making it easier to locate the origin of an error. There are many CI tools that can be used to automate code testing including Jenkins, Travis CI and BuddyBuild. I had no prior knowledge with any of these tools and so I researched the benefits and drawbacks of each service, which can be seen in Table \ref{table:ci-tools-options}.
+
+\begin{table}[hbt]
+  \centering
+  \begin{tabular}{|m{1.5cm}||M{3cm}|M{3cm}|M{3cm}|M{3cm}|}
+    \hline
+     & \textbf{Jenkins} & \textbf{Travis CI} & \textbf{BuddyBuild} & \textbf{GitLab CI} \\
+    \hline
+    \hline
+    Platform & Windows, macOS, Linux & Hosted & Hosted & Hosted on GitLab\\
+    \hline
+    Cost & Free & Free for students & \~\pounds55/month or free trial & Free for small individual projects\\
+    \hline
+    Main Feature & Plugins available for variety of languages & Linked well with GitHub & Designed solely for mobile development & Integrated with GitLab\\
+    \hline
+    Platform Specific & No & No & Yes & No\\
+    \hline
+  \end{tabular}
+  \caption{Comparison of continuous integration tools}
+  \label{table:ci-tools-options}
+\end{table}
+
+I concluded that Travis CI was most suitable option for me since it was hosted on GitHub and is not platform specific, meaning that I could use it to test both the mobile app and API even though they were written in different languages. Using an option like BuddyBuild could only be used for the mobile app, with another tool needed for the API.
+
 \subsection{Location Tracking}
 
 To track the user's location within iOS, an application can use the classes from the Core Location framework \cite{AppleInc.} inbuilt into the iOS SDK (software development kit). This framework allows a developer to obtain the user's current location in the form of latitude and longitude. To keep a history of where the user has been, these coordinates could be stored in an array and updated every few seconds. This will be useful for my application to show on a map where a user has previously walked.
 
 % section on how to track calories burned?
 
-\subsection{Third-party APIs} \label{subsection:background-apis}
+\subsection{Map APIs} \label{subsection:background-apis}
 
-One of the most important application programming interfaces (APIs) to consider is which source of map to use. The majority of existing applications use Apple's maps apart from, of course, Google Maps. This is because Apple's MapKit framework \cite{AppleInc.a} is much better integrated with the Core Location framework mentioned above, making it much easier to display the user's location on MapKit than on the Google Maps SDK.
+One of the most important application programming interfaces (APIs) to consider is which source of map to use. The majority of existing applications use Apple's maps apart from, of course, Google Maps. This is because Apple's MapKit framework \cite{AppleInc.a} is much better integrated with the Core Location framework mentioned above, making it much easier to display the user's location on MapKit than on the Google Maps SDK. It also provides convenient functions for coordinate conversions and calculating distances between two coordinates, which is useful for this project when trying to calculate the distance of a tracked walk.
 
 % maybe don't include
 However, there are some advantages of Google Maps over Apple Maps -- one being that Google Maps tends to be more detailed than Apple Maps. An example of this is shown in Figure \ref{fig:google-apple}, where in my opinion roads are easier to see and buildings are clearly visible on Google Maps than on Apple Maps.
@@ -180,6 +208,12 @@ However, there are some advantages of Google Maps over Apple Maps -- one being t
   \caption{An example of the difference between Google Maps (left) and Apple Maps (right), showing Imperial College London}
   \label{fig:google-apple}
 \end{figure}
+
+%As discussed in Section \ref{subsection:background-apis}, Apple Maps very well integrated with the Core Location framework in iOS, which makes it easier to deal with displaying the user's location on a map. 
+
+For the reasons listed above, I chose to use Apple Maps and their MapKit framework as the source of maps within the application. The one issue that I previously discussed with using this framework over Google Maps was the lack of detail in some areas of the maps. This factor was not deemed important enough to impact my decision and did not outweigh the benefits of the MapKit framework that are listed above.
+
+\subsection{Place APIs}
 
 The other API that I need to consider is one that gathers points of interest near a user's location. Google's Places API \cite{GoogleInc.b} would be a very good resource to use, allowing you to search for places by over a hundred types including \textit{point of interest}, \textit{place of worship} and \textit{museum}. The only issue with using Google Places is that you must use Google Maps to display the places on. From the Google Places Policies, \textit{``If your application displays data from the Google Places API for iOS on a map, that map must be a Google map"} \cite{GoogleInc.c}. This would mean that if I were to choose Apple Maps for the maps within the app, I would be unable to use Google Places as well.
 
@@ -210,6 +244,43 @@ A different option that could be used to generate points of interest around a ge
 % used based on data from research survey
 
 
+%\section{Technology Choices}
 
+%The first part of the design of the project is to consider which technologies to use. The technologies that I chose stemmed either from the background research I conducted in the previous section or previous personal knowledge.
+
+%\subsection{Mobile Operating System}
+
+% move section in background to here?
+
+
+% *** points of interest APIs ***
+
+\subsection{Server Architecture} \label{subsection:server-architecture}
+
+Before deciding what technologies to use for the server, such as which programming language to use, we must consider the type of architectural style to use. The aim of the API exposed by the server is to provide an abstraction between complex database queries and provide functionality that a client can use to query and update details. The Representational state transfer (REST) architectural principle fit the needs for this aim very well. Every component in a RESTful web service is a resource that can be accessed via the standard HTTP methods such as \textit{GET}, \textit{POST} and \textit{DELETE}. In comparison with other web services, such as the Simple Object Access Protocol (SOAP), RESTful services have much less overhead when sending data due to the extra XML header information sent when using SOAP.
+
+With the architecture chosen, I assessed the options for the language to write the API in. There are a wide range of programming languages that could be used, and it came down to personal preference and how well it would suit the needs for this project. The popular options include PHP, Ruby, Python and Node.js ***ref*** -- the server-side environment run in Javascript. The only language in this list that I have experience in is Python, which would mean I would have to spend less time learning the language if I were to choose it. However, the advantage of Node.js for the purpose of this project is that objects in Javascript are built using Javascript Object Notation (JSON).
+
+ RESTful web services support the use of multiple different data formats to serialise responses from the server, including HTML, XML and JSON. By choosing Node.js as the server language and JSON as the data type, I was able to easily parse data from HTTP requests and send responses in JSON despite not having any previous experience with Javascript.
+
+\subsection{Database}
+
+There are two types of database that could be used -- relational or non-relational. Relational databases are based upon relational algebra where data is stored in tables with queries to this data in the form of Structured Query Language (SQL). Each table in a relational database normally identifies a type of entity, and each instance of that entity is uniquely identifiable so that it can be referenced in other tables. SQL therefore supports the querying of this data across multiple tables using relational operators such as joining two tables. The most used services to model data in a relational database are MySQL and PostgreSQL, with the latter providing support for storing arrays -- a useful feature for this project as the coordinates of a walk need to be stored.
+
+The opposite of this data model is a non-relational, or NoSQL, database in which each data entry is stored as a JSON-like document. This approach has many advantages for this project, primarily the similar use of JSON to both store data and build objects from in Node.js. As a result, data can be queried or inserted directly from a network request without any type conversions. NoSQL databases also have the benefit of faster query speeds and the ability to scale data horizontally -- an important factor to consider when designing a database.
+
+The leading service to use for managing document-based NoSQL databases is MongoDB. It was used in this project especially due to its similar use of Javascript and JSON, both of which are already employed in the Node.js API. I also used a popular object data modelling library, Mongoose ***ref***, which helped with validation and allowed me to define schemas for each of the type entities.
+
+\subsection{API Deployment}
+
+I opted to host my API on the platform as a service Heroku ***ref***, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack.
+
+Heroku is integrated with GitHub very well, my chosen version control platform, supporting automatic deployment when commits are made that can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
+
+\subsection{File Storage}
+
+An online file storage system was needed for the project to store thumbnail images of tracked walks, which is discussed in more detail in Section \ref{subsection:file-storage-methods}. Due to the ephemeral nature of Heroku's file system, it is not possible to store permanent files there and therefore an alternative online file storage service must be used.
+
+From the wide range of services available, there is one stand-out option that I chose to use -- Amazon's simple storage service known as AWS S3. Its free usage tier allows up to 5GB of data storage which would be plenty for the purposes of this project. It also provides an SDK for Javascript which was necessary in order to implement the storing and deletion of images from the API.
 
 
