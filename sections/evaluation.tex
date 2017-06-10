@@ -1,5 +1,104 @@
 \chapter{Evaluation}
 
+Evaluation must be conducted throughout the project to assess both the technical quantitative aspects of the project so that the project functions correctly and the qualitative aspects, such as the design and ease of use of the produced application.
+
+Additional evaluation is then performed near the completion of the project in order to assess how well the project's objectives were achieved and whether the project can be considered a success.
+
 \section{Software Validation}
 
+Throughout the project, I ensured that each feature of the application was well tested to minimise bugs that could arise later on in the project. When implementing a feature in the project, the back-end element was normally completed and tested first to guarantee that when the front-end implementation was taking place I would be working with a fully-working element from the back-end. Testing was performed using the continuous integration tool Travis CI chosen in Section \ref{subsection:version-control}. This meant that tests were run automatically when commits were made to Git, allowing me to see at exactly what point any tests failed.
+
+\subsection{API Testing}
+
+The purpose of API testing is to ensure that all endpoints function correctly and handle any erroneous input as expected. The Node.js Supertest ***ref*** framework was used to aid in the testing of the API, supporting assertions of HTTP requests. 
+
+\subsection{Mobile App Testing}
+
 \section{User Testing}
+
+I aimed to provide users with versions of the application early and often throughout the project so as to gain feedback frequently and iterate the application multiple times throughout the project based on this feedback. The feedback that was received from users ranged from bug fixes in the application to subjective views on features of the app that could be improved or changed. The 
+
+\section{Objective Reflection}
+
+% gauge if project is success
+
+One way to gauge whether the project can be considered a success is to reflect back on the broad objectives proposed in Section \ref{section:objectives}. The objectives are listed below, each with an explanation as to whether it was achieved as a result of the project:
+
+\begin{enumerate}[label=\textbf{Obj \arabic*}]
+  \item \textbf{Encourage walking:}
+  \item \textbf{Help discover the world:}
+  \item \textbf{Test and evaluate with real users:}
+\end{enumerate}
+
+\subsection{Project Timeline}
+
+% compare project plan to actual plan
+
+To reflect on how well I managed my time during the project
+
+\begin{table}[hbt]
+  \centering
+  \begin{tabular}{|l|| *{16}{c|}}
+    \hline
+    \multicolumn{17}{|c|}{\textsc{Proposed}}\\
+    \hline
+    \multirow{2}{*}{\textbf{Activity}} & \multicolumn{3}{c|}{\textbf{February}} & \multicolumn{4}{c|}{\textbf{March}} & \multicolumn{4}{c|}{\textbf{April}} & \multicolumn{5}{c|}{\textbf{May}}\\
+    \cline{2-17}
+    & 13 & 20 & 27 & 6 & 13 & 20 & 27 & 3 & 10 & 17 & 24 & 1 & 8 & 15 & 22 & 29\\
+    \hline
+    \hline
+    Skeleton app & \cellcolor{BrickRed} &&&& \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{REVISION}}} & \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{EXAMS}}} &&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Set up web server &\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Set up database &\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Login system &&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Track walks &&&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    User Profile &&&&&&&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Popular walks &&&&&&&&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Invite users for walk &&&&&&&&&&\multicolumn{3}{c|}{\cellcolor{BrickRed}}&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Gamification &&&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Extensions &&&&&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{BrickRed}}\\
+    \hline
+    \hline
+    \multicolumn{17}{|c|}{\textsc{Actual}}\\
+    \hline
+    \multirow{2}{*}{\textbf{Activity}} & \multicolumn{3}{c|}{\textbf{February}} & \multicolumn{4}{c|}{\textbf{March}} & \multicolumn{4}{c|}{\textbf{April}} & \multicolumn{5}{c|}{\textbf{May}}\\
+    \cline{2-17}
+    & 13 & 20 & 27 & 6 & 13 & 20 & 27 & 3 & 10 & 17 & 24 & 1 & 8 & 15 & 22 & 29\\
+    \hline
+    \hline
+    Skeleton app & \cellcolor{OliveGreen} &&&& \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{REVISION}}} & \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{EXAMS}}} &&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Set up web server &\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Set up database &\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Login system &&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Track walks &&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    User Profile &&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Popular walks &&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Invite users for walk &&&&&&&&&&\multicolumn{3}{c|}{\cellcolor{OliveGreen}}&&&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Gamification &&&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&\\
+    \hhline{*{5}{-}~~*{10}{-}}
+    Extensions &&&&&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}\\
+    \hline
+  \end{tabular}
+  \caption{Comparison between the proposed schedule for the project (top) and the actual schedule (bottom).}
+  \label{table:implementation-plan}
+\end{table}
+
+\section{Summary}
+
