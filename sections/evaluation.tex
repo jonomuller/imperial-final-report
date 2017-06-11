@@ -10,9 +10,42 @@ Throughout the project, I ensured that each feature of the application was well 
 
 \subsection{API Testing}
 
-The purpose of API testing is to ensure that all endpoints function correctly and handle any erroneous input as expected. The Node.js Supertest ***ref*** framework was used to aid in the testing of the API, supporting assertions of HTTP requests. 
+The purpose of API testing is to ensure that all endpoints function correctly and handle any erroneous input as expected. Mocha **ref*** was the main testing framework used to test the API. It supports asynchronous callbacks, which is necessary for making calls to the API in test cases. Each test case is identified by a unique string to differentiate between each case and recognise which test cases have failed.
+
+To make the actual API requests in a test case, the Supertest ***ref*** framework, allowing for assertions of HTTP requests. The structure of one of the test cases can be seen in Listing \ref{listing:api-test}.
+
+% explain listing
+% add line numbers
+
+\begin{listing}
+  \centering
+  \begin{lstlisting}[style=json]
+describe('GET /search/:userInfo', function() {
+  describe('Valid user search', function () {
+    it('should return empty array with name not found', function(done) {
+      request(app)
+        .get(uriPrefix + '/search/invalid name')
+        .expect('Content-Type', /json/)
+        .expect(function(res) {
+          res.body.success.should.be.equal(true);
+          res.body.users.should.have.length(0);
+        })
+        .expect(200, done);
+    });
+  });
+});
+  \end{lstlisting}
+  \caption{Structure of a test case for the API}
+  \label{listing:api-test}
+\end{listing}
+
+%The file that these test cases are written in is recognised by the project package to be the main test file for the project, meaning this test file is executed when the  \verb|test| command is run.  
+
+The file that these test cases are written in is listed in the project's configuration file, so that this test file is automatically executed when the default \verb|test| command is run. When commits are made to Git, Travis CI then automatically runs the the \verb|test| command, indicating which test cases passed. If a test case failed, I was able to pinpoint the exact part of the endpoint that was affected due to the the unique names I gave to each test case. This was invaluable in speeding up the error fixing process.
 
 \subsection{Mobile App Testing}
+
+Testing the front-end mobile app was not performed as much
 
 \section{User Testing}
 
@@ -34,7 +67,7 @@ One way to gauge whether the project can be considered a success is to reflect b
 
 % compare project plan to actual plan
 
-To reflect on how well I managed my time during the project
+To reflect on how well I managed my time during the project I compared the original project plan proposed 
 
 \begin{table}[hbt]
   \centering
