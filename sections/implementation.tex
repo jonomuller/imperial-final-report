@@ -89,9 +89,11 @@ When dealing with referencing other collections, as is required in order to impl
 
 Mongoose's query population feature was also utilised in the API. Population is the process of replacing object IDs in a document with with the full referenced document from another collection. Given that a field is of type \verb|ObjectId| and the schema the field references is specified by the \textit{ref} keyword, that field can be populated by using the \texttt{populate(\textit{field})} function. This method was employed when retrieving a user's sent and received invites. If a user's received invites were returned to the client without population, the information would be useless as the invitation sender would only contain their object ID. Hence, the sender and recipients of an invitation in the \textit{Invite} model are referenced to the \textit{User} model. The code in Listing \ref{listing:invite-model} shows the \textit{from} field defined in the \textit{Invite} schema model. The field is declared to be of type \verb|ObjectId| and reference the \textit{User} model, meaning that during population Mongoose will try and replace the object ID in the \textit{from} field with the full user document it references.
 
+\smallskip
+
 \begin{listing}
   \centering
-  \begin{lstlisting}[style=json]
+  \begin{lstlisting}[language=javascript]
      from: {
        type: Schema.Types.ObjectId,
        ref: 'User',
@@ -104,9 +106,11 @@ Mongoose's query population feature was also utilised in the API. Population is 
 
 These fields are then populated when retrieving sent and received invites in the respective endpoints. The code in Listing \ref{listing:invite-populate} is taken from the function called when a \verb|GET /users/invites/sent| request is made, which returns a list of the user's sent invites. Here consecutive function calls are made to the \textit{Invite} model: \verb|find()| to filter invites that were sent by the user making the request (verified by the JWT), \verb|populate()| to populate the recipients with their full user documents, and \verb|exec()| to execute the query asynchronously, returning invites to the client with a \textbf{200 OK} status code.
 
+\smallskip
+
 \begin{listing}
   \centering
-  \begin{lstlisting}[style=json]
+  \begin{lstlisting}[language=javascript]
 Invite.find({from: req.user._id})
       .populate('to.user')
       .exec(function(error, invites) {

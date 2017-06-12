@@ -12,17 +12,16 @@ Throughout the project, I ensured that each feature of the application was well 
 
 The purpose of API testing is to ensure that all endpoints function correctly and handle any erroneous input as expected. Mocha **ref*** was the main testing framework used to test the API. It supports asynchronous callbacks, which is necessary for making calls to the API in test cases. Each test case is identified by a unique string to differentiate between each case and recognise which test cases have failed.
 
-To make the actual API requests in a test case, the Supertest ***ref*** framework, allowing for assertions of HTTP requests. The structure of one of the test cases can be seen in Listing \ref{listing:api-test}.
+To make the actual API requests in a test case, the Supertest ***ref*** framework, allowing for assertions of HTTP requests. The structure of one of the test cases can be seen in Listing \ref{listing:api-test}. The \verb|describe()| and \verb|it()| functions specify the structure of the tests and uniquely identify each test case respectively, with the latter providing a \verb|done| function (line 3) to be called once the test case has finished executing its request. The HTTP request is made on line 4, where \verb|request| is a reference to the Supertest dependency, specifying the HTTP method and path (line 5). Subsequent functions are then called on this request to make assertions on elements of the response using the \verb|expect()| function (lines 6-11). In the example shown, these assertions include checking the response is of JSON type, checking that the HTTP response code is \textbf{200 OK} and checking the number of users returned is zero (since this particular request searches for a user with an invalid name).
 
-% explain listing
-% add line numbers
+\smallskip
 
 \begin{listing}
   \centering
-  \begin{lstlisting}[style=json]
+  \begin{lstlisting}[language=javascript]
 describe('GET /search/:userInfo', function() {
   describe('Valid user search', function () {
-    it('should return empty array with name not found', function(done) {
+    it("should return empty array with name not found", function(done) {
       request(app)
         .get(uriPrefix + '/search/invalid name')
         .expect('Content-Type', /json/)
