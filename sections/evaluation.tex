@@ -12,9 +12,9 @@ Throughout the project, I ensured that each feature of the application was well 
 
 The purpose of API testing is to ensure that all endpoints function correctly and handle any erroneous input as expected. Mocha **ref*** was the main testing framework used to test the API. It supports asynchronous callbacks, which is necessary for making calls to the API in test cases. Each test case is identified by a unique string to differentiate between each case and recognise which test cases have failed.
 
-To make the actual API requests in a test case, the Supertest ***ref*** framework, allowing for assertions of HTTP requests. The structure of one of the test cases can be seen in Listing \ref{listing:api-test}. The \verb|describe()| and \verb|it()| functions specify the structure of the tests and uniquely identify each test case respectively, with the latter providing a \verb|done| function (line 3) to be called once the test case has finished executing its request. The HTTP request is made on line 4, where \verb|request| is a reference to the Supertest dependency, specifying the HTTP method and path (line 5). Subsequent functions are then called on this request to make assertions on elements of the response using the \verb|expect()| function (lines 6-11). In the example shown, these assertions include checking the response is of JSON type, checking that the HTTP response code is \textbf{200 OK} and checking the number of users returned is zero (since this particular request searches for a user with an invalid name).
+To make the actual API requests in a test case, the Supertest ***ref*** framework, allowing for assertions of HTTP requests. The structure of one of the test cases can be seen in Listing \ref{listing:api-test}. The \verb|describe()| and \verb|it()| functions specify the structure of the tests and uniquely identify each test case respectively, with the latter providing a \verb|done| function (line 3) to be called once the test case has finished executing its request. The HTTP request is made on line 4, where \verb|request| is a reference to the Supertest dependency, specifying the HTTP method and path (line 5). Subsequent functions are then called on this request to make assertions on elements of the response using the \verb|expect()| function (lines 6-11). In the example shown, these assertions include checking the response is of JSON type, checking that the HTTP response code is \textbf{200 OK} and checking the number of users returned is zero (since this particular request searches for a user with an invalid
 
-\smallskip
+\medskip
 
 \begin{listing}
   \centering
@@ -66,7 +66,13 @@ One way to gauge whether the project can be considered a success is to reflect b
 
 % compare project plan to actual plan
 
-To reflect on how well I managed my time during the project I compared the original project plan proposed 
+To reflect on how well I managed my time during the project I compared the original project plan proposed at the start of the project to the actual time taken to complete each task. The comparison between the two can be seen in Table \ref{table:project-timeline-comparison}.
+
+I had planned to implement a great deal of the project, including setting up the back-end and skeleton app, before the exams at the end of the second term on \nth{20} March so as to provide myself with a platform to continue the project after this date. In reality however, due to the combination of the workload I had during this time and the steep learning curve for the back-end, I did not implement as much as I had hoped.
+
+% write more about timeline
+
+I had made sure to allow for extra time at the end of the implementation phase so that the problems listed above did not hinder the project, and I was able to complete my intended features in time.
 
 \begin{table}[hbt]
   \centering
@@ -129,7 +135,7 @@ To reflect on how well I managed my time during the project I compared the origi
     \hline
   \end{tabular}
   \caption{Comparison between the proposed schedule for the project (top) and the actual schedule (bottom).}
-  \label{table:implementation-plan}
+  \label{table:project-timeline-comparison}
 \end{table}
 
 \section{Summary}
