@@ -53,7 +53,7 @@ The documentation for the API specifies which requests require the user to be au
 
 Server-side validation checks can then be performed, depending on the request, to determine if the user has permission to perform the requested operation. For example, users should only be able to delete walks that they have tracked and not be able to delete any other users' walks. Therefore when a \verb|DELETE /walks/:walkID| request is sent, the walk -- referenced by its ID in the \textit{walkID} parameter -- is checked to see that it has been tracked by the user obtained through the JWT before the walk is deleted, otherwise a \textbf{401 Unauthorized} error is returned.
 
-\section{Tracking walks}
+\section{Tracking walks} \label{section:tracking-walks}
 
 Implementing the walk tracking component of the app was a main part of the project and the foundation that other parts of the app could be built upon. As was designed, when the user chooses to start tracking a walk a map is displayed showing the route from the user's location and statistics about the walk currently being tracked.
 

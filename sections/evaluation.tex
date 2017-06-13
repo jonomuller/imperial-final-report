@@ -44,7 +44,9 @@ The file that these test cases are written in is listed in the project's configu
 
 \subsection{Mobile App Testing}
 
-Testing the front-end mobile app was not performed as much
+Testing the front-end mobile app was not performed in as much detail as the back-end, mainly because of forgetfulness and concentration on the implementation at hand. With that being said, many parts of the logic and UI of the application were tested thoroughly. The Quick ***ref*** and Nimble ***ref*** frameworks were used to create a behaviour-driven development testing environment and provide English-like assertions respectively, so as to match the way in which the API was tested.
+
+Calls to the API were tested to ensure that responses were handled properly in \verb|APIManager|. In order to prevent unwanted requests to the API during testing, some HTTP requests were stubbed using the Mockingjay framework ***ref*** and mocked responses were returned to the app instead. For example, when making a valid request to register a new user, the actual API request is not made to prevent a superfluous record from being created in the database. In this case, a mocked response is returned containing a \textbf{200 OK} status code and the emulated successful response that would have been returned from the server. For invalid requests, no database records are ever created and so HTTP requests do not need to be mocked -- instead the actual error response returned from the API can be used in a test case.
 
 \section{User Testing}
 
@@ -52,20 +54,26 @@ I aimed to provide users with versions of the application as early as possible a
 
 \subsection{Bug Fixes}
 
-The following section lists the bugs that were found in my code based on feedback from testing my application in the real world, either by myself or from other users that I provided the app to. For each error that was found, the reason that this error occurred and the solution that fixed the error is also listed.
+The following section lists some of the bugs that were found in my code based on feedback from testing my application in the real world, either by myself or from other users that I provided the app to. For each error that was found, the reason that this error occurred and the solution that fixed the error is also listed.
 
 \begin{itemize}
-  \item \textbf{Error:} App crashes making any network request with no internet connection.
+  \item \textbf{Error:} app crashes making any network request with no internet connection.
 
-  \textbf{Reason:} Every time a network request is made in \verb|APIManager|, the status code of the response is obtained to see if an error has been returned. However, if there is no internet connection, there is no response from the request and so the status code is empty. This results in the Swift equivalent of a null pointer error, causing the app to crash.
+  \textbf{Reason:} every time a network request is made in \verb|APIManager|, the status code of the response is obtained to see if an error has been returned. However, if there is no internet connection, there is no response from the request and so the status code is empty. This results in the Swift equivalent of a null pointer error, causing the app to crash.
   
-  \textbf{Solution:} The status code of the response is only used if the response itself is not null, otherwise a default network error is returned.
+  \textbf{Solution:} the status code of the response is only used if the response itself is not null, otherwise a default network error is returned.
   
-  \item \textbf{Error:} App crashes when creating an account after scrolling the text fields off screen.
+  \item \textbf{Error:} app crashes when creating an account after scrolling the text fields off screen.
 
-  \textbf{Reason:} Table view cells in iOS are reusable, meaning the cells and their associated data that are not on the screen are not in memory and are recreated when they reappear on the screen. When pressing the button to create an account, the data the user entered from the text fields in the table view cells is retrieved and passed to the \verb|register()| function in \verb|APIManager|. If one or more of the cells is not on the screen, its data does not exist due to its reusability and so a null pointer error occurs when trying to obtain the value passed into \verb|register()|.
+  \textbf{Reason:} table view cells in iOS are reusable, meaning the cells and their associated data that are not on the screen are not in memory and are recreated when they reappear on the screen. When pressing the button to create an account, the data the user entered from the text fields in the table view cells is retrieved and passed to the \verb|register()| function in \verb|APIManager|. If one or more of the cells is not on the screen, its data does not exist due to its reusability and so a null pointer error occurs when trying to obtain the value passed into \verb|register()|.
   
-  \textbf{Solution:} Instead of retrieving the data from cells when pressing the register button, a global class array was used to store the data from the cells as the user is entering it. This means that even if some cells are not on the screen when registering, the data is still stored previously and can be passed to the \verb|register()| function without any danger of any parameters being null.
+  \textbf{Solution:} instead of retrieving the data from cells when pressing the register button, a global class array was used to store the data from the cells as the user is entering it. This means that even if some cells are not on the screen when registering, the data is still stored previously and can be passed to the \verb|register()| function without any danger of any parameters being null.
+  
+  \item \textbf{Error:} when tracking a particularly long walk, the image produced contains rendering issues where the map route is blurred, as shown in Figure ***.
+
+  \textbf{Reason:} the walk route image was produced by rendering an image of the visible map view on the screen using Core Graphics -- a framework used in iOS to perform 2D drawing. To do this, the map view needs to be zoomed out so that the entire walk route is fit in the view. In doing so, the polyline used to draw the walk route on the map, discussed in Section \ref{section:tracking-walks}, did not always render properly for reasons that I was not able to discover.
+  
+  \textbf{Solution:} the \verb|MKMapSnapShotter| class, part of the MapKit framework, was used to render an image of a map rather than Core Graphics. By specifying a region and various other options, an image is rendered of that area of a map. The map route still had to be rendered separately afterwards using Core Graphics, but I found this was the best solution at the time to avoid the rendering issues presented by the previous method.
 \end{itemize}
 
 \section{Objective Reflection}
