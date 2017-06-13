@@ -48,7 +48,25 @@ Testing the front-end mobile app was not performed as much
 
 \section{User Testing}
 
-I aimed to provide users with versions of the application early and often throughout the project so as to gain feedback frequently and iterate the application multiple times throughout the project based on this feedback. The feedback that was received from users ranged from bug fixes in the application to subjective views on features of the app that could be improved or changed. The 
+I aimed to provide users with versions of the application as early as possible and often throughout the project so as to gain feedback frequently and iterate the application multiple times throughout the project based on this feedback. The feedback that was received from users ranged from bug fixes in the application to subjective views on features of the app that could be improved or changed.
+
+\subsection{Bug Fixes}
+
+The following section lists the bugs that were found in my code based on feedback from testing my application in the real world, either by myself or from other users that I provided the app to. For each error that was found, the reason that this error occurred and the solution that fixed the error is also listed.
+
+\begin{itemize}
+  \item \textbf{Error:} App crashes making any network request with no internet connection.
+
+  \textbf{Reason:} Every time a network request is made in \verb|APIManager|, the status code of the response is obtained to see if an error has been returned. However, if there is no internet connection, there is no response from the request and so the status code is empty. This results in the Swift equivalent of a null pointer error, causing the app to crash.
+  
+  \textbf{Solution:} The status code of the response is only used if the response itself is not null, otherwise a default network error is returned.
+  
+  \item \textbf{Error:} App crashes when creating an account after scrolling the text fields off screen.
+
+  \textbf{Reason:} Table view cells in iOS are reusable, meaning the cells and their associated data that are not on the screen are not in memory and are recreated when they reappear on the screen. When pressing the button to create an account, the data the user entered from the text fields in the table view cells is retrieved and passed to the \verb|register()| function in \verb|APIManager|. If one or more of the cells is not on the screen, its data does not exist due to its reusability and so a null pointer error occurs when trying to obtain the value passed into \verb|register()|.
+  
+  \textbf{Solution:} Instead of retrieving the data from cells when pressing the register button, a global class array was used to store the data from the cells as the user is entering it. This means that even if some cells are not on the screen when registering, the data is still stored previously and can be passed to the \verb|register()| function without any danger of any parameters being null.
+\end{itemize}
 
 \section{Objective Reflection}
 
@@ -64,15 +82,13 @@ One way to gauge whether the project can be considered a success is to reflect b
 
 \subsection{Project Timeline}
 
-% compare project plan to actual plan
-
 To reflect on how well I managed my time during the project I compared the original project plan proposed at the start of the project to the actual time taken to complete each task. The comparison between the two can be seen in Table \ref{table:project-timeline-comparison}.
 
-I had planned to implement a great deal of the project, including setting up the back-end and skeleton app, before the exams at the end of the second term on \nth{20} March so as to provide myself with a platform to continue the project after this date. In reality however, due to the combination of the workload I had during this time and the steep learning curve for the back-end, I did not implement as much as I had hoped.
+I had planned to implement a great deal of the project, including setting up the back-end and skeleton app, before the exams at the end of the second term on \nth{20} March so as to provide myself with a platform to continue the project after this date. In reality however, due to the combination of the workload I had during this time and the steep learning curve for implementing the back-end, I did not implement as much as I had hoped.
 
-% write more about timeline
+Furthermore, I did not anticipate how long the initial phase of the API implementation would take me. I had no experience in Javascript or any back-end development before the start of the project and so there was a much steeper learning curve to that of the front-end development. On the other hand, some of the front-end features actually took a shorter amount of time than what I had planned. For example, inviting users to go on a walk actually only took around two weeks to implement rather than the three weeks I had outlined in Table \ref{table:project-timeline-comparison}, meaning that I gained some time back from the time lost implementing the API setup.
 
-I had made sure to allow for extra time at the end of the implementation phase so that the problems listed above did not hinder the project, and I was able to complete my intended features in time.
+I had made sure to allow for extra time at the end of the implementation phase so that the problems listed above did not hinder the project and I was able to complete my intended features in time, albeit not having enough time to implement the extensions I had planned before the project. These were formulated into future extensions, which are listed in detail in Section \ref{section:future-work}.
 
 \begin{table}[hbt]
   \centering
@@ -83,7 +99,6 @@ I had made sure to allow for extra time at the end of the implementation phase s
     \multirow{2}{*}{\textbf{Activity}} & \multicolumn{3}{c|}{\textbf{February}} & \multicolumn{4}{c|}{\textbf{March}} & \multicolumn{4}{c|}{\textbf{April}} & \multicolumn{5}{c|}{\textbf{May}}\\
     \cline{2-17}
     & 13 & 20 & 27 & 6 & 13 & 20 & 27 & 3 & 10 & 17 & 24 & 1 & 8 & 15 & 22 & 29\\
-    \hline
     \hline
     Skeleton app & \cellcolor{BrickRed} &&&& \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{REVISION}}} & \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{EXAMS}}} &&&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
@@ -111,7 +126,6 @@ I had made sure to allow for extra time at the end of the implementation phase s
     \multirow{2}{*}{\textbf{Activity}} & \multicolumn{3}{c|}{\textbf{February}} & \multicolumn{4}{c|}{\textbf{March}} & \multicolumn{4}{c|}{\textbf{April}} & \multicolumn{5}{c|}{\textbf{May}}\\
     \cline{2-17}
     & 13 & 20 & 27 & 6 & 13 & 20 & 27 & 3 & 10 & 17 & 24 & 1 & 8 & 15 & 22 & 29\\
-    \hline
     \hline
     Skeleton app & \cellcolor{OliveGreen} &&&& \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{REVISION}}} & \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{EXAMS}}} &&&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
