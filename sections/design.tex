@@ -145,3 +145,5 @@ Using both basic and token-based JWT authentication, the authentication system o
 There are two methods that can be used when uploading images via an API to a file storage service such as AWS S3. The first of which is direct upload where the client -- the mobile app in this case -- uploads the file directly to S3, bypassing the API altogether. The other option, known as pass-through upload, is to upload the image via a request to the API and then let the API handle the upload to S3. The former of the two options is the most commonly used since it does not require any extra processing to be performed by the API, which could result in slower response times especially on Heroku.
 
 While the direct upload method does also require a slightly more complicated implementation, I decided to choose it based on the needs of this project and its ability to be scaled effectively.
+
+\section{Summary}

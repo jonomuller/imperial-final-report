@@ -4,6 +4,12 @@ Evaluation must be conducted throughout the project to assess both the technical
 
 Additional evaluation is then performed near the completion of the project in order to assess how well the project's objectives were achieved and whether the project can be considered a success.
 
+%The evaluation can be split into two main categories:
+%
+%\begin{itemize}
+%  \item \textbf{Quantitative evaluation:} assessing how well 
+%\end{itemize}
+
 \section{Software Validation}
 
 Throughout the project, I ensured that each feature of the application was well tested to minimise bugs that could arise later on in the project. When implementing a feature in the project, the back-end element was normally completed and tested first to guarantee that when the front-end implementation was taking place I would be working with a fully-working element from the back-end. Testing was performed using the continuous integration tool Travis CI chosen in Section \ref{subsection:version-control}. This meant that tests were run automatically when commits were made to Git, allowing me to see at exactly what point any tests failed.
@@ -44,9 +50,13 @@ The file that these test cases are written in is listed in the project's configu
 
 \subsection{Mobile App Testing}
 
-Testing the front-end mobile app was not performed in as much detail as the back-end, mainly because of forgetfulness and concentration on the implementation at hand. With that being said, many parts of the logic and UI of the application were tested thoroughly. The Quick ***ref*** and Nimble ***ref*** frameworks were used to create a behaviour-driven development testing environment and provide English-like assertions respectively, so as to match the way in which the API was tested.
+Testing the front-end mobile app was not performed in as much detail as the back-end, mainly because of forgetfulness and concentration on the implementation at hand. With that being said, many parts of the logic and UI of the application were tested thoroughly. To create a behaviour-driven development testing environment and provide English-like assertions by using the Quick ***ref*** and Nimble ***ref*** frameworks respectively, so as to match the way in which the API was tested.
 
 Calls to the API were tested to ensure that responses were handled properly in \verb|APIManager|. In order to prevent unwanted requests to the API during testing, some HTTP requests were stubbed using the Mockingjay framework ***ref*** and mocked responses were returned to the app instead. For example, when making a valid request to register a new user, the actual API request is not made to prevent a superfluous record from being created in the database. In this case, a mocked response is returned containing a \textbf{200 OK} status code and the emulated successful response that would have been returned from the server. For invalid requests, no database records are ever created and so HTTP requests do not need to be mocked -- instead the actual error response returned from the API can be used in a test case.
+
+To make sure that different components within the app worked together correctly, integration tests (or UI tests as they are known in iOS) were written.
+
+% write more about integration tests
 
 \section{User Testing}
 
@@ -56,34 +66,46 @@ I aimed to provide users with versions of the application as early as possible a
 
 The following section lists some of the bugs that were found in my code based on feedback from testing my application in the real world, either by myself or from other users that I provided the app to. For each error that was found, the reason that this error occurred and the solution that fixed the error is also listed.
 
+
+\noindent \textbf{Error:} app crashes making any network request with no internet connection.
+
 \begin{itemize}
-  \item \textbf{Error:} app crashes making any network request with no internet connection.
-
-  \textbf{Reason:} every time a network request is made in \verb|APIManager|, the status code of the response is obtained to see if an error has been returned. However, if there is no internet connection, there is no response from the request and so the status code is empty. This results in the Swift equivalent of a null pointer error, causing the app to crash.
+  \item \textbf{Reason:} every time a network request is made in \verb|APIManager|, the status code of the response is obtained to see if an error has been returned. However, if there is no internet connection, there is no response from the request and so the status code is empty. This results in the Swift equivalent of a null pointer error, causing the app to crash.
   
-  \textbf{Solution:} the status code of the response is only used if the response itself is not null, otherwise a default network error is returned.
-  
-  \item \textbf{Error:} app crashes when creating an account after scrolling the text fields off screen.
-
-  \textbf{Reason:} table view cells in iOS are reusable, meaning the cells and their associated data that are not on the screen are not in memory and are recreated when they reappear on the screen. When pressing the button to create an account, the data the user entered from the text fields in the table view cells is retrieved and passed to the \verb|register()| function in \verb|APIManager|. If one or more of the cells is not on the screen, its data does not exist due to its reusability and so a null pointer error occurs when trying to obtain the value passed into \verb|register()|.
-  
-  \textbf{Solution:} instead of retrieving the data from cells when pressing the register button, a global class array was used to store the data from the cells as the user is entering it. This means that even if some cells are not on the screen when registering, the data is still stored previously and can be passed to the \verb|register()| function without any danger of any parameters being null.
-  
-  \item \textbf{Error:} when tracking a particularly long walk, the image produced contains rendering issues where the map route is blurred, as shown in Figure ***.
-
-  \textbf{Reason:} the walk route image was produced by rendering an image of the visible map view on the screen using Core Graphics -- a framework used in iOS to perform 2D drawing. To do this, the map view needs to be zoomed out so that the entire walk route is fit in the view. In doing so, the polyline used to draw the walk route on the map, discussed in Section \ref{section:tracking-walks}, did not always render properly for reasons that I was not able to discover.
-  
-  \textbf{Solution:} the \verb|MKMapSnapShotter| class, part of the MapKit framework, was used to render an image of a map rather than Core Graphics. By specifying a region and various other options, an image is rendered of that area of a map. The map route still had to be rendered separately afterwards using Core Graphics, but I found this was the best solution at the time to avoid the rendering issues presented by the previous method.
+  \item \textbf{Solution:} the status code of the response is only used if the response itself is not null, otherwise a default network error is returned.
 \end{itemize}
+  
+\noindent \textbf{Error:} app crashes when creating an account after scrolling the text fields off screen.
+
+\begin{itemize}
+  \item \textbf{Reason:} table view cells in iOS are reusable, meaning the cells and their associated data that are not on the screen are not in memory and are recreated when they reappear on the screen. When pressing the button to create an account, the data the user entered from the text fields in the table view cells is retrieved and passed to the \verb|register()| function in \verb|APIManager|. If one or more of the cells is not on the screen, its data does not exist due to its reusability and so a null pointer error occurs when trying to obtain the value passed into \verb|register()|.
+  
+  \item \textbf{Solution:} instead of retrieving the data from cells when pressing the register button, a global class array was used to store the data from the cells as the user is entering it. This means that even if some cells are not on the screen when registering, the data is still stored previously and can be passed to the \verb|register()| function without any danger of any parameters being null.
+\end{itemize}
+  
+\noindent \textbf{Error:} when tracking a particularly long walk, the image produced contains rendering issues where the map route is blurred, as shown in Figure ***.
+
+\begin{itemize}
+  \item \textbf{Reason:} the walk route image was produced by rendering an image of the visible map view on the screen using Core Graphics -- a framework used in iOS to perform 2D drawing. To do this, the map view needs to be zoomed out so that the entire walk route is fit in the view. In doing so, the polyline used to draw the walk route on the map, discussed in Section \ref{section:tracking-walks}, did not always render properly for reasons that I was not able to discover.
+  
+  \item \textbf{Solution:} the \verb|MKMapSnapShotter| class, part of the MapKit framework, was used to render an image of a map rather than using Core Graphics. By specifying a coordinate region and various other options, an image is rendered of that area of a map. The map route still had to be rendered separately afterwards using Core Graphics, but I found this was the best solution at the time to avoid the rendering issues presented by the previous method.
+\end{itemize}
+
+\subsection{Final Survey}
+
+% make qualitative evaluation into quantitive
+% survey on ease of use, design, rating of features, etc.
+
+When the implementation phase of the project was completed, I conducted a survey about the app as a way to quantify the qualitative aspects of the project that needed to be evaluated. These qualitative aspects include the ease of use of the application, its design and how useful each feature is to the user. The full results of this survey can be seen in Appendix ***, with a summary of results discussed in the following section.
 
 \section{Objective Reflection}
 
 % gauge if project is success
 
-One way to gauge whether the project can be considered a success is to reflect back on the broad objectives proposed in Section \ref{section:objectives}. The objectives are listed below, each with an explanation as to whether it was achieved as a result of the project:
+One way to gauge whether the project can be considered a success is to reflect back on the broad objectives proposed in Section \ref{section:objectives}. The objectives are listed below, each with an explanation as to whether it was achieved as a result of the quantitative and qualitative evaluation discussed in the previous two sections.
 
 \begin{enumerate}[label=\textbf{Obj \arabic*}]
-  \item \textbf{Encourage walking:}
+  \item \textbf{Encourage walking:} the basic features aimed to achieve this objective, namely inviting users to go on a walk and gamification, were implemented.
   \item \textbf{Help discover the world:}
   \item \textbf{Test and evaluate with real users:}
 \end{enumerate}
