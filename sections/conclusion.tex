@@ -2,4 +2,28 @@
 
 \section{Conclusion}
 
+Throughout the course of this project, I have:
+
+\begin{enumerate}
+  \item Researched existing applications and technologies to determine which features are most popular and what technologies would be most useful to me (Chapter \ref{chapter:background}).
+  \item Designed and implemented a connected, fully-functioning back-end Node.js API and a front-end iOS mobile app that allows a user to record their walks, view points of interest near to them, gain achievements to increase their score and invite one another to go on a walk (Chapters \ref{chapter:design}\&\ref{chapter:implementation}).
+  \item Tested each component using automated testing services and evaluated the project with real users to gauge their opinion on design, ease-of-use and how useful the application is (Chapter \ref{chapter:evaluation}).
+\end{enumerate}
+
+From the project, we have found that the RESTful style of the API provided an elegant way to interact with the database. The categorised structure that was defined meant that each endpoint in the API had a single functionality to read from or write to the database, and once the base structure was implemented it was very easy to add or remove endpoints.
+
 \section{Future Work} \label{section:future-work}
+
+Listed below are some of the future extensions that I would like to implement in the application given more time. Some of the extensions are based on current features that can be extended and others are new ideas that I thought of throughout the project.
+
+\subsection{Live walk tracking system}
+
+Due to time constraints, the intended feature to invite users on a walk was not fully implemented. The current system only allows the walk to be tracked by the invitation sender, while the recipients cannot view the current walk until it has completed and is visible on their profile.
+
+The proposed extension plans to show all the users of a shared walk the walk tracking view at the same time, so that all users are able to view walk statistics and discover points of interest around them. To make sure that all users were viewing the same map at the same time, data would need to be streamed from the invitation sender to all of the recipients.
+
+\subsection{Add photos to walk}
+
+\subsection{Popular and nearby walks}
+
+\subsection{Activity feed}
