@@ -54,7 +54,7 @@ Testing the front-end mobile app was not performed in as much detail as the back
 
 Calls to the API were tested to ensure that responses were handled properly in \verb|APIManager|. In order to prevent unwanted requests to the API during testing, some HTTP requests were stubbed using the Mockingjay framework ***ref*** and mocked responses were returned to the app instead. For example, when making a valid request to register a new user, the actual API request is not made to prevent a superfluous record from being created in the database. In this case, a mocked response is returned containing a \textbf{200 OK} status code and the emulated successful response that would have been returned from the server. For invalid requests, no database records are ever created and so HTTP requests do not need to be mocked -- instead the actual error response returned from the API can be used in a test case.
 
-To make sure that different components within the app worked together correctly, integration tests (or UI tests as they are known in iOS) were written.
+To make sure that different components within the app worked together correctly, integration tests (or UI tests as they are known in iOS) were written. UI tests execute a sequence of operations within a simulator and use assertions to make sure each operation executes correctly.
 
 % write more about integration tests
 
@@ -96,7 +96,7 @@ The following section lists some of the bugs that were found in my code based on
 % make qualitative evaluation into quantitive
 % survey on ease of use, design, rating of features, etc.
 
-When the implementation phase of the project was completed, I conducted a survey about the app as a way to quantify the qualitative aspects of the project that needed to be evaluated. These qualitative aspects include the ease of use of the application, its design and how useful each feature is to the user. The full results of this survey can be seen in Appendix ***, with a summary of results discussed in the following section.
+When the implementation phase of the project was completed, I conducted a survey about the app as a way to try and quantify the qualitative aspects of the project that needed to be evaluated. These qualitative aspects include the ease of use of the application, its design and how useful each feature is to the user. The full results of this survey can be seen in Appendix ***, with a summary of results discussed below.
 
 \section{Objective Reflection}
 
@@ -130,19 +130,17 @@ I had made sure to allow for extra time at the end of the implementation phase s
     \cline{2-17}
     & 13 & 20 & 27 & 6 & 13 & 20 & 27 & 3 & 10 & 17 & 24 & 1 & 8 & 15 & 22 & 29\\
     \hline
-    Skeleton app & \cellcolor{BrickRed} &&&& \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{REVISION}}} & \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{EXAMS}}} &&&&&&&&&&\\
+    Skeleton app & \cellcolor{BrickRed} &&&& \multirow{9}{*}{\rotatebox[origin=c]{90}{\textls{REVISION}}} & \multirow{9}{*}{\rotatebox[origin=c]{90}{\textls{EXAMS}}} &&&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
     Set up web server &\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
     Set up database &\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Login system &&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&&\\
+    Login system &&& \multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Track walks &&&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&&&&&\\
+    Track walks &&&& \cellcolor{BrickRed} &&& \cellcolor{BrickRed} &&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    User Profile &&&&&&&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&&\\
-    \hhline{*{5}{-}~~*{10}{-}}
-    Popular walks &&&&&&&&\multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&\\
+    User Profile &&&&&&&& \multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
     Invite users for walk &&&&&&&&&&\multicolumn{3}{c|}{\cellcolor{BrickRed}}&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
@@ -157,25 +155,23 @@ I had made sure to allow for extra time at the end of the implementation phase s
     \cline{2-17}
     & 13 & 20 & 27 & 6 & 13 & 20 & 27 & 3 & 10 & 17 & 24 & 1 & 8 & 15 & 22 & 29\\
     \hline
-    Skeleton app & \cellcolor{OliveGreen} &&&& \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{REVISION}}} & \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{EXAMS}}} &&&&&&&&&&\\
+    Skeleton app && \multicolumn{2}{c|}{\cellcolor{OliveGreen}} && \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{REVISION}}} & \multirow{10}{*}{\rotatebox[origin=c]{90}{\textls{EXAMS}}} &&&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Set up web server &\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&&&&&&&\\
+    Set up web server &&&& \cellcolor{OliveGreen} &&& \cellcolor{OliveGreen} &&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Set up database &\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&&&&&&&\\
+    Set up database &&&& \cellcolor{OliveGreen} &&& \cellcolor{OliveGreen} &&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Login system &&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&&&&&&\\
+    Login system &&&&&&& \multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Track walks &&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&&&&&\\
+    Track walks &&&&&&&&& \multicolumn{3}{c|}{\cellcolor{OliveGreen}}&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    User Profile &&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&&\\
+    User Profile &&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Popular walks &&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&&&&&\\
+    Invite users for walk &&&&&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Invite users for walk &&&&&&&&&&\multicolumn{3}{c|}{\cellcolor{OliveGreen}}&&&&\\
+    Gamification &&&&&&&&&&&&&&\cellcolor{OliveGreen}&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    Gamification &&&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&\\
-    \hhline{*{5}{-}~~*{10}{-}}
-    Extensions &&&&&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}\\
+    Extensions &&&&&&&&&&&&&&&&\\
     \hline
   \end{tabular}
   \caption{Comparison between the proposed schedule for the project (top) and the actual schedule (bottom).}
