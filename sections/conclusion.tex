@@ -6,11 +6,15 @@ Throughout the course of this project, I have:
 
 \begin{enumerate}
   \item Researched existing applications and technologies to determine which features are most popular and what technologies would be most useful to me (Chapter \ref{chapter:background}).
-  \item Designed and implemented a connected, fully-functioning back-end Node.js API and a front-end iOS mobile app that allows a user to record their walks, view points of interest near to them, gain achievements to increase their score and invite one another to go on a walk (Chapters \ref{chapter:design}\&\ref{chapter:implementation}).
+  \item Designed and implemented a connected, fully-functioning back-end Node.js API and a front-end iOS mobile app that allows a user to record their walks, view points of interest near to them, gain achievements to increase their score and invite one another to go on a walk (Chapters \ref{chapter:design} \& \ref{chapter:implementation}).
   \item Tested each component using automated testing services and evaluated the project with real users to gauge their opinion on design, ease-of-use and how useful the application is (Chapter \ref{chapter:evaluation}).
 \end{enumerate}
 
 From the project, we have found that the RESTful style of the API provided an elegant way to interact with the database. The categorised structure that was defined meant that each endpoint in the API had a single functionality to read from or write to the database, and once the base structure was implemented it was very easy to add or remove endpoints.
+
+We have also found that JSON used in HTTP requests to communicate between the mobile app and the API worked well, owing to the flexibility and structure of the notation. JSON could be easily parsed and constructed by both the front and back-end, allowing for easy data transfer.
+
+Finally, we have discovered that the application produced provides a number of innovative features such as viewing local points of interest and inviting users to go on a walk. Although some of the features need polishing, the application provides a good stepping stone to create a complete social walking app.
 
 \section{Future Work} \label{section:future-work}
 
@@ -24,6 +28,14 @@ The proposed extension plans to show all the users of a shared walk the walk tra
 
 \subsection{Add photos to walk}
 
+While the current implementation only allowing for a walk route and its statistics to be saved, a step forward would be allowing the user to take photos of points of interest along their walk. These photos would then appear on the map once the walk had been saved.
+
 \subsection{Popular and nearby walks}
 
+A new section of the app could be created that shows both popular and nearby walks created by other users. Walks will therefore obviously need to be able to be rated, possibly using a like/dislike system. Pre-made sets of well-known walks could also be shown in this section -- the London Loop being a good example of one.
+
 \subsection{Activity feed}
+
+While users can invite each other to walk with one another, there is no current system to connect or view each other's profile. This could be done by allowing users to add each other as friends. A recent activity feed could be created to show users what walks their friends have recorded recently.
+
+
