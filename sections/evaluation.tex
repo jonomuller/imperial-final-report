@@ -83,12 +83,20 @@ The following section lists some of the bugs that were found in my code based on
   \item \textbf{Solution:} instead of retrieving the data from cells when pressing the register button, a global class array was used to store the data from the cells as the user is entering it. This means that even if some cells are not on the screen when registering, the data is still stored previously and can be passed to the \verb|register()| function without any danger of any parameters being null.
 \end{itemize}
   
-\noindent \textbf{Error:} when tracking a particularly long walk, the image produced contains rendering issues where the map route is blurred, as shown in Figure ***.
+\noindent \textbf{Error:} when tracking a particularly long walk, the image produced contains rendering issues where the map route is blurred, as shown in Figure \ref{fig:map-render-bug}.
+
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.5\textwidth]{map-render-bug}
+  \caption{A bug in the app causing a walk's route to not render properly.}
+  \label{fig:map-render-bug}
+\end{figure}
+
 
 \begin{itemize}
   \item \textbf{Reason:} the walk route image was produced by rendering an image of the visible map view on the screen using Core Graphics -- a framework used in iOS to perform 2D drawing. To do this, the map view needs to be zoomed out so that the entire walk route is fit in the view. In doing so, the polyline used to draw the walk route on the map, discussed in Section \ref{section:tracking-walks}, did not always render properly for reasons that I was not able to discover.
   
-  \item \textbf{Solution:} the \verb|MKMapSnapShotter| class, part of the MapKit framework, was used to render an image of a map rather than using Core Graphics. By specifying a coordinate region and various other options, an image is rendered of that area of a map. The map route still had to be rendered separately afterwards using Core Graphics, but I found this was the best solution at the time to avoid the rendering issues presented by the previous method.
+  \item \textbf{Solution:} the \verb|MKMapSnapShotter| class, part of the MapKit framework, was used to render an image of a map rather than using Core Graphics. By specifying a coordinate region and various other options, an image is rendered of that area of a map. The map route still had to be rendered separately onto the map afterwards using Core Graphics, but I found this was the best solution at the time to avoid the rendering issues presented by the previous method.
 \end{itemize}
 
 \subsection{Final Survey}
@@ -96,7 +104,52 @@ The following section lists some of the bugs that were found in my code based on
 % make qualitative evaluation into quantitive
 % survey on ease of use, design, rating of features, etc.
 
-When the implementation phase of the project was completed, I conducted a survey about the app as a way to try and quantify the qualitative aspects of the project that needed to be evaluated. These qualitative aspects include the ease of use of the application, its design and how useful each feature is to the user. The full results of this survey can be seen in Appendix ***, with a summary of results discussed below.
+When the implementation phase of the project was completed, I conducted a survey about the app as a way to try and quantify the qualitative aspects of the project that needed to be evaluated. These qualitative aspects include the ease of use of the application, its design and how useful each feature is to the user. The full results of this survey can be seen in Appendix ***, with a summary of results discussed below. Any question where the user was expected to rate a feature's usefulness a linear scale from 1 to 5 was given to choose from, with 5 being the most useful and 1 not useful at all.
+
+The survey showed that both design and ease of use of the application appealed to the user, with no responses for either category giving a score less than 3. The main questions asking the user whether they were encouraged to walk more when using the app gave mainly positive results, with 73\% of people giving a score of 3 or 4. The rating of features gave mixed responses, with the controversial features being tracking walks and walk invitations. Features to view points of interest and view walks on your profile provided the best responses in the survey, with all users giving a score of at least 3.
+
+An interesting point to discuss is the opinion of users who had used previous walking or fitness apps compared to those who hadn't. From the graph in Figure \ref{fig:survey-graph}, we can see that the users who have used previous fitness applications gave lower scores for the tracking walks and statistics features of my app. This is understandable since the apps that these users have used, the most popular being Strava and Runkeeper, are dedicated fitness and running apps whereas the tracking of walks in my application is only one element.
+
+\begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[xlabel=Response from user who had used previous fitness apps,
+                ylabel=Score given,
+                scale only axis,
+                % enlargelimits=false,
+                ymin=0,
+                ymax=5,
+                ybar,
+                grid=both,
+                % minor tick num=5,
+                bar width=14pt,
+                clip mode=individual]
+        \addplot[fill=red] coordinates{
+        (1,2)
+        (2,3)
+        (3,2)
+        (4,2)
+        (5,3)
+        };
+        
+        \addplot[fill=blue] coordinates{
+        (1,1)
+        (2,3)
+        (3,2)
+        (4,2)
+        (5,2)
+        };
+        
+        \legend{Score for tracking walks, Score for walk statistics}
+    \end{axis}
+    \end{tikzpicture}
+    \caption{Graph showing the scores for the feature ratings of tracking walks and viewing walk statistics, given by users who had previously used walking or fitness apps}
+    \label{fig:survey-graph}
+\end{figure}
+
+Additional comments were left by users at the end of the survey. The main points written were that other fitness apps that users have used were better for fitness and provided more detailed statistics, and other points of interest should be used instead of just historical plaques. I also conducted hallway testing, where I asked strangers to give their opinion on my application having no prior knowledge of it. The results from hallway testing agreed mainly agreed with the results of the survey, with people liking the design of the app and the main concept, but some stating that some other points of interest should be used and more achievements added.
+
+I concluded from this survey that I have created an application that has a sleek design and is very easy to use, with multiple features that users found useful. Having said this, I also found that there were a few limitations in some features in the app that need to be addressed in order to make it cater for a wider audience.
 
 \section{Objective Reflection}
 
@@ -140,7 +193,7 @@ I had made sure to allow for extra time at the end of the implementation phase s
     \hhline{*{5}{-}~~*{10}{-}}
     Track walks &&&& \cellcolor{BrickRed} &&& \cellcolor{BrickRed} &&&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    User Profile &&&&&&&& \multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&\\
+    User profile &&&&&&&& \multicolumn{2}{c|}{\cellcolor{BrickRed}}&&&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
     Invite users for walk &&&&&&&&&&\multicolumn{3}{c|}{\cellcolor{BrickRed}}&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
@@ -165,7 +218,7 @@ I had made sure to allow for extra time at the end of the implementation phase s
     \hhline{*{5}{-}~~*{10}{-}}
     Track walks &&&&&&&&& \multicolumn{3}{c|}{\cellcolor{OliveGreen}}&&&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
-    User Profile &&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&\\
+    User profile &&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}&&&\\
     \hhline{*{5}{-}~~*{10}{-}}
     Invite users for walk &&&&&&&&&&&&&&&\multicolumn{2}{c|}{\cellcolor{OliveGreen}}\\
     \hhline{*{5}{-}~~*{10}{-}}
