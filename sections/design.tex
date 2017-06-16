@@ -6,6 +6,23 @@ The project can be split into two main sections: the front-end mobile applicatio
 
 These two sections link together very closely and are both required to produce a working implementation. It is therefore extremely important to not only consider the design of the user interface but also more technical aspects, such as the way the user's data is stored in the database and how the API will communicate with the mobile app.
 
+\section{Project Requirements} \label{section:requirements}
+
+Based on the broad objectives from Section \ref{section:objectives} and the background research conducted in Chapter \ref{chapter:background}, a detailed list of technical requirements was created. These requirements essentially map to features that need to be designed and implemented in the project. The objective that each requirement supports is shown in brackets.
+
+% add paragraph here or after requirements as to why you chose to do each one
+
+\begin{enumerate}[label=\textbf{Req \arabic*}]
+    \item Build a fully functioning iOS application with a simple design and an easy-to-use user interface (\textbf{Obj 3}).
+    \item Allow the user to track the routes of the walks they go on, as well as provide statistics about the walk such as distance travelled and calories burned (\textbf{Obj 1}).
+    \item During a walk, the application should display certain points of interest on a map near the user's current location (\textbf{Obj 2}).
+    \item Each user should be able to register an account within the application and publish their tracked walks to their profile if they wish (\textbf{Obj 1}).
+    \item Users should be able to invite other users to go on a walk together and schedule this walk for a point in the future (\textbf{Obj 1}).
+    \item The application should contain some level of gamification - each user will have a score on their profile based on how far they have walked in total, how many walks they have been on and how often they go for a walk (\textbf{Obj 1}).
+\end{enumerate}
+
+With these requirements established, I was able to begin the design process for both the front and back-end in accordance with the features described.
+
 \section{Mobile App Design}
 
 % design of app
@@ -148,7 +165,7 @@ While the direct upload method does also require a slightly more complicated imp
 
 \section{Summary}
 
-The design section outlined the elements of the project that needed to be completed before any implementation could begin. The basic user interface design of the main screens of the mobile application allowed for front-end development to begin. Meanwhile, the structure of the database and endpoints in the API meant that implementation in the back-end could begin by using the technologies chosen in Section \ref{section:technologies}. 
+The design section outlined the elements of the project that needed to be completed before any implementation could begin. The basic user interface design of the main screens of the mobile application were created using the MVC design pattern, allowing for front-end development to begin. Meanwhile, the structure of the database and endpoints in the API meant that implementation in the back-end could begin by using the technologies chosen in Section \ref{section:technologies}. 
 
 
 

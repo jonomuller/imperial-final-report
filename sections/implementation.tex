@@ -6,7 +6,7 @@
 
 Since the back-end API and front-end mobile app are so tightly connected, implementing them linearly would not be logical as errors between the app and server will not be detected as quickly and requirements of features may change over time. I therefore implemented the two in parallel, normally a feature at a time, so that a working implementation for each subsequent feature was produced at the end of each iteration.
 
-This section splits the implementation by feature, with the order presented matching the chronological order of the project.
+This chapter splits the implementation by feature, with the order presented matching the chronological order of the project.
 
 \section{Endpoint Routing}
 
@@ -231,7 +231,7 @@ Custom table view cell classes were created to display both the sent and receive
 
 \section{Summary}
 
-The implementation segment of the project was by far the largest, with each feature requiring code to be written in both the front and back-end. All of the main features that I planned were implemented, and the feature-by-feature order used worked out well.
+The implementation segment of the project was by far the largest, with each feature requiring code to be written in both the front and back-end. The structure of the API and skeleton application were first created, followed by API communication and user authentication. More feature-specific aspects of the implementation were then completed following the requirements set out in Section \ref{section:requirements}. These included tracking and saving walks using \verb|CLLocationManager|, displaying points of interest on a map by querying the OpenPlaques API and setting up a system to invite others to go on a walk.
 
 
 
