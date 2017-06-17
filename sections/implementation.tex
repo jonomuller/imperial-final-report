@@ -180,9 +180,7 @@ An array of Plaque structs was used to store the data retrieved from the boundin
 
 % talk about removing old pins and not adding duplicates
 
-\section{Gamification} \label{subsection:gamification}
-% should this be in mobile app section?
-% do I even need mobile app section?
+\section{Gamification} \label{subsection:implementation-gamification}
 
 The structure of the points system first needed to be implemented in the API, which the mobile app could then conform to. An object was defined as an enumeration in the back-end to represent the possible achievement types that could be gained from tracking a walk. Upon creating a walk via the \texttt{POST /walks/create} endpoint, the achievements parameter is checked against the list of valid achievement types. If one of the achievements is not valid, a \textbf{400 Bad Request} error is returned to the client.
 

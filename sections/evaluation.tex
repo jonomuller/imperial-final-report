@@ -60,6 +60,10 @@ To make sure that different components within the app worked together correctly,
 
 % talk about location simulation (gpx)
 
+Thorough testing of the walk tracking feature was conducted to make sure that walk routes were accurate and points of interest were correctly displayed on the map. While testing by actually walking in the real world was extremely important, I was not restricted to this. Xcode provides a feature to simulate the location while running the app, either in the iOS simulator or on a real device. There are a number of default routes defined in Xcode to simulate a location route around California, however these were not so useful as not many points of interest were found there.
+
+You can also define your own routes to use if you wish. The routes are stored as a list of coordinates in a GPX file that Xcode can then parse. I discovered a website ***ref*** that converts a route from Google Maps into a GPX file. I was able to use this tool to create routes in London where there are a large number of plaques, which was useful for testing.
+
 \section{User Testing}
 
 I aimed to provide users with versions of the application as early as possible and often throughout the project so as to gain feedback frequently and iterate the application multiple times throughout the project based on this feedback. The feedback that was received from users ranged from bug fixes in the application to subjective views on features of the app that could be improved or changed.
@@ -67,7 +71,6 @@ I aimed to provide users with versions of the application as early as possible a
 \subsection{Bug Fixes}
 
 The following section lists some of the bugs that were found in my code based on feedback from testing my application in the real world, either by myself or from other users that I provided the app to. For each error that was found, the reason that this error occurred and the solution that fixed the error is also listed.
-
 
 \noindent \textbf{Error:} app crashes making any network request with no internet connection.
 

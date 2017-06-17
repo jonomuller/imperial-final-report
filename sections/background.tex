@@ -161,7 +161,7 @@ Google's Places API \cite{GoogleInc.b} would be a good resource to use, allowing
 
 \subsection{MKLocalSearch}
 
-Apple also provides a service for obtaining places called \texttt{MKLocalSearch} \cite{AppleInc.b}. To generate a list of places, you pass the \texttt{init()} method a \texttt{MKLocalSearchRequest}, which contains a `natural language query` string describing what type of place you would like to search for on a map.
+Apple provides a framework for obtaining places called \texttt{MKLocalSearch} \cite{AppleInc.b}. To generate a list of places, you pass the \texttt{init()} method a \texttt{MKLocalSearchRequest}, which contains a `natural language query` string describing what type of place you would like to search for on a map.
 
 There seems to be little documentation online explaining what range of places that this API returns. After some initial testing, I found that the downside of this service is the natural language search query -- you cannot search by the type of place. This results in unintended results being returned from a request. As an example, to find any monuments nearby you would search for the keyword \textit{monument}, but the search results will include Monument Underground station.
 
@@ -215,7 +215,7 @@ The features of existing applications are not the only important part to researc
 
 \subsection{Mobile Operating System}
 
-Many of the applications that I have researched have been developed for iOS, the operating system running on iPhones and iPads. I have chosen to develop my application on iOS due to my previous experience with iOS app development. Another factor in this choice is that I have gained a lot of experience programming in Swift, one of the programming languages used to develop iOS apps, over the last few years. Swift is extremely readable and easy to use, which is the reason why I am choosing to use it over the other programming language available, Objective-C.
+Many of the applications that I have researched have been developed for iOS, the operating system running on iPhones and iPads. I have chosen to develop my application on iOS due to my previous experience with iOS app development. Another factor in this choice is that I have gained a lot of experience programming in Swift, one of the programming languages used to develop iOS apps, over the last few years. Swift is extremely readable and easy to use, which is the reason why I am choosing to use it over the other programming language available, Objective-C. I am also familiar with the tools required to develop an iOS application, specifically the integrated development environment (IDE) Xcode.
 
 \subsection{Version Control} \label{subsection:version-control}
 
