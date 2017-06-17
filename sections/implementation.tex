@@ -201,7 +201,7 @@ In the mobile app, a similar enumeration is defined to match the valid achieveme
 As with other features of the project, the back-end implementation was completed first. For walk invitations, four endpoints had to be created:
 
 \begin{itemize}
-  \item \verb|POST /users/invite| creates a new Invite document in the database with the sender as the user sending the request (verified by the JWT) and the recipients specified as a parameter in the request body. It also sends a push notification to recipients' iOS devices if possible.
+  \item \verb|POST /users/invite| creates a new Invite document in the database with the sender as the user sending the request (verified by the JWT) and the recipients specified as a parameter in the request body. It also sends a push notification to recipients' iOS devices if possible, which is discussed in more detail in Section \ref{subsection:invite-notifications}.
 
   \item \verb|GET /invites/:inviteID/accept| marks the invite with the specified invite ID as accepted for that user, given that the user has permission (if the invite was sent to them).
 
@@ -221,9 +221,11 @@ Custom table view cell classes were created to display both the sent and receive
   \label{fig:invite-cells}
 \end{figure}
 
-\subsection{Invite Notifications}
+\subsection{Invite Notifications} \label{subsection:invite-notifications}
 
 % write about push notifications (apns)
+
+When an invite is sent from within the app, a push notification is also sent to the devices of each of the recipients. This was done using Apple's Push Notification Service (APNs). Each iOS device is uniquely identified by a device token that is registered once a user subscribes for notifications within the app.
 
 \section{Challenges}
 
