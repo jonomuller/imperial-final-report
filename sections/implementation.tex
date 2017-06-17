@@ -157,7 +157,7 @@ The three steps described above are illustrated in Figure \ref{fig:storing-image
 
 In order for the data about the plaques to be retrieved, another Router had to be defined in the mobile app. Two endpoints were required for this router: one to gather a list of plaques inside a given coordinate region, and another to request detailed information about a plaque given its ID.
 
-The OpenPlaques API is able to return data in a number of formats including JSON, which made it easy to parse responses since JSON had already been used previously in network calls. An area can be queried in OpenPlaques to find what plaques are present by specifying the top-left and bottom-right coordinates of the area's bounding box. The JSON returned is a list of details about the plaques, with each element containing the plaque's unique ID, coordinates and inscription. For example, to query the plaques near Imperial College, the a request would be made using the following URL
+The OpenPlaques API is able to return data in a number of formats including JSON, which made it easy to parse responses since JSON had already been used previously in network calls. An area can be queried in OpenPlaques to find what plaques are present by specifying the top-left and bottom-right coordinates of the area's bounding box. The JSON returned contains a list of details about the plaques, with each element containing the plaque's unique ID, coordinates and inscription. For example, to query the plaques near Imperial College, the a request would be made using the following URL
 
 \vspace{-0.5cm}
 \begin{center}
@@ -240,6 +240,8 @@ In the back-end, when a \verb|POST /users/invite| request is made to send an inv
 
 
 \section{Challenges}
+
+
 
 % move to evaluation?
 

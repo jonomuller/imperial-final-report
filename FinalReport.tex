@@ -44,7 +44,10 @@
   commentstyle=\color{purple}\ttfamily,
   stringstyle=\color{red}\ttfamily,
   morestring=[b]',
-  morestring=[b]"
+  morestring=[b]",
+  numbers=left,
+  numberstyle=\footnotesize,
+  frame=single
 }
 
 \lstdefinestyle{json}
@@ -58,6 +61,7 @@
     \lst@DefSaveDef{`:}\colon@json{\processColon@json},
   basicstyle          = \ttfamily,
   keywordstyle        = \ttfamily\bfseries,
+  escapeinside={<@}{@>}
 }
 
 % flip the switch if a colon is found in Pmode
@@ -84,13 +88,10 @@
 
 \makeatother
 
+% define global listing options
 \lstset{
-  escapeinside={<@}{@>},
   showstringspaces=false,
-  showspaces=false,
-  numbers=left,
-  numberstyle=\footnotesize,
-  frame=single
+  showspaces=false
 }
 
 

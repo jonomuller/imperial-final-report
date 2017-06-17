@@ -151,6 +151,62 @@ The idea of using gamification in applications is to motivate you to complete so
 
 %\pagebreak
 
+\section{Points of Interest}
+
+In order to achieve my proposed objective of helping users discover more of the world around them (\textbf{Obj 2}), I had to research which sources would be able to provide me with nearby points of interest based on a location.
+
+\subsection{Google Places API}
+
+Google's Places API \cite{GoogleInc.b} would be a good resource to use, allowing you to search for places by over a hundred types including \textit{point of interest}, \textit{place of worship} and \textit{museum}. One issue with using Google Places is that you must use Google Maps to display the places on. From the Google Places Policies, \textit{``If your application displays data from the Google Places API for iOS on a map, that map must be a Google map"} \cite{GoogleInc.c}. I would need to consider this issue when choosing the map source to use for the application, which is discussed in Section \ref{subsection:background-apis}.
+
+\subsection{MKLocalSearch}
+
+Apple also provides a service for obtaining places called \texttt{MKLocalSearch} \cite{AppleInc.b}. To generate a list of places, you pass the \texttt{init()} method a \texttt{MKLocalSearchRequest}, which contains a `natural language query` string describing what type of place you would like to search for on a map.
+
+There seems to be little documentation online explaining what range of places that this API returns. After some initial testing, I found that the downside of this service is the natural language search query -- you cannot search by the type of place. This results in unintended results being returned from a request. As an example, to find any monuments nearby you would search for the keyword \textit{monument}, but the search results will include Monument Underground station.
+
+% talk about no types,
+% monument could return monument station -> not intended
+
+\subsection{Pok\'{e}stops}
+
+A different option that could be used to generate points of interest around a geographical location originates from Pok\'{e}mon Go. As mentioned in Section \ref{subsection:pokemongo}, Pok\'{e}mon Go contains thousands of Pok\'{e}stops -- crowdsourced points of interest from all over the world. There exists an API \cite{Selwyn} that returns a list of Pok\'{e}stops in JSON format given a location. Each item that the API returns contains the name and location of a point of interest as shown in Listing \ref{listing:pokestop}, and so could therefore be used in this project.
+
+\medskip
+
+\begin{listing}
+  \centering
+  \begin{lstlisting}[style=json]
+  {
+      "distance": 44, 
+      "name": "Sherfield Building", 
+      "bearing": 200, 
+      "latitude": 51.498359, 
+      "image": "http://lh3.googleusercontent.com/07q4ms3tgDKsQMy04xye
+            <@\textcolor{red}{\hspace*{20pt}\_i-UiraPO3jOS18TXwKpTMecgIXm2jXByO1CAUWVW9vNgqfx12ZtjqLdZrOlfsPu}@>", 
+      "guid": "2cc0f9d9c7ba49348299c15749c49ea1.16", 
+      "compass": "S", 
+      "longitude": -0.178544
+  }, 
+  \end{lstlisting}
+  \caption{Example of one item returned from the Pok\'{e}stop API, with attributes including its name, latitude, longitude and distance from your location}
+  \label{listing:pokestop}
+\end{listing}
+
+\subsection{Historical Plaques}
+
+Based on initial feedback of the project, users suggested that the multitude of `blue plaques' around London would be a good way to display points of interest. These plaques are placed on buildings and public places in London to commemorate a notable person or place in history. The blue plaque scheme is administered by English Heritage ***ref***, a charitable organisation responsible for the upkeep of over 400 historical sites across the United Kingdom.
+
+All data from the plaques from English Heritage is publicly available by request under the Freedom of Information Act 2000 -- an act to publicise information held by public institutions. The English Heritage website provides an option to search for a plaque given a query string, however there does not seem to be an option to search for plaques given a map area, meaning it would not be that effective for the purposes of this project. A request to retrieve all plaque data from English Heritage would both be tedious and a waste of space, so I therefore needed to look for another option.
+
+I came upon an open source service in OpenPlaques ***ref** -- a collection of plaques run by volunteers, which seemed to be well populated. OpenPlaques contains all the English Heritage blue plaques from London, but also other plaques around the UK and the world that various other organisations have put up. OpenPlaques also offers an API that supports querying plaques in an area by supplying a bounding box.
+
+\subsection{Summary}
+
+The options discussed all provide extremely different ways to retrieve points of interest. Both Google's and Apple's services may be the most convenient -- as they would be integrated into the map source chosen -- but they both contain limitations, most importantly that there is no extra information returned about a point of interest other than its title.
+
+The other two services that use Pok\'{e}stops and historical plaques provide, in my opinion, a more appealing approach to finding new points of interest in an area. Based on my own thoughts and the thoughts of users I asked, I chose to use the latter option as the source of points of interest for the project. Using historical plaques seemed the more interesting option to enable the user to learn about places and motivate them to investigate more into these places, which is essentially what my aim was.
+
 % not sure whether to include this in background or design?
 % think I will include general background on technologies here, and then which ones I chose in design
 \section{Technologies} \label{section:technologies}
@@ -176,7 +232,7 @@ Along with version control, errors or bugs in code must be detected quickly in o
     \hline
     Platform & Windows, macOS, Linux & Hosted & Hosted & Hosted on GitLab\\
     \hline
-    Cost & Free & Free for students & \~\pounds55/month or free trial & Free for small individual projects\\
+    Cost & Free & Free for students & $\sim$\pounds55/month or free trial & Free for small individual projects\\
     \hline
     Main Feature & Plugins available for variety of languages & Linked well with GitHub & Designed solely for mobile development & Integrated with GitLab\\
     \hline
@@ -195,9 +251,9 @@ To track the user's location within iOS, an application can use the classes from
 
 % section on how to track calories burned?
 
-\subsection{Map APIs} \label{subsection:background-apis}
+\subsection{Map Source} \label{subsection:background-apis}
 
-One of the most important application programming interfaces (APIs) to consider is which source of map to use. The majority of existing applications use Apple's maps apart from, of course, Google Maps. This is because Apple's MapKit framework \cite{AppleInc.a} is much better integrated with the Core Location framework mentioned above, making it much easier to display the user's location on MapKit than on the Google Maps SDK. It also provides convenient functions for coordinate conversions and calculating distances between two coordinates, which is useful for this project when trying to calculate the distance of a tracked walk.
+One of the most important technology aspects to consider is which source of map to use. The majority of existing applications use Apple's maps apart from, of course, Google Maps. This is because Apple's MapKit framework \cite{AppleInc.a} is much better integrated with the Core Location framework mentioned above, making it much easier to display the user's location on MapKit than on the Google Maps SDK. It also provides convenient functions for coordinate conversions and calculating distances between two coordinates, which is useful for this project when trying to calculate the distance of a tracked walk.
 
 % maybe don't include
 However, there are some advantages of Google Maps over Apple Maps -- one being that Google Maps tends to be more detailed than Apple Maps. An example of this is shown in Figure \ref{fig:google-apple}, where in my opinion roads are easier to see and buildings are clearly visible on Google Maps than on Apple Maps.
@@ -213,37 +269,17 @@ However, there are some advantages of Google Maps over Apple Maps -- one being t
 
 For the reasons listed above, I chose to use Apple Maps and their MapKit framework as the source of maps within the application. The one issue that I previously discussed with using this framework over Google Maps was the lack of detail in some areas of the maps. This factor was not deemed important enough to impact my decision and did not outweigh the benefits of the MapKit framework that are listed above.
 
-\subsection{Place APIs}
 
-The other API that I need to consider is one that gathers points of interest near a user's location. Google's Places API \cite{GoogleInc.b} would be a very good resource to use, allowing you to search for places by over a hundred types including \textit{point of interest}, \textit{place of worship} and \textit{museum}. The only issue with using Google Places is that you must use Google Maps to display the places on. From the Google Places Policies, \textit{``If your application displays data from the Google Places API for iOS on a map, that map must be a Google map"} \cite{GoogleInc.c}. This would mean that if I were to choose Apple Maps for the maps within the app, I would be unable to use Google Places as well.
 
-Apple also provides an API for obtaining places called \texttt{MKLocalSearch} \cite{AppleInc.b}. To generate a list of places, you pass the \texttt{init()} method a \texttt{MKLocalSearchRequest}, which contains a string describing what type of place you would like to search for on a map. There seems to be little documentation online explaining what range of places that this API returns, which is something to consider when comparing it to other similar services.
 
-A different option that could be used to generate points of interest around a geographical location originates from Pok\'{e}mon Go. As mentioned in Section \ref{subsection:pokemongo}, Pok\'{e}mon Go contains thousands of Pok\'{e}stops -- crowdsourced points of interest from all over the world. There exists an API \cite{Selwyn} that returns a list of Pok\'{e}stops in JSON format given a location. Each item that the API returns contains the name and location of a point of interest as shown in Listing \ref{listing:pokestop}, and so could therefore be used in this project.
 
-\medskip
 
-\begin{listing}
-  \centering
-  \begin{lstlisting}[style=json]
-  {
-      "distance": 44, 
-      "name": "Sherfield Building", 
-      "bearing": 200, 
-      "latitude": 51.498359, 
-      "image": "http://lh3.googleusercontent.com/07q4ms3tgDKsQMy04xye
-            <@\textcolor{red}{\hspace*{20pt}\_i-UiraPO3jOS18TXwKpTMecgIXm2jXByO1CAUWVW9vNgqfx12ZtjqLdZrOlfsPu}@>", 
-      "guid": "2cc0f9d9c7ba49348299c15749c49ea1.16", 
-      "compass": "S", 
-      "longitude": -0.178544
-  }, 
-  \end{lstlisting}
-  \caption{Example of one item returned from the Pok\'{e}stop API, with attributes including its name, latitude, longitude and distance from your location}
-  \label{listing:pokestop}
-\end{listing}
 
 % add section on blue plaque API
 % used based on data from research survey
+
+
+
 
 
 %\section{Technology Choices}
@@ -259,7 +295,7 @@ A different option that could be used to generate points of interest around a ge
 
 \subsection{Server Architecture} \label{subsection:server-architecture}
 
-Before deciding what technologies to use for the server, such as which programming language to use, we must consider the type of architectural style to use. The aim of the API exposed by the server is to provide an abstraction between complex database queries and provide functionality that a client can use to query and update details. The Representational state transfer (REST) architectural principle fit the needs for this aim very well. Every component in a RESTful web service is a resource that can be accessed via the standard HTTP methods such as \textit{GET}, \textit{POST} and \textit{DELETE}. In comparison with other web services, such as the Simple Object Access Protocol (SOAP), RESTful services have much less overhead when sending data due to the extra XML header information sent when using SOAP.
+Before deciding what specific technologies to choose for the server, such as the programming language, we must consider the type of architectural style to use. The aim of the API exposed by the server is to provide an abstraction between complex database queries and provide functionality that a client can use to query and update details. The Representational state transfer (REST) architectural principle fit the needs for this aim very well. Every component in a RESTful web service is a resource that can be accessed via the standard HTTP methods, including \textit{GET}, \textit{POST} and \textit{DELETE}. In comparison with other web services, such as the Simple Object Access Protocol (SOAP), RESTful services have much less overhead when sending data due to the extra XML header information sent when using SOAP.
 
 With the architecture chosen, I assessed the options for the language to write the API in. There are a wide range of programming languages that could be used, and it came down to personal preference and how well it would suit the needs for this project. The popular options include PHP, Ruby, Python and Node.js ***ref*** -- the server-side environment run in Javascript. The only language in this list that I have experience in is Python, which would mean I would have to spend less time learning the language if I were to choose it. However, the advantage of Node.js for the purpose of this project is that objects in Javascript are built using Javascript Object Notation (JSON).
 
