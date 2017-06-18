@@ -1,9 +1,15 @@
 \documentclass[a4paper, 11pt]{report}
 
-\usepackage{fullpage}
+%\usepackage{fullpage}
 %\usepackage[textwidth=16cm,textheight=24cm]{geometry}
 %\usepackage[textwidth=6.3in]{geometry}
-%\usepackage[margin=1in]{geometry}
+\usepackage{geometry}
+\geometry{
+  total={6.2in,8.5in},
+  top=1.7in,
+  headsep=0.7in,
+  footskip=0.8in
+}
 \usepackage{layouts}
 \usepackage{enumitem}
 \usepackage{setspace}
@@ -104,7 +110,7 @@
 
 % fancy header at top of each page 
 \pagestyle{fancy}
-\setlength{\headsep}{0.8cm} % changes space at top of page
+%\setlength{\headsep}{0.8cm} % changes space at top of page
 
 % allows for normal citing with this bib style
 \setcitestyle{square,numbers}

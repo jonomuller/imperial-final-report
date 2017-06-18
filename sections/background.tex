@@ -54,7 +54,7 @@ The setback of Strava is that you cannot track walks in the app as you are const
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.7\textwidth]{strava}
-  \caption{Journey view in Strava, allowing you to switch between statistics (left) or a map of your progress (right)}
+  \caption{Journey view in Strava, allowing you to switch between statistics (left) or a map of your progress (right).}
   \label{fig:strava}
 \end{figure}
 
@@ -90,7 +90,7 @@ Originating in London, Citymapper \cite{Citymapper} has become one of the leadin
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.7\textwidth]{citymapper}
-  \caption{Two routes generated on the Citymapper website superimposed -- cycle and Tube route (Route 1) and Tube only route (Route 2)}
+  \caption{Two routes generated on the Citymapper website superimposed -- cycle and Tube route (Route 1) and Tube only route (Route 2).}
   \label{fig:citymapper}
 \end{figure}
 
@@ -112,7 +112,7 @@ One of the more interesting parts of the application that is relevant to this pr
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.7\textwidth]{pokemongo}
-  \caption{Screenshots of Pok\'{e}mon Go showing Pok\'{e}stops in an area (left) and a detailed view of a Pok\'{e}stop (right)}
+  \caption{Screenshots of Pok\'{e}mon Go showing Pok\'{e}stops in an area (left) and a detailed view of a Pok\'{e}stop (right).}
   \label{fig:pokemongo}
 \end{figure}
 
@@ -129,6 +129,10 @@ From the subset of fitness applications that I researched in this section, it ca
 
 Gamification is used in mobile applications not only for fitness but also in a wide range of areas including productivity, finance and mental health. We have seen how gamification can be used in existing fitness applications, with some apps setting challenges for users to complete within a given timeframe -- such as running a half marathon in February.
 
+This section discusses the alternative uses of gamification in existing applications, followed by the way in which gamification could be used in this project.
+
+\subsection{Alternative Uses}
+
 An application and website called Habitica \cite{Habitica}, labelled as a ``gamified task manager", helps motivate you to complete household tasks by unlocking features and levelling up an in-game avatar. Completing real-life tasks earns you gold for your character, which can then be redeemed for either virtual rewards such as equipment or real-life treats like watching an episode of a TV show, for example. The home page of Habitica, shown in Figure \ref{fig:habitica}, is split into columns containing your bad habits, daily tasks, to-do list and rewards. It also shows the progress of your avatar, along with what is needed to progress to the next level. This type of app helps you become more productive at home in a fun and creative way that users enjoy.
 
 \begin{figure}[hbt]
@@ -136,7 +140,6 @@ An application and website called Habitica \cite{Habitica}, labelled as a ``gami
   \caption{Home page of Habitica showing your habits, tasks and rewards as well as your avatar at the top \cite{Habiticaa}}
   \label{fig:habitica}
 \end{figure}
-
 
 Gamification is also used in some finance applications. Mint \cite{IntuitInc.} is an application available in America that links to your bank accounts to help you manage your bills and track how much money you spend. It shows a breakdown of what you are spending your money on and creates a budget with the option of using any left over money on goals designed to help you save money, as shown in Figure \ref{fig:mint}. You can create goals to be either a long-term one-off payment -- buying a house, for example -- or a short-term monthly payment such as a subscription service. This game mechanic of working towards a goal to help you buy something you want is extremely effective and is why gamification is so widespread.
 
@@ -149,7 +152,19 @@ Gamification is also used in some finance applications. Mint \cite{IntuitInc.} i
 
 The idea of using gamification in applications is to motivate you to complete some form of task that you otherwise might not have attempted. It can make an app seem more engaging to the user, providing them with something to achieve every time they use the app. It is especially useful in fitness applications as keeping fit and staying healthy is very important, and should therefore be carefully considered for this project.
 
-%\pagebreak
+\subsection{Summary} \label{subsection:background-gamification-summary}
+
+In terms of this project, I had to consider two main factors regarding the type of gamification: its usefulness to the user and the feasibility of implementation. I discussed with potential users the extent to which they thought gamification should be used, ranging from a achievements-based system to a full character game. While some did say that the game aspect would be fun, many said the way that would motivate them to exercise more would be an achievements and scoring system. Achievements (and points) would be gained the more you walk, with the points contributing to a tally on the user's profile.
+
+From this, I created a list of achievements that I found would be most useful to implement initially.
+
+\begin{itemize}
+  \item \textbf{Distance:} earned for every walk. The further you walk, the higher number of points will be gained.
+  \item \textbf{Streak:} earned if you walk everyday for a number of days, forming a walking streak. The number of points gained is based on how many days are in the streak.
+  \item \textbf{Group exercise:} earned if you walk in a group, with the number of points depending on how many people there are.
+\end{itemize}
+
+The use of achievements also allows for extensibility in the future, with more able to be added at any time.
 
 \section{Points of Interest}
 
