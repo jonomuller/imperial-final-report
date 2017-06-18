@@ -153,7 +153,7 @@ The three steps described above are illustrated in Figure \ref{fig:storing-image
   \label{fig:storing-images}
 \end{figure}
 
-\section{Displaying points of interest on a map}
+\section{Displaying points of interest}
 
 In order for the data about the plaques to be retrieved, another Router had to be defined in the mobile app. Two endpoints were required for this router: one to gather a list of plaques inside a given coordinate region, and another to request detailed information about a plaque given its ID.
 
@@ -163,6 +163,8 @@ The OpenPlaques API is able to return data in a number of formats including JSON
 \begin{center}
   \verb|http://openplaques.org/plaques.json?box=[51.499601,-0.179834],[51.496899,-0.174455]|
 \end{center}
+
+length \printinunitsof{in}\prntlen{\textwidth}
 
 \noindent which would result in the bounding box in Figure \ref{fig:plaques-request} being queried and the JSON returned for the two plaques found.
 
