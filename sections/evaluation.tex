@@ -60,9 +60,9 @@ To make sure that different components within the app worked together correctly,
 
 % talk about location simulation (gpx)
 
-Thorough testing of the walk tracking feature was conducted to make sure that walk routes were accurate and points of interest were correctly displayed on the map. While testing by actually walking in the real world was extremely important, I was not restricted to this. Xcode provides a feature to simulate the location while running the app, either in the iOS simulator or on a real device. There are a number of default routes defined in Xcode to simulate a location route around California, however these were not so useful as not many points of interest were found there.
+Thorough testing of the walk tracking feature was conducted to make sure that walk routes were accurate and points of interest were correctly displayed on the map. While testing by actually walking in the real world was extremely important, I was not restricted to this. Xcode provides a feature to simulate your location while running the app, either in the iOS simulator or on a real device. There are a number of default routes defined in Xcode to simulate a location route around California, however these were not so useful as not many points of interest were found there.
 
-You can also define your own routes to use if you wish. The routes are stored as a list of coordinates in a GPX file that Xcode can then parse. I discovered a website ***ref*** that converts a route from Google Maps into a GPX file. I was able to use this tool to create routes in London where there are a large number of plaques, which was useful for testing.
+You can also define your own routes to use if you wish. The routes are stored as a list of coordinates in a GPX file that Xcode can then parse. I discovered a website ***ref*** that converts a route from Google Maps into a GPX file. I was able to use this tool to create routes in London where there are a large number of plaques, which was extremely useful for testing.
 
 \section{User Testing}
 
@@ -172,13 +172,17 @@ One way to gauge whether the project can be considered a success is to reflect b
 
 \subsection{Project Management}
 
-% add reference to API tutorial
-
 To reflect on how well I managed my time during the project I compared the original project plan proposed at the start of the project to the actual time taken to complete each task. The comparison between the two can be seen in Table \ref{table:project-timeline-comparison}.
 
 I had planned to implement a great deal of the project, including setting up the back-end and skeleton app, before the exams at the end of the second term on \nth{20} March so as to provide myself with a platform to continue the project after this date. In reality however, due to the combination of the workload I had during this time and the steep learning curve for implementing the back-end, I did not implement as much as I had hoped.
 
-Furthermore, I did not anticipate how long the initial phase of the API implementation would take me. I had no experience in Javascript or any back-end development before the start of the project and so there was a much steeper learning curve to that of the front-end development. On the other hand, some of the front-end features actually took a shorter amount of time than what I had planned. For example, inviting users to go on a walk actually only took around two weeks to implement rather than the three weeks I had outlined in Table \ref{table:project-timeline-comparison}, meaning that I gained some time back from the time lost implementing the API setup.
+Furthermore, I did not anticipate how long the initial phase of the API implementation would take me. I had no experience in Javascript or any back-end development before the start of the project and so there was a much steeper learning curve to that of the front-end development.
+
+% talk about API tutorials
+
+
+
+On the other hand, some of the front-end features actually took a shorter amount of time than what I had planned. For example, inviting users to go on a walk actually only took around two weeks to implement rather than the three weeks I had outlined in Table \ref{table:project-timeline-comparison}, meaning that I gained some time back from the time lost implementing the API setup.
 
 I had made sure to allow for extra time at the end of the implementation phase so that the problems listed above did not hinder the project and I was able to complete my intended features in time, albeit not having enough time to implement the extensions I had planned before the project. These were formulated into future extensions, which are listed in detail in Section \ref{section:future-work}.
 
