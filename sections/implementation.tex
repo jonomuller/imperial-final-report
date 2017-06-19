@@ -16,7 +16,7 @@ The main file loaded when a request is made, \texttt{app.js}, specifies the main
 
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=0.9\textwidth]{endpoint-routing}
+  \includegraphics[width=\textwidth]{endpoint-routing}
   \caption{Example of how a login request in the API is routed using Express, with the desired endpoint function eventually being called to execute the login code and return a response to the client.}
   \label{fig:endpoint-routing}
 \end{figure}
@@ -249,9 +249,26 @@ In the back-end, when a \verb|POST /users/invite| request is made to send an inv
 \end{figure}
 
 
-\section{Challenges}
+\section{Challenges Faced}
 
+Though the majority of the implementation was implemented as intended, there are some parts that posed a challenge due to its complexity or a third-party bug. This section discusses which aspects of the implementation posed problems, and how these problems were avoided.
 
+\subsection{Using iteration in an asynchronous environment}
+
+Calls to the database from the API are, by nature, asynchronous. When a request is made to an endpoint, the database is queried and its callback function called after a certain period of time. A response is then sent to the client from within this callback function. However, when making asynchronous calls to the database inside an iterative loop, problems begin to arise. Since the requests are asynchronous, the loop will not wait for the response and immediately begin its next iteration. A response is then be sent back to the client straight after the loop has completed, possibly before any database queries have returned.
+
+An example of this problem that surfaced in the API is when sending an invitation in the \verb|POST /users/invite| endpoint. The list of recipients is iterated over, with each user ID looked up in the database to make sure it is valid -- if it is, the user is added to a new array of valid users. The problem described above would cause this array to be empty after the execution of the loop due to the database lookup not having enough time to respond.
+
+To fix this, we need to convert the for loop to execute asynchronously. I used the async framework ***ref***, which provides a number of asynchronous versions of synchronous functions. The function that I required was \verb|forEach()|, providing a way to iterate over an array in parallel. Each element in the array is given a callback function to be called when computation of that element has finished -- in this case when the database query has returned. A main callback function is also specified, which is called when all callbacks from the elements have been received. For sending an invite, the main callback function creates an invite using the valid users array, which is now guaranteed to be populated due to the asynchronous iteration.
+
+\subsection{Travis CI Errors}
+
+There were problems when using the continuous integration tool Travis CI that caused builds to fail, primarily when testing the mobile app. To run iOS tests from the command line, you can use the \verb|xcodebuild| command with parameters to specify the codebase being tested and the version of simulator to run the tests on. The command occasionally fails when running on Travis with no error message, meaning that tests were unable to be executed.
+
+I discovered that the error appears to be well-known, with an issue raised about it on the Travis CI GitHub repository ***ref***. Following some of the suggestions discussed on the issue page, the most-used option seemed to be to use the \verb|travis_retry| command to retry the test command three times. Since the error was so sporadic, this greatly reduced the chances of a build failing with this error.
+
+% xcode, code signing, travis
+% async api
 
 % move to evaluation?
 
