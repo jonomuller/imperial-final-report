@@ -29,13 +29,13 @@ With these requirements established, I was able to begin the design process for 
 % how screens are organised
 % survey
 
-The mobile application produced for this project is front-end product that the user interacts with. It therefore needs to have a sleek user interface and be well organised and easy to use.
+The mobile application produced for this project is the front-end product that the user interacts with. It therefore needs to have a sleek user interface and be well organised and easy to use.
 
 \subsection{User Interface} \label{subsection:user-interface}
 
 Before any implementation took place, I conducted an initial survey to find out various technical details such as which features would be most popular, which in turn allowed me to generate some design mockups of the application.
 
-I chose to try and follow the iOS Human Interface Guidelines ***ref*** provided by Apple. These guidelines cover the basic design principles that should be used when creating a clear, fluid and easy to use iOS application. The guidelines provided a number of concepts to help structure how data is organised within the app.
+I chose to try and follow the iOS Human Interface Guidelines \cite{AppleInc.c} provided by Apple. These guidelines cover the basic design principles that should be used when creating a clear, fluid and easy to use iOS application. The guidelines provided a number of concepts to help structure how data is organised within the app.
 
 Different app-level sections of an iOS application should be split using the tab bar UI element. This is a bar that is constantly present at the bottom of the screen containing a number of icons that the user can select to switch between sections of the app. The app for this project can be split into three main sections: tracking walks, managing sent and received walk invites and viewing the user's profile. From this, I was able to construct mockups for each of these sections -- shown in Figure \ref{fig:initial-mockups}.
 
@@ -75,7 +75,7 @@ An encouraged design pattern to use when creating a mobile application, namely a
 \begin{itemize}
   \item \textbf{Model} stores the data within the application and specifies the logic that alters that data. For this project the model will contain data relating to user information, tracked walk details and invites.
   
-  \item \textbf{View} specifies objects that are visible to the user. They can either be used directly from Apple's UIKit framework or customised and reused as needed. The main view objects that are used for this project include a \texttt{MKMapView} which displays a map on screen and a \texttt{UITableView}, useful for displaying an indefinite list of data such as a list of invites.
+  \item \textbf{View} specifies objects that are visible to the user. They can either be used directly from Apple's UIKit framework or customised and reused as needed. The main view objects that are used for this project include \texttt{MKMapView} that displays a map on screen and \texttt{UITableView}, useful for displaying an indefinite list of data such as a list of invites.
   
   \item \textbf{Controller} is a medium between the other two layers. It deals with updating the \textbf{Model} based on changes from the \textbf{View} and vice versa. The UIKit framework provides default classes to handle this layer, such as a \texttt{UITableViewController} class that updates a \texttt{UITableView}. A diagram showing how the three layers link together in the project can be seen in Figure \ref{fig:mvc-diagram}.
 \end{itemize}
@@ -83,7 +83,7 @@ An encouraged design pattern to use when creating a mobile application, namely a
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.8\textwidth]{mvc-diagram}
-  \caption{How the Model-View-Controller design pattern links together for this application}
+  \caption{How the Model-View-Controller design pattern links together for this application.}
   \label{fig:mvc-diagram}
 \end{figure}
 
@@ -155,7 +155,7 @@ Basic authentication alone is the only method necessary for an application to su
 
 A way to secure the authentication system even more is to create access tokens using a JSON Web Token (JWT). These are tokens that are digitally signed and encoded, meaning that source of the data can be verified when sending a request from the client to the API. JWT is also implemented in Node.js and can therefore be both verified and signed directly from the API. There are alternatives to using JWT, such as services like OAuth that better deal with user sessions, however the overhead required to set up OAuth would not be worthwhile.
 
-Using both basic and token-based JWT authentication, the authentication system of the API could be designed. When the client sends a request to login using their username and password, basic authentication is used and a JWT is returned by the API if the authentication is successful. The returned JWT is then stored by the client and if any API requests specify that authorisation is required, the JWT is sent in the Authorization header of the request.
+Using both basic and token-based JWT authentication, the authentication system of the API could be designed. When the client sends a request to login using their username and password, basic authentication is used and a JWT is returned by the API if the authentication is successful. The returned JWT is then stored by the client and if any API requests specify that authorisation is required, the JWT is sent in the \textit{Authorization} header of the request.
  
 \subsection{File Storage Methods} \label{subsection:file-storage-methods}
 

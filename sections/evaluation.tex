@@ -16,9 +16,9 @@ Throughout the project, I ensured that each feature of the application was well 
 
 \subsection{API Testing}
 
-The purpose of API testing is to ensure that all endpoints function correctly and handle any erroneous input as expected. Mocha **ref*** was the main testing framework used to test the API. It supports asynchronous callbacks, which is necessary for making calls to the API in test cases. Each test case is identified by a unique string to differentiate between each case and recognise which test cases have failed.
+The purpose of API testing is to ensure that all endpoints function correctly and handle any erroneous input as expected. Mocha \cite{Mocha} was the main testing framework used to test the API. It supports asynchronous callbacks, which is necessary for making calls to the API in test cases. Each test case is identified by a unique string to differentiate between each case and recognise which test cases have failed.
 
-To make the actual API requests in a test case, the Supertest ***ref*** framework, allowing for assertions of HTTP requests. The structure of one of the test cases can be seen in Listing \ref{listing:api-test}. The \verb|describe()| and \verb|it()| functions specify the structure of the tests and uniquely identify each test case respectively, with the latter providing a \verb|done| function (line 3) to be called once the test case has finished executing its request. The HTTP request is made on line 4, where \verb|request| is a reference to the Supertest dependency, specifying the HTTP method and path (line 5). Subsequent functions are then called on this request to make assertions on elements of the response using the \verb|expect()| function (lines 6-11). In the example shown, these assertions include checking the response is of JSON type, checking that the HTTP response code is \textbf{200 OK} and checking the number of users returned is zero (since this particular request searches for a user with an invalid
+To make the actual API requests in a test case, the Supertest framework was used, allowing for assertions of HTTP requests. The structure of one of the test cases can be seen in Listing \ref{listing:api-test}. The \verb|describe()| and \verb|it()| functions specify the structure of the tests and uniquely identify each test case respectively, with the latter providing a \verb|done| function (line 3) to be called once the test case has finished executing its request. The HTTP request is made on line 4, where \verb|request| is a reference to the Supertest dependency, specifying the HTTP method and path (line 5). Subsequent functions are then called on this request to make assertions on elements of the response using the \verb|expect()| function (lines 6-11). In the example shown, these assertions include checking the response is of JSON type, checking that the HTTP response code is \textbf{200 OK} and checking the number of users returned is zero (since this particular request searches for a user with an invalid name).
 
 \medskip
 
@@ -50,9 +50,9 @@ The file that these test cases are written in is listed in the project's configu
 
 \subsection{Mobile App Testing}
 
-Testing the front-end mobile app was not performed in as much detail as the back-end, mainly because of forgetfulness and concentration on the implementation at hand. With that being said, many parts of the logic and UI of the application were tested thoroughly. To create a behaviour-driven development testing environment and provide English-like assertions by using the Quick ***ref*** and Nimble ***ref*** frameworks respectively, so as to match the way in which the API was tested.
+Testing the front-end mobile app was not performed in as much detail as the back-end, mainly because of the prioritisation of user testing and concentration on the implementation at hand. With that being said, some parts of the logic and UI of the application were tested thoroughly. To create a behaviour-driven development testing environment and provide English-like assertions, the Quick and Nimble frameworks were used respectively, so as to match the way in which the API was tested.
 
-Calls to the API were tested to ensure that responses were handled properly in \verb|APIManager|. In order to prevent unwanted requests to the API during testing, some HTTP requests were stubbed using the Mockingjay framework ***ref*** and mocked responses were returned to the app instead. For example, when making a valid request to register a new user, the actual API request is not made to prevent a superfluous record from being created in the database. In this case, a mocked response is returned containing a \textbf{200 OK} status code and the emulated successful response that would have been returned from the server. For invalid requests, no database records are ever created and so HTTP requests do not need to be mocked -- instead the actual error response returned from the API can be used in a test case.
+Calls to the API were tested to ensure that responses were handled properly in \verb|APIManager|. In order to prevent unwanted requests to the API during testing, some HTTP requests were stubbed using the Mockingjay framework and mocked responses were returned to the app instead. For example, when making a valid request to register a new user, the actual API request is not made to prevent a superfluous record from being created in the database. In this case, a mocked response is returned containing a \textbf{200 OK} status code and the emulated successful response that would have been returned from the server. For invalid requests, no database records are ever created and so HTTP requests do not need to be mocked -- instead the actual error response returned from the API can be used in a test case.
 
 To make sure that different components within the app worked together correctly, integration tests (or UI tests as they are known in iOS) were written. UI tests execute a sequence of operations within a simulator and use assertions to make sure each operation executes correctly.
 
@@ -62,17 +62,17 @@ To make sure that different components within the app worked together correctly,
 
 Thorough testing of the walk tracking feature was conducted to make sure that walk routes were accurate and points of interest were correctly displayed on the map. While testing by actually walking in the real world was extremely important, I was not restricted to this. Xcode provides a feature to simulate your location while running the app, either in the iOS simulator or on a real device. There are a number of default routes defined in Xcode to simulate a location route around California, however these were not so useful as not many points of interest were found there.
 
-You can also define your own routes to use if you wish. The routes are stored as a list of coordinates in a GPX file that Xcode can then parse. I discovered a website ***ref*** that converts a route from Google Maps into a GPX file. I was able to use this tool to create routes in London where there are a large number of plaques, which was extremely useful for testing.
+You can also define your own routes to use if you wish. The routes are stored as a list of coordinates in a GPX file that Xcode can then parse. I discovered a website \cite{Sigmundarson} that converts a route from Google Maps into a GPX file. I was able to use this tool to create routes in London where there are a large number of plaques, which was extremely useful for testing.
 
 \section{User Testing}
 
-I aimed to provide users with versions of the application as early as possible and often throughout the project so as to gain feedback frequently and iterate the application multiple times throughout the project based on this feedback. The feedback that was received from users ranged from bug fixes in the application to subjective views on features of the app that could be improved or changed.
+I aimed to provide users with versions of the application as early as possible and often throughout the project so as to gain feedback frequently and iterate the application multiple times based on this feedback. The feedback that was received from users ranged from bug fixes in the application to subjective views on features of the app that could be improved or changed.
 
 \subsection{Bug Fixes}
 
 The following section lists some of the bugs that were found in my code based on feedback from testing my application in the real world, either by myself or from other users that I provided the app to. For each error that was found, the reason that this error occurred and the solution that fixed the error is also listed.
 
-\noindent \textbf{Error:} app crashes making any network request with no internet connection.
+\noindent \textbf{Error:} the app crashes when making any network request with no internet connection.
 
 \begin{itemize}
   \item \textbf{Reason:} every time a network request is made in \verb|APIManager|, the status code of the response is obtained to see if an error has been returned. However, if there is no internet connection, there is no response from the request and so the status code is empty. This results in the Swift equivalent of a null pointer error, causing the app to crash.
@@ -80,7 +80,7 @@ The following section lists some of the bugs that were found in my code based on
   \item \textbf{Solution:} the status code of the response is only used if the response itself is not null, otherwise a default network error is returned.
 \end{itemize}
   
-\noindent \textbf{Error:} app crashes when creating an account after scrolling the text fields off screen.
+\noindent \textbf{Error:} the app crashes when creating an account after scrolling the text fields off screen.
 
 \begin{itemize}
   \item \textbf{Reason:} table view cells in iOS are reusable, meaning the cells and their associated data that are not on the screen are not in memory and are recreated when they reappear on the screen. When pressing the button to create an account, the data the user entered from the text fields in the table view cells is retrieved and passed to the \verb|register()| function in \verb|APIManager|. If one or more of the cells is not on the screen, its data does not exist due to its reusability and so a null pointer error occurs when trying to obtain the value passed into \verb|register()|.
@@ -99,7 +99,7 @@ The following section lists some of the bugs that were found in my code based on
 
 
 \begin{itemize}
-  \item \textbf{Reason:} the walk route image was produced by rendering an image of the visible map view on the screen using Core Graphics -- a framework used in iOS to perform 2D drawing. To do this, the map view needs to be zoomed out so that the entire walk route is fit in the view. In doing so, the polyline used to draw the walk route on the map, discussed in Section \ref{section:tracking-walks}, did not always render properly for reasons that I was not able to discover.
+  \item \textbf{Reason:} the walk route image was produced by rendering an image of the visible map view on the screen using Core Graphics -- a framework used in iOS to perform 2D drawing. To do this, the map view needs to be zoomed out so that the entire walk route fits in the view. In doing so, the polyline used to draw the walk route on the map, discussed in Section \ref{subsection:drawing-map-route}, did not always render properly for reasons that I was not able to discover.
   
   \item \textbf{Solution:} the \verb|MKMapSnapShotter| class, part of the MapKit framework, was used to render an image of a map rather than using Core Graphics. By specifying a coordinate region and various other options, an image is rendered of that area of a map. The map route still had to be rendered separately onto the map afterwards using Core Graphics, but I found this was the best solution at the time to avoid the rendering issues presented by the previous method.
 \end{itemize}
@@ -113,7 +113,7 @@ When the implementation phase of the project was completed, I conducted a survey
 
 The survey showed that both design and ease-of-use of the application appealed to the user, with no responses for either category giving a negative response (less than 3). The main questions asking the user whether they were encouraged to walk more when using the app gave mainly positive results, with 73\% of people giving a score of 3 or 4. The rating of features gave mixed responses, with the controversial features being tracking walks and walk invitations. Features to view points of interest and view walks on your profile provided the best responses in the survey, with all users giving a score of at least 3.
 
-An interesting point to discuss is the opinion of users who had used previous walking or fitness apps compared to those who hadn't. From the graph in Figure \ref{fig:survey-graph}, we can see that the users who have used previous fitness applications gave lower scores for the tracking walks and statistics features of my app. This is understandable since the apps that these users have used, the most popular being Strava and Runkeeper, are dedicated fitness and running apps that have taken years to develop whereas the tracking of walks in my application is only one element.
+An interesting point to discuss is the opinion of users who had used previous walking or fitness apps compared to those who hadn't. From the graph in Figure \ref{fig:survey-graph}, we can see that the users who have used previous fitness applications gave lower scores for the tracking walks and statistics features of my app. This is understandable since the apps that these users have used, the most popular being Strava, are dedicated fitness and running apps that have taken years to develop whereas the tracking of walks in my application is only one element.
 
 \begin{figure}[htb]
     \centering
@@ -148,11 +148,11 @@ An interesting point to discuss is the opinion of users who had used previous wa
         \legend{Score for tracking walks, Score for walk statistics}
     \end{axis}
     \end{tikzpicture}
-    \caption{Graph showing the scores for the feature ratings of tracking walks and viewing walk statistics, given by users who had previously used walking or fitness apps}
+    \caption{Graph showing the scores for the feature ratings of tracking walks and viewing walk statistics, given by users who had previously used walking or fitness apps.}
     \label{fig:survey-graph}
 \end{figure}
 
-Additional comments were left by users at the end of the survey. The main points written were that other fitness apps were better for fitness and provided more detailed statistics, and other points of interest should be used instead of just historical plaques. I also conducted hallway testing, where I asked strangers to give their opinion on my application having no prior knowledge of it. The results from hallway testing agreed mainly agreed with the results of the survey, with people liking the design of the app and the main concept, but some stating that some other points of interest should be used and more achievements added.
+Additional comments were left by users at the end of the survey. The main points written were that other apps were better for fitness and provided more detailed statistics, and other points of interest should be used instead of just historical plaques. I also conducted hallway testing, where I asked strangers to give their opinion on my application having no prior knowledge of it. The results from hallway testing agreed mainly agreed with the results of the survey, with people liking the design of the app and the main concept, but some stating that some other points of interest should be used and more achievements added.
 
 I concluded from this survey that I have created an application that has a sleek design and is very easy to use, with multiple features that users found useful. Having said this, I also found that there were a few limitations in some features in the app that need to be addressed in order to cater for a wider audience.
 
@@ -234,7 +234,7 @@ To reflect on how well I managed my time during the project I compared the origi
 
 I had planned to implement a great deal of the project, including setting up the back-end and skeleton app, before the exams at the end of the second term (week of \nth{20} March) so as to provide myself with a platform to continue the project after this date. In reality however, due to the combination of the workload I had during this time and the complexity of the back-end, I did not implement as much as I had hoped.
 
-I did not anticipate how long the initial phase of the API implementation would take me. I had no experience in Javascript or any back-end development before the start of the project and so there was a much steeper learning curve to that of the front-end development. I researched numerous articles and tutorials to try and gain some insight into what tools were commonly used and how these tools were used to create a functioning API. The tutorial I found most helpful was from SlatePeak ***ref***, which helped me define the structure of the API using an Express router and find out the tools used to implement token-based authentication in Node.js.
+I did not anticipate how long the initial phase of the API implementation would take me. I had no experience in Javascript or any back-end development before the start of the project and so there was a much steeper learning curve to that of the front-end development. I researched numerous articles and tutorials to try and gain some insight into what tools were commonly used and how these tools were used to create a functioning API. The tutorial I found most helpful was from SlatePeak \cite{Slatea}, which helped me define the structure of the API using an Express router and find out the tools used to implement token-based authentication in Node.js.
 
 On the other hand, some of the front-end features actually took a shorter amount of time than what I had planned. For example, inviting users to go on a walk actually only took around two weeks to implement rather than the three weeks I had outlined in Table \ref{table:project-timeline-comparison}, meaning that I gained some time back from the time lost implementing the API setup.
 

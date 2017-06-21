@@ -1,7 +1,5 @@
 \chapter{Background} \label{chapter:background}
 
-\section{Health Benefits}
-
 \section{Existing Applications}
 
 % overview
@@ -12,7 +10,7 @@ Table \ref{table:existing-walking-apps} shows how well each of the existing appl
 
 \begin{table}[htb]
   \centering
-  \begin{tabular}{|m{2cm}||c|c|M{1.5cm}|M{1.5cm}|c|c|}
+  \begin{tabular}{|m{2cm}||c|c|M{1.2cm}|M{1.5cm}|c|M{1.8cm}|}
     \hline
     \textbf{Features} & \textbf{MapMyWalk} & \textbf{Strava} & \textbf{Let's Walk} & \textbf{Google Maps} & \textbf{Citymapper} & \textbf{Pok\'{e}mon Go}\\
     \hline
@@ -41,7 +39,7 @@ The rest of this section discusses each application in detail, explaining their 
 
 \subsection{MapMyWalk}
 
-MapMyWalk \cite{Map} is a popular fitness application for iOS and Android that allows you to track your walks and complete challenges to help you keep fit. You are able to track a walk as you go on one, or log a previous workout that you have done without the app. The app also provides a premium subscription for \pounds4.49 per month, which gives you the ability to monitor your heart rate and set training goals designed to help you walk more.
+MapMyWalk \cite{Map} is a popular fitness application for iOS and Android that allows you to track your walks and complete challenges to help you keep fit. You are able to track a walk as you go on one, or log a previous workout that you have done without the app. The app also provides a premium subscription for \pounds4.49 per month, which gives you the ability to monitor your heart rate and set training goals that are designed to help you walk more.
 
 The area in which MapMyWalk lacks is social interaction. A user can publish a walk that they have previously tracked to their profile, but there is no real aspect of communication with other users other than adding each other as friends. There is also a limited level of gamification in the app, with challenges being the only option available to encourage a higher rate of fitness. Challenges can either be added by the user or chosen from a precompiled list, with the latter being fairly limited in the range of options to choose from.
 
@@ -61,7 +59,7 @@ The setback of Strava is that you cannot track walks in the app as you are const
 
 \subsection{Let's Walk}
 
-A lesser-known iOS fitness application is Let's Walk \cite{LetsWalkApp}. Users can record new walks and view a list of either their friends' walks or public walks nearby. The app is also focused on helping you maintain a balanced diet -- the amount of calories you consume can be added for particular meals during the day. A calorie goal per day can then be added, with the app recording how many calories were burned during a walk and updating the goal accordingly.
+A lesser-known iOS fitness application is Let's Walk \cite{LetsWalkApp}. Users can record new walks and view a list of either their friends' walks or public walks nearby. The app is also focused on helping you maintain a balanced diet -- the amount of calories you consume can be added for particular meals during the day. A calorie goal per day can then be set, with the app recording how many calories were burned during a walk and updating the goal accordingly.
 
 Let's Walk tries to emulate many of the features implemented by the more well-known apps as mentioned above, but a lot of these features seem unpolished. There is a global ranking section of the application showing which users have walked the most over the last week, month or year, however there seems to be little to do with this information other than view a leaderboard.
 
@@ -79,9 +77,9 @@ Although not a fitness application per say, Google Maps \cite{GoogleInc.} is one
 \end{figure}
 
 
-One feature of the Google Maps iOS application that is interesting to note is the ability to search for places along a route during a journey. Once a user has started a walking journey, they are able to search for places that are along the route. Google provides some categories of places to choose from, such as cashpoints and restaurants, but users can search for a specific place if they wish. The app will then display the results of the places search on the map, showing how much additional time would be added on to your journey if you were to stop at a place, if any. One or more places can then be added to your journey and the walking directions will subsequently update to include these new stops. Figure \ref{fig:google_maps_place_search} shows an example journey from Imperial College to South Kensington station. It details the full process of choosing \textit{coffee shops} as the place category, selecting a particular coffee shop on the map and the stop being added to the journey.
+One feature of the Google Maps iOS application that is interesting to note is the ability to search for places along a route during a journey. Once a user has started a walking journey, they are able to search for places that are along the route. Google provides some categories of places to choose from, such as cashpoints and restaurants, but users can search for a specific place if they wish. The app will then display the results of the places search on the map, showing how much additional time would be added on to your journey if you were to stop at a place, if any. One or more places can then be added to your journey and the walking directions will subsequently update to include these new stops. Figure \ref{fig:google_maps_place_search} shows an example journey from Imperial College to South Kensington Underground station. It details the full process of choosing \textit{coffee shops} as the place category, selecting a particular coffee shop on the map and the stop being added to the journey.
 
-The places search feature is important as it is unique within any of the existing journey planner apps I have researched and it relates to one of my objectives regarding displaying points of interest when a user is on a walk (\textbf{Obj 2}). More research is conducted in Section \ref{subsection:background-apis} to discover what tools these applications use to implement this feature.
+The places search feature is important as it is unique within any of the existing journey planner apps I have researched and it relates to one of my objectives regarding displaying points of interest when a user is on a walk (\textbf{Obj 2}). More research is conducted in Section \ref{section:background-points-of-interest} to discover what tools these applications use to implement this feature.
 
 \subsection{Citymapper}
 
@@ -154,7 +152,7 @@ The idea of using gamification in applications is to motivate you to complete so
 
 \subsection{Summary} \label{subsection:background-gamification-summary}
 
-In terms of this project, I had to consider two main factors regarding the type of gamification: its usefulness to the user and the feasibility of implementation. I discussed with potential users the extent to which they thought gamification should be used, ranging from a achievements-based system to a full character game. While some did say that the game aspect would be fun, many said the way that would motivate them to exercise more would be an achievements and scoring system. Achievements (and points) would be gained the more you walk, with the points contributing to a tally on the user's profile.
+In terms of this project, I had to consider two main factors regarding the type of gamification to use: its usefulness to the user and the feasibility of implementation. I discussed with potential users the extent to which they thought gamification should be used, ranging from a achievements-based system to a full character game. While some did say that the game aspect would be fun, many said the way that would motivate them to exercise more would be an achievements and scoring system. Achievements (and points) would be gained the more you walk, with the points contributing to a tally on the user's profile.
 
 From this, I created a list of achievements that I found would be most useful to implement initially.
 
@@ -166,7 +164,7 @@ From this, I created a list of achievements that I found would be most useful to
 
 The use of achievements also allows for extensibility in the future, with more able to be added at any time.
 
-\section{Points of Interest}
+\section{Points of Interest} \label{section:background-points-of-interest}
 
 In order to achieve my proposed objective of helping users discover more of the world around them (\textbf{Obj 2}), I had to research which sources would be able to provide me with nearby points of interest based on a location.
 
@@ -178,14 +176,14 @@ Google's Places API \cite{GoogleInc.b} would be a good resource to use, allowing
 
 Apple provides a framework for obtaining places called \texttt{MKLocalSearch} \cite{AppleInc.b}. To generate a list of places, you pass the \texttt{init()} method a \texttt{MKLocalSearchRequest}, which contains a `natural language query` string describing what type of place you would like to search for on a map.
 
-There seems to be little documentation online explaining what range of places that this API returns. After some initial testing, I found that the downside of this service is the natural language search query -- you cannot search by the type of place. This results in unintended results being returned from a request. As an example, to find any monuments nearby you would search for the keyword \textit{monument}, but the search results will include Monument Underground station.
+There seems to be little documentation online explaining what range of places this API returns. After some initial testing, I found that the downside of this service is the natural language search query -- you cannot search by the type of place. This results in unintended results being returned from a request. As an example, to find any monuments nearby you would search for the keyword \textit{monument}, but the search results will include Monument Underground station.
 
 % talk about no types,
 % monument could return monument station -> not intended
 
 \subsection{Pok\'{e}stops}
 
-A different option that could be used to generate points of interest around a geographical location originates from Pok\'{e}mon Go. As mentioned in Section \ref{subsection:pokemongo}, Pok\'{e}mon Go contains thousands of Pok\'{e}stops -- crowdsourced points of interest from all over the world. There exists an API \cite{Selwyn} that returns a list of Pok\'{e}stops in JSON format given a location. Each item that the API returns contains the name and location of a point of interest as shown in Listing \ref{listing:pokestop}, and so could therefore be used in this project.
+A different option that could be used to generate points of interest around a geographical location originates from Pok\'{e}mon Go. As mentioned in Section \ref{subsection:pokemongo}, Pok\'{e}mon Go contains thousands of Pok\'{e}stops -- crowdsourced points of interest from all over the world. There exists an API \cite{Selwyn} that returns a list of Pok\'{e}stops in JSON format given a location. Each item that the API returns contains the name and location of a point of interest, as shown in Listing \ref{listing:pokestop}, and so could therefore be used in this project.
 
 \medskip
 
@@ -210,11 +208,11 @@ A different option that could be used to generate points of interest around a ge
 
 \subsection{Historical Plaques}
 
-Based on initial feedback of the project, users suggested that the multitude of `blue plaques' around London would be a good way to display points of interest. These plaques are placed on buildings and public places in London to commemorate a notable person or place in history. The blue plaque scheme is administered by English Heritage ***ref***, a charitable organisation responsible for the upkeep of over 400 historical sites across the United Kingdom.
+Based on initial feedback of the project, users suggested that the multitude of `blue plaques' around London would be a good way to display points of interest. These plaques are placed on buildings and public places in London to commemorate a notable person or place in history. The blue plaque scheme is administered by English Heritage \cite{EnglishHeritageTrust}, a charitable organisation responsible for the upkeep of over 400 historical sites across the United Kingdom.
 
 All data from the plaques from English Heritage is publicly available by request under the Freedom of Information Act 2000 -- an act to publicise information held by public institutions. The English Heritage website provides an option to search for a plaque given a query string, however there does not seem to be an option to search for plaques given a map area, meaning it would not be that effective for the purposes of this project. A request to retrieve all plaque data from English Heritage would both be tedious and a waste of space, so I therefore needed to look for another option.
 
-I came upon an open source service in OpenPlaques ***ref** -- a collection of plaques run by volunteers, which seemed to be well populated. OpenPlaques contains all the English Heritage blue plaques from London, but also other plaques around the UK and the world that various other organisations have put up. OpenPlaques also offers an API that supports querying plaques in an area by supplying a bounding box.
+I came upon an open source service in OpenPlaques \cite{OpenPlaques} -- a collection of plaques run by volunteers, which seemed to be well populated. OpenPlaques contains all the English Heritage blue plaques from London, but also other plaques around the UK and the world that various other organisations have put up. OpenPlaques also offers an API that supports querying plaques in an area by supplying a bounding box.
 
 \subsection{Summary}
 
@@ -258,7 +256,7 @@ Along with version control, errors or bugs in code must be detected quickly in o
   \label{table:ci-tools-options}
 \end{table}
 
-I concluded that Travis CI was most suitable option for me since it was hosted on GitHub and is not platform specific, meaning that I could use it to test both the mobile app and API even though they were written in different languages. Using an option like BuddyBuild could only be used for the mobile app, with another tool needed for the API.
+I concluded that Travis CI was the most suitable option for me since it was hosted on GitHub and is not platform specific, meaning that I could use it to test both the mobile app and API even though they were written in different languages. Using an option like BuddyBuild could only be used for the mobile app, with another tool needed for the API.
 
 \subsection{Location Tracking}
 
@@ -276,13 +274,13 @@ However, there are some advantages of Google Maps over Apple Maps -- one being t
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.7\textwidth]{google-apple}
-  \caption{An example of the difference between Google Maps (left) and Apple Maps (right), showing Imperial College London}
+  \caption{An example of the difference between Google Maps (left) and Apple Maps (right), showing Imperial College London.}
   \label{fig:google-apple}
 \end{figure}
 
 %As discussed in Section \ref{subsection:background-apis}, Apple Maps very well integrated with the Core Location framework in iOS, which makes it easier to deal with displaying the user's location on a map. 
 
-For the reasons listed above, I chose to use Apple Maps and their MapKit framework as the source of maps within the application. The one issue that I previously discussed with using this framework over Google Maps was the lack of detail in some areas of the maps. This factor was not deemed important enough to impact my decision and did not outweigh the benefits of the MapKit framework that are listed above.
+For the reasons listed above, I chose to use Apple Maps and their MapKit framework as the source of maps within the application. The one issue of the lack of detail in some areas of the maps was not deemed important enough to impact my decision and did not outweigh the benefits of the MapKit framework that are listed above.
 
 
 
@@ -312,9 +310,9 @@ For the reasons listed above, I chose to use Apple Maps and their MapKit framewo
 
 Before deciding what specific technologies to choose for the server, such as the programming language, we must consider the type of architectural style to use. The aim of the API exposed by the server is to provide an abstraction between complex database queries and provide functionality that a client can use to query and update details. The Representational state transfer (REST) architectural principle fit the needs for this aim very well. Every component in a RESTful web service is a resource that can be accessed via the standard HTTP methods, including \textit{GET}, \textit{POST} and \textit{DELETE}. In comparison with other web services, such as the Simple Object Access Protocol (SOAP), RESTful services have much less overhead when sending data due to the extra XML header information sent when using SOAP.
 
-With the architecture chosen, I assessed the options for the language to write the API in. There are a wide range of programming languages that could be used, and it came down to personal preference and how well it would suit the needs for this project. The popular options include PHP, Ruby, Python and Node.js ***ref*** -- the server-side environment run in Javascript. The only language in this list that I have experience in is Python, which would mean I would have to spend less time learning the language if I were to choose it. However, the advantage of Node.js for the purpose of this project is that objects in Javascript are built using Javascript Object Notation (JSON).
+With the architecture chosen, I assessed the options for the language to write the API in. There are a wide range of programming languages that could be used, and it came down to personal preference and how well it would suit the needs for this project. The popular options include PHP, Ruby, Python and Node.js \cite{Node.jsFoundation} -- the server-side environment run in Javascript. The only language in this list that I have experience in is Python, which would mean I would have to spend less time learning the language if I were to choose it. However, the advantage of Node.js for the purpose of this project is that objects in Javascript are built using Javascript Object Notation (JSON).
 
- RESTful web services support the use of multiple different data formats to serialise responses from the server, including HTML, XML and JSON. By choosing Node.js as the server language and JSON as the data type, I was able to easily parse data from HTTP requests and send responses in JSON despite not having any previous experience with Javascript.
+ RESTful web services support the use of multiple different data formats to serialise responses from the server, including HTML, XML and JSON. By choosing Node.js as the server language and JSON as the data type, I was able to easily parse data from HTTP requests and send responses in JSON, despite not having any previous experience with Javascript.
 
 \subsection{Database}
 
@@ -322,13 +320,13 @@ There are two types of database that could be used: relational or non-relational
 
 The opposite of this data model is a non-relational, or NoSQL, database in which each data entry is stored as a JSON-like document. This approach has many advantages for this project, primarily the similar use of JSON to both store data and build objects from in Node.js. As a result, data can be queried or inserted directly from a network request without any type conversions. NoSQL databases also have the benefit of faster query speeds and the ability to scale data horizontally -- an important factor to consider when designing a database.
 
-The leading service to use for managing document-based NoSQL databases is MongoDB. It was used in this project especially due to its similar use of Javascript and JSON, both of which are already employed in the Node.js API. I also used a popular object data modelling library, Mongoose ***ref***, which helped with validation and allowed me to define schemas for each of the type entities.
+The leading service to use for managing document-based NoSQL databases is MongoDB. It was used in this project especially due to its similar use of Javascript and JSON, both of which are already employed in the Node.js API. I also used a popular object data modelling library, Mongoose \cite{Mongoose}, which helped with validation and allowed me to define schemas for each of the type entities.
 
 \subsection{API Deployment}
 
-I opted to host my API on the platform as a service Heroku ***ref***, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack.
+I opted to host my API on the platform-as-a-service Heroku \cite{Heroku2016}, with the alternative being Imperial's Cloudstack service run by the Department of Computing. Having had little experience with either of these services, I learned that Heroku had certain features that gained itself an advantage over Cloudstack.
 
-Heroku is integrated with GitHub very well, my chosen version control platform, supporting automatic deployment when commits are made that can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore have taken more effort to set it up.
+Heroku is integrated with GitHub very well, my chosen version control platform, supporting automatic deployment when commits are made that can also be dependent on the results of continuous integration tests. Heroku also has a number of add-ons that can be used on web applications, including mLab -- a cloud-hosted version of MongoDB that is essential for me following on from the choice of database discussed in the previous section. Conversely, Cloudstack does not support MongoDB outright and would therefore take more time to set it up.
 
 \subsection{File Storage}
 
@@ -338,7 +336,7 @@ From the wide range of services available, there is one stand-out option that I 
 
 \section{Summary}
 
-The outcome of the background research of the project has enabled me to narrow down my requirements that I want to complete. Researching existing fitness applications was useful to determine the way in which workouts are recorded, as well as the range of ways gamification is used. Alternative uses of gamification provided a different approach, including gaining rewards for completing household chores, however I chose to use an achievements-based system based on user feedback. The result of the points of interest research is a service that provides interest and motivation for the user -- a core objective of the project.
+The outcome of the background research of the project has enabled me to narrow down the requirements that I want to complete. Researching existing fitness applications was useful to determine the way in which workouts are recorded, as well as the range of ways gamification is used. Alternative uses of gamification provided a different approach, including gaining rewards for completing household chores, however I chose to use an achievements-based system based on user feedback. The result of the points of interest research is a service that provides interest and motivation for the user -- a core objective of the project.
 
 Finally, I was able to choose the technologies that would suit the project best based on the conclusion of the previous research. We can now create a detailed list of requirements that should be completed in the project, and begin to design and implement these requirements.
 
